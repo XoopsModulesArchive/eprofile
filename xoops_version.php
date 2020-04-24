@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: xoops_version.php 2537 2008-11-29 12:03:30Z dhcst $
+ * @version         $Id: xoops_version.php 35 2014-02-08 17:37:13Z alfred $
  */
  
 /**
@@ -23,35 +23,53 @@
  * A thorough solution will be available in XOOPS 3.0
  *
  */
+xoops_loadLanguage('main', 'eprofile');
+ 
 $modversion = array();
-$modversion['name']         = _PROFILE_MI_NAME;
-$modversion['version']      = 1.70;
-$modversion['description']  = _PROFILE_MI_DESC;
-$modversion['author']       = "Jan Pedersen; Taiwen Jiang <phppp@users.sourceforge.net>; alfred <myxoops@t-online.de>";
+$modversion['name']         = _EPROFILE_MI_NAME;
+$modversion['version']      = 1.73;
+$modversion['description']  = _EPROFILE_MI_DESC;
+$modversion['author']       = "Jan Pedersen; Taiwen Jiang; alfred";
 $modversion['credits']      = "Ackbarr, mboyden, marco, mamba, etc.";
 $modversion['license']      = "GPL see XOOPS LICENSE";
 $modversion['image']        = "images/logo.png";
-$modversion['dirname']      = "profile";
+$modversion['dirname']      = "eprofile";
 
 // Admin things
 $modversion['hasAdmin']     = 1;
-$modversion['adminindex']   = "admin/user.php";
+$modversion['adminindex']   = "admin/index.php";
 $modversion['adminmenu']    = "admin/menu.php";
 
 // Scripts to run upon installation or update
 $modversion['onInstall']    = "include/install.php";
 $modversion['onUpdate']     = "include/update.php";
 
+//about
+$modversion['release_date']     	  = '2012/08/26';
+$modversion["module_website_url"] 	= "www.simple-xoops.de/";
+$modversion["module_website_name"] 	= "SIMPLE-XOOPS";
+$modversion["module_status"] 		    = "Alpha 1";
+$modversion['min_php']				      = "5.3";
+$modversion['min_xoops']			      = "2.5.5";
+$modversion['min_admin']			      = "1.1";
+$modversion['min_db']				        = array('mysql'=>'5.0', 'mysqli'=>'5.0');
+$modversion['system_menu'] 			    = 1;
+
+$modversion['dirmoduleadmin'] 		= 'Frameworks/moduleclasses';
+$modversion['icons16'] 				    = 'Frameworks/moduleclasses/icons/16';
+$modversion['icons32'] 				    = 'Frameworks/moduleclasses/icons/32';
+
 // Menu
 $modversion['hasMain']      = 1;
-global $xoopsUser;
-if ($xoopsUser) {
-    $modversion['sub'][1]['name']   = _PROFILE_MI_EDITACCOUNT;
+if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->isActive()) {
+    $modversion['sub'][1]['name']   = _EPROFILE_MI_EDITACCOUNT;
     $modversion['sub'][1]['url']    = "edituser.php";
-    $modversion['sub'][2]['name']   = _PROFILE_MI_PAGE_SEARCH;
+    $modversion['sub'][2]['name']   = _EPROFILE_MI_PAGE_SEARCH;
     $modversion['sub'][2]['url']    = "search.php";
-    $modversion['sub'][3]['name']   = _PROFILE_MI_CHANGEPASS;
+    $modversion['sub'][3]['name']   = _EPROFILE_MI_CHANGEPASS;
     $modversion['sub'][3]['url']    = "changepass.php";
+    $modversion['sub'][3]['name']   = _EPROFILE_MI_CHANGEMAIL;
+    $modversion['sub'][3]['url']    = "changemail.php";
 }
 
 // Mysql file
@@ -70,103 +88,131 @@ $modversion['tables'][9] = "profile_pictures";
 $modversion['tables'][10]= "profile_visitors";
 $modversion['tables'][11]= "profile_audio";
 $modversion['tables'][12]= "profile_videos";
+$modversion['tables'][13]= "profile_groups";
+$modversion['tables'][14]= "profile_tribes";
+
+// Blocks
+$i=0;
+$modversion['blocks'][$i]['file']         = 'online.php';
+$modversion['blocks'][$i]['name']         = _EPROFILE_MI_BLOCK_ONLINE;
+$modversion['blocks'][$i]['description']  = '';
+$modversion['blocks'][$i]['show_func']    = 'eprofile_online_show';
+$modversion['blocks'][$i]['edit_func']    = 'eprofile_online_edit';
+$modversion['blocks'][$i]['options']      = '0|0|5';
+$modversion['blocks'][$i]['template']     = 'eprofile_online.html';
+
+$i++;
+$modversion['blocks'][$i]['file']         = 'online.php';
+$modversion['blocks'][$i]['name']         = _EPROFILE_MI_BLOCK_POPULAR;
+$modversion['blocks'][$i]['description']  = '';
+$modversion['blocks'][$i]['show_func']    = 'eprofile_popular_show';
+$modversion['blocks'][$i]['edit_func']    = 'eprofile_popular_edit';
+$modversion['blocks'][$i]['options']      = '0|0|5';
+$modversion['blocks'][$i]['template']     = 'eprofile_popular.html';
 
 // Config items
 $i=0;
 $modversion['config'][$i]['name']           = 'profile_delimiter0';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_CAT_SETTINGS."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['title']          = "_EPROFILE_MI_CAT_SETTINGS";
+$modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_search';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_SEARCH';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_SEARCH_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_SEARCH';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_SEARCH_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '1';
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_stats';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_STATS';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_STATS_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
+$modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['formtype']       = 'yesno';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 1;
+$modversion['config'][$i]['default']        = 0;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_messages';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_MESSAGES';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_MESSAGES_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_MESSAGES';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_MESSAGES_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 1;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3
+                                              );
+$modversion['config'][$i]['default']        = '2';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_emails';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_EMAILS';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_EMAILS_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 0;
-
-$i++;
-$modversion['config'][$i]['name']           = 'profile_delimiter1';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
-$modversion['config'][$i]['description']    = '';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_EMAILS';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_EMAILS_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_FACEBOOKTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3
+                                              );
+$modversion['config'][$i]['default']        = '2';
 
 $i++;
-$modversion['config'][$i]['name']           = 'profile_facebook';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_FACEBOOK';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_FACEBOOK_DESC';
+$modversion['config'][$i]['name']           = 'profile_searchavatar';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_AVATARSEARCH';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_AVATARSEARCH_DESC';
 $modversion['config'][$i]['formtype']       = 'yesno';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 0;
-
-$i++;
-$modversion['config'][$i]['name']           = 'profile_fb_apikey';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_FACEBOOKAPIKEY';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_FACEBOOKKEY_DESC';
-$modversion['config'][$i]['formtype']       = 'textbox';
-$modversion['config'][$i]['valuetype']      = 'text';
-$modversion['config'][$i]['default']        = '';
-
-$i++;
-$modversion['config'][$i]['name']           = 'profile_fb_apid';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_FACEBOOKAPPID';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_FACEBOOKAPPID_DESC';
-$modversion['config'][$i]['formtype']       = 'textbox';
-$modversion['config'][$i]['valuetype']      = 'text';
-$modversion['config'][$i]['default']        = '';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_delimiter2';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_SCRAPSTITLE';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_SCRAPSTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
+
+
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_scraps';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_SCRAPS';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_SCRAPS_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_SCRAPS';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_SCRAPS_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 1;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '0';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_scraps_perpage';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PERPAGE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PERPAGE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PERPAGE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PERPAGE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 10;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_scraps_preview';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PREVIEW';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PREVIEW_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PREVIEW';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PREVIEW_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array('0'=>0,'1'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5,'6'=>6,'7'=>7,'8'=>8,'9'=>9);
@@ -174,33 +220,38 @@ $modversion['config'][$i]['default']        = '4';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_delimiter3';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_FRIENDSTITLE';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_FRIENDSTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_friends';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_FRIENDS';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_FRIENDS_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_FRIENDS';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_FRIENDS_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 1;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '0';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_friends_perpage';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PERPAGE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PERPAGE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PERPAGE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PERPAGE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 10;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_friends_preview';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PREVIEW';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PREVIEW_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PREVIEW';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PREVIEW_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array('0'=>0,'1'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5,'6'=>6,'7'=>7,'8'=>8,'9'=>9);
@@ -208,33 +259,38 @@ $modversion['config'][$i]['default']        = '4';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_delimiter4';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESTITLE';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_PICTURESTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pictures';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURES';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURES_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURES';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURES_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '0';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pictures_perpage';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PERPAGE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PERPAGE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PERPAGE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PERPAGE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 10;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pictures_preview';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PREVIEW';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PREVIEW_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PREVIEW';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PREVIEW_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array('0'=>0,'1'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5,'6'=>6,'7'=>7,'8'=>8,'9'=>9);
@@ -242,73 +298,78 @@ $modversion['config'][$i]['default']        = '4';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pic_max';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURESMAXSPACE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURESMAXSPACE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESMAXSPACE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURESMAXSPACE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 1024;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pic_maxsolo';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURESMAXSOLOSPACE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURESMAXSOLOSPACE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESMAXSOLOSPACE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURESMAXSOLOSPACE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 512;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pic_thumbheigth';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURESTHUMBHEIGTH';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURESTHUMBHEIGTH_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESTHUMBHEIGTH';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURESTHUMBHEIGTH_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 150;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pic_thumbwidth';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURESTHUMBWIDTH';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURESTHUMBWIDTH_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESTHUMBWIDTH';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURESTHUMBWIDTH_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 150;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pic_maxheight';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURESMAXHEIGTH';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURESMAXHEIGTH_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESMAXHEIGTH';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURESMAXHEIGTH_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 768;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_pic_maxwidth';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PICTURESMAXWIDTH';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PICTURESMAXWIDTH_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PICTURESMAXWIDTH';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PICTURESMAXWIDTH_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 1024;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_delimiter4';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_AUDIOSTITLE';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_AUDIOSTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
-$modversion['config'][$i]['name']           = 'profile_audios';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_AUDIOS';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_AUDIOS_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['name']           = 'profile_audio';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_AUDIOS';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_AUDIOS_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '0';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_audioplayer';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_AUDIOPLAYER';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_AUDIOPLAYER_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_AUDIOPLAYER';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_AUDIOPLAYER_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array("dewplayer" => 0, "musicplayer" => 1, "flashmp3player" => 2);
@@ -316,99 +377,111 @@ $modversion['config'][$i]['default']        = 0;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_audios_perpage';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PERPAGE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PERPAGE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PERPAGE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PERPAGE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 10;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_audio_max';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_AUDIOMAXSPACE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_AUDIOMAXSPACE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_AUDIOMAXSPACE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_AUDIOMAXSPACE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 5110;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_delimiter5';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_VIDEOSTITLE';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_VIDEOSTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_videos';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_VIDEOS';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_VIDEOS_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_VIDEOS';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_VIDEOS_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '0';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_videos_perpage';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PERPAGE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PERPAGE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PERPAGE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PERPAGE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 10;
 
 $i++;
 $modversion['config'][$i]['name']           = 'width_tube';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_WITHTUBE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_WITHTUBE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_WITHTUBE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_WITHTUBE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 400;
 
 $i++;
 $modversion['config'][$i]['name']           = 'height_tube';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_HEIGTHTUBE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_HEIGTHTUBE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_HEIGTHTUBE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_HEIGTHTUBE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 280;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_videos_preview';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PREVIEW';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PREVIEW_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PREVIEW';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PREVIEW_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array('0'=>0,'1'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5,'6'=>6,'7'=>7,'8'=>8,'9'=>9);
 $modversion['config'][$i]['default']        = '1';
 
+/*
+// Groups Feature
 $i++;
 $modversion['config'][$i]['name']           = 'profile_delimiter6';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_LEER';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_GROUPSTITLE';
 $modversion['config'][$i]['description']    = '';
-$modversion['config'][$i]['formtype']       = 'select';
-$modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['options']        = array("===  "._PROFILE_MI_PROFILE_GROUPSTITLE."  ===" => 0);
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_tribes';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_TRIBES';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_TRIBES_DESC';
-$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_TRIBES';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_TRIBES_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
-$modversion['config'][$i]['default']        = 0;
+$modversion['config'][$i]['options']        = array(
+                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
+                                              '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
+                                              '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
+                                              '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
+                                              '_EPROFILE_MA_CONFIGSONLYME'=>4
+                                              );
+$modversion['config'][$i]['default']        = '0';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_tribes_perpage';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PERPAGE';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PERPAGE_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PERPAGE';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PERPAGE_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 10;
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_tribes_preview';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_PREVIEW';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_PREVIEW_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_PREVIEW';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_PREVIEW_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array('0'=>0,'1'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5,'6'=>6,'7'=>7,'8'=>8,'9'=>9);
@@ -416,16 +489,17 @@ $modversion['config'][$i]['default']        = '4';
 
 $i++;
 $modversion['config'][$i]['name']           = 'profile_tribes_max';
-$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_TRIBESMAX';
-$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_TRIBESMAX_DESC';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_TRIBESMAX';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_TRIBESMAX_DESC';
 $modversion['config'][$i]['formtype']       = 'textbox';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 5;
+*/
 
 // Templates
 $i = 0;
 $i++;
-$modversion['templates'][$i]['file']        = 'profile_breadcrumbs.html';
+$modversion['templates'][$i]['file']        = 'profile_header.html';
 $modversion['templates'][$i]['description'] = '';
 
 $i++;
@@ -521,6 +595,6 @@ $modversion['templates'][$i]['file']        = 'profile_tribes.html';
 $modversion['templates'][$i]['description'] = '';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'profile_facebook.html';
+$modversion['templates'][$i]['file']        = 'profile_email.html';
 $modversion['templates'][$i]['description'] = '';
 ?>

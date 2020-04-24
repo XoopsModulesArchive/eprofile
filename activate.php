@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: activate.php 2133 2008-09-21 12:41:07Z phppp $
+ * @version         $Id: activate.php 24 2013-05-24 19:31:14Z alfred $
  */
  
 $xoopsOption['pagetype'] = "user";
@@ -101,6 +101,5 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
     $form->display();
 }
 
-$xoBreadcrumbs[] = array('title' => _PROFILE_MA_REGISTER);
 include 'footer.php';
 ?>

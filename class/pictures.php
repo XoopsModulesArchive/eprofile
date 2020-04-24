@@ -14,46 +14,42 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id$
+ * @version         $Id: pictures.php 11 2013-02-24 19:57:08Z alfred $
  */
  
-class ProfilePictures extends XoopsObject  
+class EprofilePictures extends XoopsObject  
 {
     var $upload_path 	= "";
-	var $thumb_path 	= "";
-	var $upload_url 	= "";	
+    var $thumb_path 	= "";
+    var $upload_url 	= "";	
     var $thumb_url      = "";	
 	
-	function __construct() 
+    public function __construct() 
     {
-        $this->initVar("pic_id",XOBJ_DTYPE_INT,null,false,10);
-		$this->initVar("pic_uid",XOBJ_DTYPE_INT,null,false,10);
-		$this->initVar('pic_title', XOBJ_DTYPE_TXTBOX, null, true, 255);
-		$this->initVar("pic_desc",XOBJ_DTYPE_TXTAREA, null, false);
-		$this->initVar("pic_size",XOBJ_DTYPE_INT,null,false,10);
-		$this->initVar('pic_url', XOBJ_DTYPE_TXTBOX, null, true, 255);
-		$this->initVar("private",XOBJ_DTYPE_INT,null,false,10);
-		$this->initVar("date",XOBJ_DTYPE_OTHER);
-		$this->upload_path 	= XOOPS_UPLOAD_PATH."/".$GLOBALS['xoopsModule']->dirname();
-		$this->upload_url 	= XOOPS_UPLOAD_URL."/".$GLOBALS['xoopsModule']->dirname();
-        $this->thumb_path 	= XOOPS_UPLOAD_PATH."/".$GLOBALS['xoopsModule']->dirname()."/thumbs";
-		$this->thumb_url 	= XOOPS_UPLOAD_URL."/".$GLOBALS['xoopsModule']->dirname()."/thumbs";
-	}
-	
-	function ProfilePictures()
-    {
-        $this->__construct();
+      $this->initVar("pic_id",XOBJ_DTYPE_INT,null,false,10);
+      $this->initVar("pic_uid",XOBJ_DTYPE_INT,null,false,10);
+      $this->initVar('pic_title', XOBJ_DTYPE_TXTBOX, null, true, 255);
+      $this->initVar("pic_desc",XOBJ_DTYPE_TXTAREA, null, false);
+      $this->initVar("pic_size",XOBJ_DTYPE_INT,null,false,10);
+      $this->initVar('pic_url', XOBJ_DTYPE_TXTBOX, null, true, 255);
+      $this->initVar("private",XOBJ_DTYPE_INT,null,false,10);
+      $this->initVar("date",XOBJ_DTYPE_OTHER);
+      $this->upload_path 	= XOOPS_UPLOAD_PATH . "/" . $GLOBALS['xoopsModule']->dirname();
+      $this->upload_url 	= XOOPS_UPLOAD_URL  . "/" . $GLOBALS['xoopsModule']->dirname();
+      $this->thumb_path 	= XOOPS_UPLOAD_PATH . "/" . $GLOBALS['xoopsModule']->dirname() . "/thumbs";
+      $this->thumb_url 	  = XOOPS_UPLOAD_URL  . "/" . $GLOBALS['xoopsModule']->dirname() . "/thumbs";
     }
+	
 	
 	function resizeImg($picture,$maxwidth=100,$maxheight=100,$uploaddir) 
 	{
 	   	if ($picture=="") return false;
 	   	$bild 		= basename($picture);
 	   	$size 		= getimagesize($picture); 
-       	$breite 	= $size[0]; 
-       	$hoehe 		= $size[1]; 
+      $breite 	= $size[0]; 
+      $hoehe 		= $size[1]; 
 	   	$sollHoehe  = (!empty($maxheight)) ? $maxheight : 100; 
-       	$sollBreite = (!empty($maxwidth))  ? $maxwidth  : 100; 
+      $sollBreite = (!empty($maxwidth))  ? $maxwidth  : 100; 
 		
        	// Breite ok, zu hoch
        	if ($breite <= $maxwidth && $hoehe > $maxheight) 
@@ -122,11 +118,11 @@ class ProfilePictures extends XoopsObject
  
 }
 
-class ProfilePicturesHandler extends XoopsPersistableObjectHandler 
+class EprofilePicturesHandler extends XoopsPersistableObjectHandler 
 {
     function __construct($db) 
     {
-        parent::__construct($db, 'profile_pictures', 'profilepictures', 'pic_id', 'pic_uid');
+        parent::__construct($db, 'profile_pictures', 'Eprofilepictures', 'pic_id', 'pic_uid');
     }
 	
 	function readSpace($uid=0) {

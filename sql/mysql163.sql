@@ -15,7 +15,7 @@ CREATE TABLE `profile_configs` (
   `profile_stats` tinyint(1) NOT NULL,
   PRIMARY KEY  (`config_id`),
   KEY `config_uid` (`config_uid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE `profile_scraps` (
   `scrap_id` int(11) NOT NULL auto_increment,
@@ -25,7 +25,7 @@ CREATE TABLE `profile_scraps` (
   `private` tinyint(1) NOT NULL,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`scrap_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE `profile_friends` (
   `friend_id` int(11) NOT NULL auto_increment,
@@ -34,4 +34,4 @@ CREATE TABLE `profile_friends` (
   `level` int(11) NOT NULL,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`friend_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

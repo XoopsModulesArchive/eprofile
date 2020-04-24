@@ -1,4 +1,4 @@
-<{includeq file="db:profile_breadcrumbs.html"}>
+<{includeq file="db:profile_header.html"}>
 <{ if $err_audio }>
   <div class="errorMsg"><div><pre><{ $err_audio }></pre></div></div>
 <{ /if }>
@@ -30,20 +30,20 @@
     <{else}>
         <{ if $isOwner }>
             <ul class="profile-tabs-nav"> 
-                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/audio.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/audio.gif" /> <{$smarty.const._PROFILE_MA_ADDNEWAUDIO}></span></a> </li>    
+                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/audio.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/audio.gif" /> <{$smarty.const._EPROFILE_MA_ADDNEWAUDIO}></span></a> </li>    
             </ul>
             <br />
         <{ /if}> 
         <{if $audios}>
             <div class="profile-allaudiocontainer">
                 <div class="profile-title head">
-                    <{$smarty.const._PROFILE_MA_MYAUDIOS}>
+                    <{$smarty.const._EPROFILE_MA_MYAUDIOS}>
                 </div>
                 <{$player}>
             </div>
             <div class="profile-allaudiocontainer">
                 <{if $nb_audio<=0}>
-                    <h2><{$smarty.const._PROFILE_MA_NOAUDIOYET}></h2>
+                    <h2><{$smarty.const._EPROFILE_MA_NOAUDIOYET}></h2>
                 <{/if}>		
                 <{section name=i loop=$audios}>
                     <div class="profile-audio-container <{cycle values="odd,even"}>"> 
@@ -59,13 +59,15 @@
                             <b><{$audios[i].title}> <{$audios[i].author}></b>
                         <{ /if}>                            
                     </div>
-                    <div class="profile-audio-metainfo"> <{$smarty.const._PROFILE_MA_META}></div>
+                    <!--
+                    <div class="profile-audio-metainfo"> <{$smarty.const._EPROFILE_MA_META}></div>
                     <div class="profile-audio-meta-title">
-                        <span class="social-audio-meta-label" ><{$smarty.const._PROFILE_MA_META_TITLE}>:</span> <{$audios[i].meta.Title}><br />
-                        <span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_ALBUM}>:</span> <{$audios[i].meta.Album}><br />
-                        <span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_ARTIST}>:</span> <{$audios[i].meta.Artist}><br />
-                        <span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_YEAR}>:</span> <{$audios[i].meta.Year}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_TITLE}>:</span> <{$audios[i].meta.Title}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_ALBUM}>:</span> <{$audios[i].meta.Album}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_ARTIST}>:</span> <{$audios[i].meta.Artist}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_YEAR}>:</span> <{$audios[i].meta.Year}><br />
                     </div>
+                    //-->
                  <{/section}>
             </div>
         <{/if}>

@@ -15,24 +15,19 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: profile.php 2655 2009-01-10 11:49:00Z phppp $
+ * @version         $Id: profile.php 27 2013-05-26 11:40:34Z alfred $
  */
 
 /**
  * @package kernel
  * @copyright copyright &copy; 2000 XOOPS.org
  */
-class ProfileProfile extends XoopsObject
+class EprofileProfile extends XoopsObject
 {
     function __construct($fields)
     {
-        $this->initVar('profile_id', XOBJ_DTYPE_INT, null, true);
-        $this->init($fields);
-    }
-
-    function ProfileProfile($fields)
-    {
-        $this->__construct($fields);
+      $this->initVar('profile_id', XOBJ_DTYPE_INT, null, true);
+      $this->init($fields);
     }
 
     /**
@@ -41,18 +36,18 @@ class ProfileProfile extends XoopsObject
     */
     function init($fields)
     {
-        if (is_array($fields) && count($fields) > 0) {
-            foreach (array_keys($fields) as $key) {
-                $this->initVar($key, $fields[$key]->getVar('field_valuetype'), $fields[$key]->getVar('field_default', 'n'), $fields[$key]->getVar('field_required'), $fields[$key]->getVar('field_maxlength'));
-            }
+      if (is_array($fields) && count($fields) > 0) {
+        foreach (array_keys($fields) as $key) {
+          $this->initVar($key, $fields[$key]->getVar('field_valuetype'), $fields[$key]->getVar('field_default', 'n'), $fields[$key]->getVar('field_required'), $fields[$key]->getVar('field_maxlength'));
         }
+      }
     }
 }
 /**
  * @package kernel
  * @copyright copyright &copy; 2000 XOOPS.org
  */
-class ProfileProfileHandler extends XoopsPersistableObjectHandler
+class EprofileProfileHandler extends XoopsPersistableObjectHandler
 {
     /**
     * holds reference to {@link profileFieldHandler} object
@@ -67,8 +62,8 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
 
     function __construct(&$db)
     {
-        parent::__construct($db, "profile_profile", 'profileprofile', "profile_id");
-        $this->_fHandler = xoops_getmodulehandler('field', 'profile');
+        parent::__construct($db, "profile_profile", 'Eprofileprofile', "profile_id");
+        $this->_fHandler = xoops_getmodulehandler('field', 'eprofile');
     }
 
     /**
@@ -230,6 +225,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         return $msg;
     }
 
+	
     /**
      * insert a new object in the database
      *
@@ -239,6 +235,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      *
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
+	
 
     function insert(&$obj, $force = false, $checkObject = true)
     {
@@ -280,7 +277,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $searchvars_profile = array_diff($searchvars, $uservars);
         $sv = array();
         if (!empty($searchvars_user)) {
-            $sv[] = "u.uid, u.uname, u.email, u.user_viewemail, u." . implode(", u.", $searchvars_user);
+            $sv[] = "u.uid, u.user_avatar, u.uname, u.name, u.email, u.user_viewemail, u." . implode(", u.", $searchvars_user);
         }
         if (!empty($searchvars_profile)) {
             $sv[] = "p." . implode(", p.", $searchvars_profile);
@@ -307,6 +304,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         }
 
         $sql_users = $sql_select . $sql_from . $sql_clause . $sql_order;
+   
         $result = $this->db->query($sql_users, $limit, $start);
 
         if (!$result) {
@@ -337,7 +335,6 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
             $result = $this->db->query($sql_count);
             list($count) = $this->db->fetchRow($result);
         }
-
         return array( $users, $profiles, intval($count) );
     }
 }

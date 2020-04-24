@@ -14,29 +14,27 @@
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: changemail.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: changemail.php 35 2014-02-08 17:37:13Z alfred $
  */
 
-//$xoopsOption['pagetype'] = "user";
-include 'header.php';
-//$config_handler =& xoops_gethandler('config');
-//$xoopsConfigUser = $config_handler->getConfigsByCat(XOOPS_CONF_USER);
 
-if (!$xoopsUser || $xoopsConfigUser['allow_chgmail'] != 1) {
-    redirect_header(XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname', 'n') . "/", 2, _NOPERM);
+include 'header.php';
+
+if (!$isOwner || $xoopsConfigUser['allow_chgmail'] != 1) {
+    redirect_header(XOOPS_URL , 2, _NOPERM);
 }
 
 $xoopsOption['template_main'] = 'profile_editprofile.html';
 include XOOPS_ROOT_PATH . "/header.php";
-include_once 'social.php';
-$xoopsTpl->assign('section_name', _PROFILE_MA_CHANGEMAIL);
+$xoopsTpl->assign('section_name', _EPROFILE_MA_CHANGEMAIL);
+include_once "include/themeheader.php";
 
 if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     //show change password form
     include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-    $form = new XoopsThemeForm(_PROFILE_MA_CHANGEMAIL, 'userinfo', $_SERVER['REQUEST_URI'], 'post', true);
+    $form = new XoopsThemeForm(_EPROFILE_MA_CHANGEMAIL, 'userinfo', $_SERVER['REQUEST_URI'], 'post', true);
     $form->addElement(new XoopsFormPassword(_US_PASSWORD, 'passwd', 15, 50), true);
-    $form->addElement(new XoopsFormText(_PROFILE_MA_NEWMAIL, 'newmail', 40, 50), true);
+    $form->addElement(new XoopsFormText(_EPROFILE_MA_NEWMAIL, 'newmail', 40, 50), true);
     $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
     $form->assign($xoopsTpl);
 } else {
@@ -45,7 +43,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     $email = @$myts->stripSlashesGPC(trim($_POST['newmail']));
     $errors = array();
     if (md5($pass) != $xoopsUser->getVar('pass', 'n')) {
-        $errors[] = _PROFILE_MA_WRONGPASSWORD;
+        $errors[] = _EPROFILE_MA_WRONGPASSWORD;
     }
     if (!checkEmail($email)) {
         $errors[] = _US_INVALIDMAIL;
@@ -59,7 +57,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
         
         $member_handler =& xoops_gethandler('member');
         if ($member_handler->insertUser($xoopsUser)) {
-            $msg = _PROFILE_MA_EMAILCHANGED;
+            $msg = _EPROFILE_MA_EMAILCHANGED;
             
             //send email to new email address
             $xoopsMailer =xoops_getMailer();
@@ -71,7 +69,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
             $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
             $xoopsMailer->assign("NEWEMAIL", $email);
             $xoopsMailer->setToEmails($email);
-            $xoopsMailer->setSubject(sprintf(_PROFILE_MA_NEWEMAIL, $xoopsConfig['sitename']));
+            $xoopsMailer->setSubject(sprintf(_EPROFILE_MA_NEWEMAIL, $xoopsConfig['sitename']));
             $xoopsMailer->send();
             
         } else {
@@ -80,8 +78,6 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     }
     redirect_header(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoopsUser->getVar('uid'), 2, $msg);
 }
-    
-$xoBreadcrumbs[] = array('title' => _PROFILE_MA_CHANGEMAIL);
 
 include "footer.php";
 ?>

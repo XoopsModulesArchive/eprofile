@@ -15,16 +15,17 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: field.php 2637 2009-01-10 05:19:14Z phppp $
+ * @version         $Id: field.php 35 2014-02-08 17:37:13Z alfred $
  */
 /**
  * @package kernel
  * @copyright copyright &copy; 2000 XOOPS.org
  */
-class ProfileField extends XoopsObject
+class EprofileField extends XoopsObject
 {
     function __construct()
     {
+        parent::__construct();
         $this->initVar('field_id', XOBJ_DTYPE_INT, null);
         $this->initVar('cat_id', XOBJ_DTYPE_INT, null, true);
         $this->initVar('field_type', XOBJ_DTYPE_TXTBOX);
@@ -42,11 +43,6 @@ class ProfileField extends XoopsObject
         $this->initVar('field_config', XOBJ_DTYPE_INT, 0);
         $this->initVar('field_options', XOBJ_DTYPE_ARRAY, array());
         $this->initVar('step_id', XOBJ_DTYPE_INT, 0);
-    }
-
-    function ProfileField()
-    {
-        $this->__construct();
     }
 
     /**
@@ -119,7 +115,7 @@ class ProfileField extends XoopsObject
                 break;
 
             case "dhtml":
-                $element = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 30);
+                $element = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 55);
                 break;
 
             case "select":
@@ -200,7 +196,7 @@ class ProfileField extends XoopsObject
 
             case 'theme':
                 $element = new XoopsFormSelect($caption, $name, $value);
-                $element->addOption("0", _PROFILE_MA_SITEDEFAULT);
+                $element->addOption("0", _EPROFILE_MA_SITEDEFAULT);
                 $handle = opendir(XOOPS_THEME_PATH.'/');
                 $dirlist = array();
                 while (false !== ($file = readdir($handle))) {
@@ -300,7 +296,7 @@ class ProfileField extends XoopsObject
                 if (!empty($value)) {
                        return formatTimestamp($value, 'm');
                    } else {
-                       return $value = _PROFILE_MI_NEVER_LOGED_IN;
+                       return $value = _EPROFILE_MI_NEVER_LOGED_IN;
                    }
                 break;
 
@@ -385,7 +381,7 @@ class ProfileField extends XoopsObject
      */
     function getUserVars()
     {
-        $profile_handler = xoops_getmodulehandler('profile', 'profile');
+        $profile_handler = xoops_getmodulehandler('profile', 'eprofile');
         return $profile_handler->getUserVars();
     }
 }
@@ -394,11 +390,11 @@ class ProfileField extends XoopsObject
  * @package kernel
  * @copyright copyright &copy; 2000 XOOPS.org
  */
-class ProfileFieldHandler extends XoopsPersistableObjectHandler
+class EprofileFieldHandler extends XoopsPersistableObjectHandler
 {
     function __construct(&$db)
     {
-        parent::__construct($db, 'profile_field', "profilefield", "field_id", 'field_title');
+        parent::__construct($db, 'profile_field', "Eprofilefield", "field_id", 'field_title');
     }
 
     /**
@@ -432,7 +428,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     */
     function insert(&$obj, $force = false)
     {
-        $profile_handler =& xoops_getmodulehandler('profile', 'profile');
+        $profile_handler =& xoops_getmodulehandler('profile', 'eprofile');
 
         $obj->cleanVars();
         $defaultstring = "";
@@ -581,7 +577,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     **/
     function delete(&$obj, $force = false)
     {
-        $profile_handler =& xoops_getmodulehandler('profile', 'profile');
+        $profile_handler =& xoops_getmodulehandler('profile', 'eprofile');
         // remove column from table
         $sql = "ALTER TABLE ".$profile_handler->table." DROP `".$obj->getVar('field_name', 'n')."`";
         if ($this->db->query($sql)) {
@@ -601,6 +597,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
                     //                    $criteria->add(new Criteria('gperm_name', "('profile_edit', 'profile_show', 'profile_visible', 'profile_search')", "IN"));
                     return $groupperm_handler->deleteAll($criteria);
                 }
+				return true;
             }
         }
         return false;

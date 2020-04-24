@@ -14,12 +14,12 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id$
+ * @version         $Id: visitors.php 7 2012-10-07 15:38:55Z alfred $
  */
  
-class ProfileVisitors extends XoopsObject  
+class EprofileVisitors extends XoopsObject  
 {
-    function __construct() 
+    public function __construct() 
     {
         $this->initVar("visit_id",XOBJ_DTYPE_INT,null,false,10);
 		$this->initVar("uid_owner",XOBJ_DTYPE_INT,null,false,10);
@@ -28,21 +28,16 @@ class ProfileVisitors extends XoopsObject
         $this->initVar("datetime",XOBJ_DTYPE_TXTAREA, null, false);
 	}
 	
-	function ProfileVisitors()
-    {
-        $this->__construct();
-    }
-	
 }
 
-class ProfileVisitorsHandler extends XoopsPersistableObjectHandler 
+class EprofileVisitorsHandler extends XoopsPersistableObjectHandler 
 {
-    function __construct($db) 
+    public function __construct($db) 
     {
-        parent::__construct($db, 'profile_visitors', 'profilevisitors', 'visit_id', 'uid_owner');
+        parent::__construct($db, 'profile_visitors', 'Eprofilevisitors', 'visit_id', 'uid_owner');
     }
 	
-	function setvisit($uid=0)
+	public function setvisit($uid=0)
     {
         global $xoopsUser;
         $selfuser = ($xoopsUser) ? $xoopsUser->uid() : 0;
@@ -74,7 +69,7 @@ class ProfileVisitorsHandler extends XoopsPersistableObjectHandler
         }
     }
     
-    function getvisit()
+    public function getvisit()
     {
         global $xoopsUser;
         $ret = array();

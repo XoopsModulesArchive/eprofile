@@ -1,10 +1,4 @@
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
-<script type= "text/javascript"> 
-<!-- 
-jQuery.noConflict();
-//--> 
-</script>
-<{includeq file="db:profile_breadcrumbs.html"}>
+<{includeq file="db:profile_header.html"}>
 <{ if $err_picture }>
     <div class="errorMsg"><div><pre><{ $err_picture }></pre></div></div>
 <{ /if }>
@@ -36,37 +30,38 @@ jQuery.noConflict();
     <{else}>
         <{if $isOwner}>
             <ul class="profile-tabs-nav"> 
-                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/pictures.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/video.gif" /> <{$smarty.const._PROFILE_MA_ADDNEWPICTURE}></span></a> </li>    
+                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/pictures.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/pictures.gif" /> <{$smarty.const._EPROFILE_MA_ADDNEWPICTURE}></span></a> </li>    
             </ul>
             <br />
         <{/if}>
         <{section name=i loop=$pics_array}>
             <{ if ($pics_array[i].private == 0)  || $isOwner }> 
-                <div  class="profile-album-picture <{ cycle values="odd,even"}>" >
+                <div  class="profile-album-picture <{ cycle values="odd,even"}>" >                    
                     <{ if $isOwner }> 
+                      <br />
                         <div style="width:100%;">
-                            <a href="pictures.php?uid=<{$uid}>&amp;op=picdelete&amp;cod_img=<{$pics_array[i].id}>"><input value="<{$pics_array[i].id}>" type="image" id="<{$smarty.const._DELETE}>" name="<{$smarty.const._DELETE}>" src="images/dele.gif" /></a>
+                            <a href="pictures.php?uid=<{$uid}>&amp;op=picdelete&amp;cod_img=<{$pics_array[i].id}>"><img id="<{$smarty.const._DELETE}>" name="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" src="images/dele.gif" /></a>
                             &nbsp;&nbsp;
-                            <a href="pictures.php?uid=<{$uid}>&amp;op=picedit&amp;cod_img=<{$pics_array[i].id}>"><input value="<{$pics_array[i].id}>" type="image" id="<{$smarty.const._EDIT}>" name="<{$smarty.const._EDIT}>" src="images/edit.gif" /></a>
+                            <a href="pictures.php?uid=<{$uid}>&amp;op=picedit&amp;cod_img=<{$pics_array[i].id}>"><img id="<{$smarty.const._EDIT}>" name="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" src="images/edit.gif" /></a>
                             <{if $is_allowed_avatar}>
-                                &nbsp;&nbsp;<a href="pictures.php?uid=<{$uid}>&amp;op=picavatar&amp;cod_img=<{$pics_array[i].id}>"><input value="<{$pics_array[i].id}>" type="image" id="<{$smarty.const._PROFILE_AM_SETAVATAR}>" name="<{$smarty.const._PROFILE_AM_SETAVATAR}>" src="images/avatar.gif" /></a>
+                                &nbsp;&nbsp;<a href="pictures.php?uid=<{$uid}>&amp;op=picavatar&amp;cod_img=<{$pics_array[i].id}>"><img id="<{$smarty.const._EPROFILE_AM_SETAVATAR}>" name="<{$smarty.const._EPROFILE_AM_SETAVATAR}>" title="<{$smarty.const._EPROFILE_AM_SETAVATAR}>" src="images/avatar.gif" /></a>
                             <{/if}>
                             &nbsp;&nbsp;
                             <{ if $pics_array[i].private == 1}> 
                                 <a href="pictures.php?uid=<{$uid}>&amp;op=picprivate&amp;private=0&amp;cod_img=<{$pics_array[i].id}>">
-                                <input name="<{$smarty.const._PROFILE_AM_UNSETPRIVATE}>" type="image" alt="<{$smarty.const._PROFILE_AM_UNSETPRIVATE}>" title="<{$smarty.const._PROFILE_AM_UNSETPRIVATE}>" src="images/unlock.gif"/>
+                                <img alt="<{$smarty.const._EPROFILE_AM_UNSETPRIVATE}>" title="<{$smarty.const._EPROFILE_AM_UNSETPRIVATE}>" src="images/lock.gif"/>
                             <{else}>  
                                 <a href="pictures.php?uid=<{$uid}>&amp;op=picprivate&amp;private=1&amp;cod_img=<{$pics_array[i].id}>">
-                                <input name="<{$smarty.const._PROFILE_AM_SETPRIVATE}>" type="image" alt="<{$smarty.const._PROFILE_AM_SETPRIVATE}>" title="<{$smarty.const._PROFILE_AM_SETPRIVATE}>" src="images/lock.gif"/>
+                                <img alt="<{$smarty.const._EPROFILE_AM_SETPRIVATE}>" title="<{$smarty.const._EPROFILE_AM_SETPRIVATE}>" src="images/unlock.gif"/>
                             <{ /if }>
                             </a>
                         </div>
                         <{ if ($pics_array[i].private == 1) }>
-                            <p><span class="profile-album-private"><{$smarty.const._PROFILE_AM_SETPRIVATE}></span></p>
+                            <p><span class="profile-album-private"><{$smarty.const._EPROFILE_AM_SETPRIVATE}></span></p>
                         <{ /if }> 
-                    <{ /if }> 
+                    <{ /if }>  
                     <p id="social-album-picture-desc"><{$pics_array[i].title}></p>
-                    <p class="social-album-picture-img"><{$pics_array[i].url}></p>
+                    <p id="social-album-picture-img"><{$pics_array[i].url}></p>                    
                 </div>
             <{ /if }>
         <{/section}>        

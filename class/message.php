@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
+ * @version         $Id: message.php 35 2014-02-08 17:37:13Z alfred $
  */
  
 /**
@@ -26,11 +26,11 @@
  * @author          Kazumi Ono    <onokazu@xoops.org>
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
-class ProfileMessage extends XoopsObject
+class EprofileMessage extends XoopsObject
 {
     function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar('msg_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('msg_image', XOBJ_DTYPE_OTHER, 'icon1.gif', false, 100);
         $this->initVar('subject', XOBJ_DTYPE_TXTBOX, null, true, 255);
@@ -45,24 +45,16 @@ class ProfileMessage extends XoopsObject
         $this->initVar('to_save', XOBJ_DTYPE_INT, 0, false);
     }
     
-    function ProfileMessage()
-    {
-        $this->__construct();
-    }
 }
 
-class ProfileMessageHandler extends XoopsPersistableObjectHandler
+class EprofileMessageHandler extends XoopsPersistableObjectHandler
 {
 
     function __construct(&$db) 
     {
-        parent::__construct($db, "priv_msgs", 'ProfileMessage', 'msg_id', 'subject');
+        parent::__construct($db, "priv_msgs", 'EprofileMessage', 'msg_id', 'subject');
     }
-    
-    function ProfileMessageHandler(&$db)
-    {
-        $this->__construct($db);
-    }
+       
 
     /**
      * Mark a message as read
@@ -157,17 +149,17 @@ class ProfileMessageHandler extends XoopsPersistableObjectHandler
         if (!is_object($user)) {
             $user =& $GLOBALS["xoopsUser"];
         }
-        $msg = sprintf(_PROFILE_MA_PMEMAIL_DESC, $user->getVar("uname"));
+        $msg = sprintf(_EPROFILE_MA_PMEMAIL_DESC, $user->getVar("uname"));
         $msg .= "\n\n";
         $msg .= formatTimestamp($pm->getVar("msg_time"));
         $msg .= "\n";
         $from = new XoopsUser($pm->getVar("from_userid"));
         $to = new XoopsUser($pm->getVar("to_userid"));
-        $msg .= sprintf(_PROFILE_MA_PMEMAIL_FROM, $from->getVar("uname") . " (" . XOOPS_URL . "/userinfo.php?uid=" . $pm->getVar("from_userid") . ")");
+        $msg .= sprintf(_EPROFILE_MA_PMEMAIL_FROM, $from->getVar("uname") . " (" . XOOPS_URL . "/userinfo.php?uid=" . $pm->getVar("from_userid") . ")");
         $msg .= "\n";
-        $msg .= sprintf(_PROFILE_MA_PMEMAIL_TO, $to->getVar("uname") . " (" . XOOPS_URL . "/userinfo.php?uid=" . $pm->getVar("to_userid") . ")");
+        $msg .= sprintf(_EPROFILE_MA_PMEMAIL_TO, $to->getVar("uname") . " (" . XOOPS_URL . "/userinfo.php?uid=" . $pm->getVar("to_userid") . ")");
         $msg .= "\n";
-        $msg .= _PROFILE_MA_PMEMAIL_MESSAGE . ":\n";
+        $msg .= _EPROFILE_MA_PMEMAIL_MESSAGE . ":\n";
         $msg .= "\n" . $pm->getVar("subject") . "\n";
         $msg .= "\n" . strip_tags( str_replace(array("<p>", "</p>", "<br>", "<br />"), "\n", $pm->getVar("msg_text")) ) . "\n\n";
         $msg .= "--------------\n";
@@ -178,7 +170,7 @@ class ProfileMessageHandler extends XoopsPersistableObjectHandler
         $xoopsMailer->setToEmails($user->getVar("email"));
         //$xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
         //$xoopsMailer->setFromName($xoopsConfig['sitename']);
-        $xoopsMailer->setSubject(sprintf(_PROFILE_MA_PMEMAIL_SUBJECT, $pm->getVar("subject")));
+        $xoopsMailer->setSubject(sprintf(_EPROFILE_MA_PMEMAIL_SUBJECT, $pm->getVar("subject")));
         $xoopsMailer->setBody($msg);
         return $xoopsMailer->send();
     }
@@ -203,6 +195,39 @@ class ProfileMessageHandler extends XoopsPersistableObjectHandler
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
         
         return $form;
+    }
+    
+    function readLastPm($time_limit = 5, $count_limit = 5, $user = null)
+    {
+        if (!is_object($user)) {
+            $user =& $GLOBALS["xoopsUser"];
+        }
+        $crit_pm = new Criteria('from_userid', $user->getVar('uid'));
+        $crit_pm->setSort("msg_time");
+        $crit_pm->setOrder("DESC");
+        $crit_pm->setLimit(1);
+        $last_pm_array = $this->getObjects($crit_pm, false, false);
+        $last_pm = intval($last_pm_array[0]["msg_time"]);
+        if ( $last_pm < (time() - $time_limit) ) return true; 
+        if (defined( 'PROTECTOR_PRECHECK_INCLUDED' )) {
+          $protect =& Protector::getInstance() ;
+          $conf = $protect->getConf();
+          if( empty( $conf['global_disabled'] ) ) {
+            $protect->message = "PM SPAM FROM IP:" . $_SERVER['REMOTE_ADDR'];
+            $timesql = date('Y-m-d H:s:i', time() - $time_limit);
+            $result = $GLOBALS['xoopsDB']->query( "SELECT COUNT(*) FROM ".$GLOBALS['xoopsDB']->prefix($protect->mydirname."_log")." WHERE ip='".$_SERVER['REMOTE_ADDR']."' AND timestamp<='$timesql'" ) ;
+            list( $pmspam_count ) = $GLOBALS['xoopsDB']->fetchRow( $result ) ;
+            if( $pmspam_count > $count_limit ) {
+              $protect_time = time() + $protect->_conf['banip_time0'];
+              $protect->message .= " => This User is blocked to " .$protect_time;              
+              $protect->register_bad_ips($protect_time);
+            }
+            $protect->output_log( 'PM SPAM' , $user->uid() , false , 16 );
+            
+          }
+          unset($protect);
+        }
+        return false;
     }
 }
 ?>

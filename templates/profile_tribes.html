@@ -1,3 +1,35 @@
-<{includeq file="db:profile_breadcrumbs.html"}>
-<p></p><center><h2><b>Coming soon :-)</b></h2></center><p></p>
+<{includeq file="db:profile_header.html"}>
+<div class="profile-title head"><{$section_name}></div>
+<br />
+<div class="profile-visual odd">
+  <{ if $allow_add_tribes }>
+    <ul class="profile-tabs-nav"> 
+      <li><a href="<{$modul_url}>tribes.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/groups.gif" /> <{$smarty.const._MA_EPROFILE_ADDGROUP}></span></a> </li>    
+    </ul>
+    <br />
+  <{/if}>
+  <{ if $tribes_form }>
+   	<div class="profile-tribes-form">
+   		<p><{$tribes_form}></p>
+   	</div>
+  <{else}>
+    <{ if $tribes }>
+      <{foreach item=tribe from=$tribes}>
+        <div class="profile-tribes">
+          <div class="profile-tribes-title">
+            <p><{$tribe.tribes_desc}></p>
+            <img src="<{$tribes_url}>/<{$tribe.tribes_url}>" />
+          </div>        
+          <div class="profile-tribes-user">
+            <p>User</p>
+            
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+      <{/foreach}>
+    <{else}>
+    
+    <{/if}>
+  <{/if}>
+</div>
 <{includeq file="db:profile_footer.html"}>

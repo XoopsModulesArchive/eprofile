@@ -15,74 +15,126 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: index.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: checker.php 35 2014-02-08 17:37:13Z alfred $
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include 'header.php';
 
-if ( !$xoopsUser || !$xoopsUser->isadmin()) {
+if ( !$isAdmin ) {
   redirect_header("index.php", 1, _NOPERM);
   exit();
 }
 
-$xoopsOption['template_main'] = 'profile_breadcrumbs.html';
+$xoopsOption['template_main'] = 'profile_header.html';
 include $GLOBALS['xoops']->path('header.php'); 
-$xoopsTpl->assign('section_name', _PROFILE_MA_USERCHECK);
-include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'social.php';
-$xoBreadcrumbs[] = array('title' => _PROFILE_MA_USERCHECK);
+$xoopsTpl->assign('section_name', _EPROFILE_MA_USERCHECK);
+include_once "include/themeheader.php";
 
+xoops_load("xoopsuserutility");
 $online_handler =& xoops_gethandler('online');
 $criteria = new Criteria('online_uid',$uid);
 $onlineuser = $online_handler->getAll($criteria);
 if (count($onlineuser) > 0) {
   $checker_onlineip = $onlineuser[0]['online_ip'];
+  $checker_onlinename = $onlineuser[0]['online_uname'];
 } else {
   $checker_onlineip = '';
+  $checker_onlinename = XoopsUserUtility::getUnameFromId( $uid );
 }
 
 echo '<table style="width:99%">';
-echo '<tr><th>Datum</th><th>IP-Adresse</th><th>'._PROFILE_MA_USERCHECK.'</th></tr>';
+echo '<tr><th>Datum</th><th>IP-Adresse</th><th>'._EPROFILE_MA_USERCHECK.'</th></tr>';
 $class ='odd';
-$sql = "SELECT post_time,poster_ip FROM ".$xoopsDB->prefix('bb_posts')." WHERE uid='".$uid."' GROUP BY poster_ip ORDER BY post_time DESC LIMIT 0,20";
-$res = $xoopsDB->query($sql);
-$sum=0;
-if ($res) {
-  while ($row = $xoopsDB->fetcharray($res)) {
-     $sql = "SELECT post_time,uid,poster_name  FROM ".$xoopsDB->prefix('bb_posts')." WHERE poster_ip='".$row['poster_ip']."' AND uid!=".$uid." GROUP BY uid LIMIT 0,20";
-	 $res1 = $xoopsDB->query($sql);
-     $wuid=array();
-	 while ($row1 = $xoopsDB->fetcharray($res1)) {
-	    if (intval($row1['uid']) > 0) {
-            $nu = new XoopsUser($row1['uid']);
-            if ($nu && $nu->isActive())
-                $wuid[] = '<a href="userinfo.php?uid='.$nu->uid().'">'.$nu->uname().'</a>';
-            else
-                $wuid[]=$row1['poster_name'];
-            unset($nu);
-		} else {
-            $wuid[]=$row1['poster_name'];
-		}
-	 }
-	 if (count($wuid)>0) {
-	   $class = ($class=='odd') ? 'even':'odd';
-	   echo '<tr>';
-       echo '<td class='.$class.'>'.formatTimestamp($row['post_time']). '</td>';
-	   echo '<td class='.$class.'>'.long2ip($row['poster_ip']).'</td>';
-	   echo '<td class='.$class.'>'. implode(", ",$wuid)."</td></tr>";
-	   $sum ++;
-	 }
+$class = ($class=='odd') ? 'even':'odd';
+echo '<tr>';
+echo '<td class='.$class.' colspan="3" text-align="center">ONLINE [ USER: '.$checker_onlinename.' ]</td>';
+echo '</tr>';
+$sum = 0;
+
+if ( $checker_onlineip != '' ) {
+  xoops_load("xoopsuserutility");
+  $checker_onlinename = XoopsUserUtility::getUnameFromId( $uid );
+  unset($onlineuser);
+
+  $criteria = new CriteriaCompo(new Criteria('online_ip',$checker_onlineip));
+  $criteria->add(new Criteria('online_uid',$uid,"<>"));
+  $onlineuser = $online_handler->getAll($criteria);  
+  foreach ($onlineuser as $ouser) {
+    $class = ($class=='odd') ? 'even':'odd';
+    echo '<tr>';
+    echo '<td class='.$class.'>'.formatTimestamp($ouser['online_updated']). '</td>';
+    echo '<td class='.$class.'>'.$ouser['online_ip'].'</td>';
+    echo '<td class='.$class.'>'. XoopsUserUtility::getUnameFromId( $ouser['online_uid'], false, true )."</td></tr>";
+    $sum ++;
   }
 }
+
 if ($sum==0) {
-  echo '<tr><td class='.$class.' colspan="3">Keine weiteren User gefunden</td></tr>';
+  echo '<tr><td class='.$class.' colspan="3">Keine Online User gefunden</td></tr>';
 }
+
+$class = ($class=='odd') ? 'even':'odd';
+echo '<tr>';
+echo '<td class='.$class.' colspan="3"></td>';
+echo '</tr>';
+
+if (xoops_isActiveModule('newbb')) {
+
+  echo '<tr>';
+  echo '<td class='.$class.' colspan="3" text-align="center">FORUM</td>';
+  echo '</tr>';
+
+  $sum = 0;
+
+  $criteria = new CriteriaCompo(new Criteria('uid',$uid));
+  $criteria->setSort('post_time');
+  $criteria->setOrder('DESC');
+  $criteria->setLimit(20);
+  $lastpost_handler = xoops_getmoduleHandler('post','newbb');
+  $last_user_post = $lastpost_handler->getAll($criteria, 'poster_ip', false, false);
+  $last_user_ip = array();
+  foreach ($last_user_post as $last_ip) {
+    $last_user_ip[] = $last_ip['poster_ip'];
+  }
+  unset($criteria);
+  
+  if (count($last_user_ip) > 0) {
+    $criteria = new CriteriaCompo();
+    foreach ($last_user_ip as $last_ip) {
+      $criteria->add(new Criteria('poster_ip',$last_ip),'OR');
+    }
+    $criteria->setGroupby('uid');
+    $criteria->setSort('post_time');
+    $criteria->setOrder('DESC');
+    $criteria->setLimit(20);
+    $last_user = $lastpost_handler->getAll($criteria, '', false, false);
+    //print_r($last_user);
+    
+    foreach ($last_user as $user) {
+      if ($user['uid'] == $uid) continue;
+      $class = ($class=='odd') ? 'even':'odd';
+      echo '<tr>';
+      echo '<td class='.$class.'>'.formatTimestamp($user['post_time']). '</td>';
+      echo '<td class='.$class.'>'.long2ip($user['poster_ip']).'</td>';
+      echo '<td class='.$class.'>'. XoopsUserUtility::getUnameFromId( $user['uid'], false, true )."</td></tr>";
+      $sum ++;
+    }
+  }
+
+  if ($sum==0) {
+    echo '<tr><td class='.$class.' colspan="3">Keine Forum User gefunden</td></tr>';
+  }
+}
+
+$eprofile_version = 'eProfile '.XoopsLocal::number_format(($xoopsModule->getVar('version') / 100));
 echo '</table>';
 echo '<br style="clear: both;" />
-  <div class="profile-footer">';
-echo $xoopsTpl->get_template_vars('eprofile_version');
-echo ' @ <a href="http://www.myxoops.org" target="_blank">myXOOPS.org</a>
+  <div class="profile-footer">
+  <br style="clear: both;" />
+  <div class="profile-footer">
+    '.$eprofile_version.' @ <a href="http://www.simple-xoops.de" target="_blank">SIMPLE-XOOPS</a>
   </div>
 </div>
 <div style="clear: both;"></div>';
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include 'footer.php';
 ?>

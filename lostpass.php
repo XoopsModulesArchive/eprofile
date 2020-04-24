@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: lostpass.php 2019 2008-08-31 01:50:10Z phppp $
+ * @version         $Id: lostpass.php 4 2012-08-20 08:48:43Z alfred $
  */
 
 include "header.php";
@@ -76,19 +76,18 @@ if (empty($user)) {
         $xoopsMailer->assign("ADMINMAIL", $xoopsConfig['adminmail']);
         $xoopsMailer->assign("SITEURL", XOOPS_URL."/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
-        $xoopsMailer->assign("NEWPWD_LINK", XOOPS_URL . "/modules/profile/lostpass.php?email={$email}&code=" . $areyou);
+        $xoopsMailer->assign("NEWPWD_LINK", XOOPS_URL . "/modules/eprofile/lostpass.php?email=" . $email . "&code=" . $areyou);
         $xoopsMailer->setToUsers($user);
         $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
         $xoopsMailer->setFromName($xoopsConfig['sitename']);
         $xoopsMailer->setSubject(sprintf(_US_NEWPWDREQ,$xoopsConfig['sitename']));
-        include XOOPS_ROOT_PATH . "/header.php";
         if ( !$xoopsMailer->send() ) {
+			include XOOPS_ROOT_PATH . "/header.php";        
             echo $xoopsMailer->getErrors();
+			include "footer.php";
         }
-        echo "<h4>";
-        printf(_US_CONFMAIL, $user->getVar("uname"));
-        echo "</h4>";
-        include "footer.php";
+		redirect_header('index.php',3,sprintf(_US_CONFMAIL,$user->getVar('uname')));
+        exit();        
     }
 }
 ?>

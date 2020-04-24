@@ -1,5 +1,7 @@
-<{includeq file="db:profile_breadcrumbs.html"}>
-<div>( <{$total_users}> )</div>
+<{includeq file="db:profile_header.html"}>
+<{if $total_users}>
+  <div>( <{$total_users}> )</div>
+<{/if}>
 <{if $users}>
     <table width="100%">
         <tr>
@@ -19,7 +21,7 @@
     <{$nav}>
 <{else}>
     <div class="errorMsg">
-        <{$smarty.const._PROFILE_MA_NOUSERSFOUND}>
+        <{$smarty.const._EPROFILE_MA_NOUSERSFOUND}>
     </div>
 <{/if}>
 <{includeq file="db:profile_footer.html"}>

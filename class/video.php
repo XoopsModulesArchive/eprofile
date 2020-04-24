@@ -14,17 +14,18 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id$
+ * @version         $Id: video.php 3 2012-08-16 20:15:01Z alfred $
  */
  
-class ProfileVideo extends XoopsObject  
+class EprofileVideo extends XoopsObject  
 {
     var $upload_path 	= "";
 	var $upload_url 	= "";	
     
 	function __construct() 
     {
-        $this->initVar("video_id",XOBJ_DTYPE_INT,null,false,10);
+        parent::__construct();
+		$this->initVar("video_id",XOBJ_DTYPE_INT,null,false,10);
 		$this->initVar("uid_owner",XOBJ_DTYPE_INT,null,false,10);
 		$this->initVar("video_desc",XOBJ_DTYPE_TXTBOX, null, false);
 		$this->initVar("youtube_code",XOBJ_DTYPE_TXTBOX, null, false);
@@ -33,11 +34,11 @@ class ProfileVideo extends XoopsObject
 
 }
 
-class ProfileVideoHandler extends XoopsPersistableObjectHandler 
+class EprofileVideoHandler extends XoopsPersistableObjectHandler 
 {
     function __construct($db) 
     {
-        parent::__construct($db, 'profile_videos', 'profilevideo', 'video_id', 'uid_owner');
+        parent::__construct($db, 'profile_videos', 'Eprofilevideo', 'video_id', 'uid_owner');
     }
     
     function assignVideoContent($nbVideos, $videos)	

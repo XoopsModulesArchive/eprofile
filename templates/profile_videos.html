@@ -1,4 +1,4 @@
-<{includeq file="db:profile_breadcrumbs.html"}>
+<{includeq file="db:profile_header.html"}>
 <{ if $err_video }>
   <div class="errorMsg"><div><pre><{ $err_video }></pre></div></div>
 <{ /if }>
@@ -32,7 +32,7 @@
     <{else}>
         <{if $isOwner}>
             <ul class="profile-tabs-nav"> 
-                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/videos.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/user.gif" /> <{$smarty.const._PROFILE_MA_ADDVIDEO}></span></a> </li>    
+                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/videos.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/user.gif" /> <{$smarty.const._EPROFILE_MA_ADDVIDEO}></span></a> </li>    
             </ul>
             <br />
         <{/if}> 
@@ -45,9 +45,9 @@
             <div class="profile-video-container <{cycle values="odd,even"}>">
                 <div class="profile-preview-video">   
                     <object width="<{$width}>" height="<{$height}>">
-                        <param name="movie" value="http://www.youtube.com/v/<{$videos[i].url}>"></param>
-                        <param name="wmode" value="transparent"></param>
-                        <embed src="http://www.youtube.com/v/<{$videos[i].url}>" type="application/x-shockwave-flash" wmode="transparent" width="<{$width}>" height="<{$height}>"></embed>
+                        <param name="movie" value="http://www.youtube.com/v/<{$videos[i].url}>?version=3"></param>
+                        <param name="allowScriptAccess" value="always"></param>
+                        <embed src="http://www.youtube.com/v/<{$videos[i].url}>?version=3" type="application/x-shockwave-flash" allowscriptaccess="always" width="<{$width}>" height="<{$height}>"></embed>
                     </object>	
                 </div>
                 <div class="profile-video-details">

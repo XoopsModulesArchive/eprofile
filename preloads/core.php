@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.4.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: core.php 3333 2009-08-27 10:46:15Z trabis $
+ * @version         $Id: core.php 24 2013-05-24 19:31:14Z alfred $
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
@@ -26,87 +26,84 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author          trabis <lusopoemas@gmail.com>
  */
-class ProfileCorePreload extends XoopsPreloadItem
+class EprofileCorePreload extends XoopsPreloadItem
 {
     function eventCoreUserStart($args)
     {
         $op = 'main';
-        if (isset($_POST['op'])) {
-            $op = trim($_POST['op']);
-        } elseif (isset($_GET['op'])) {
-            $op = trim($_GET['op']);
+        if (isset($_REQUEST['op'])) {
+            $op = trim($_REQUEST['op']);
         }
-        if ($op != 'login' && (empty($_GET['from']) || 'profile' != $_GET['from'])) {
-            if (ProfileCorePreload::isActive()) {
-                header("location: ./modules/profile/user.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if ($op != 'login' && (empty($_GET['from']) || 'eprofile' != $_GET['from'])) {
+            if (EprofileCorePreload::isActive()) {            
+                header("location: " . XOOPS_URL . "/modules/eprofile/user.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
                 exit();
             }
-        }
+       }
     }
     
     function eventCorePmLiteStart($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/profile/pmlite.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if (EprofileCorePreload::isActive()) {
+            header("location: ./modules/eprofile/pmlite.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
             exit();
         }
     }
     
     function eventCoreReadpmsgStart($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/pprofile/readpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if (EprofileCorePreload::isActive()) {
+            header("location: ./modules/eprofile/readpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
             exit();
         }
     }
 
     function eventCoreViewpmsgStart($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/profile/viewpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if (EprofileCorePreload::isActive()) {
+            header("location: ./modules/eprofile/viewpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
             exit();
         }
     }
 
     function eventCoreClassSmartyXoops_pluginsXoinboxcount($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            $args[0] =& xoops_getModuleHandler('message', 'profile');
+        if (EprofileCorePreload::isActive()) {
+            $args[0] =& xoops_getModuleHandler('message', 'eprofile');
         }
     }    
     
 
     function eventCoreEdituserStart($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/profile/edituser.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if (EprofileCorePreload::isActive()) {
+            header("location: ./modules/eprofile/edituser.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
             exit();
         }
         }
 
     function eventCoreLostpassStart($args)
     {
-        $email = isset($_GET['email']) ? trim($_GET['email']) : '';
-        $email = isset($_POST['email']) ? trim($_POST['email']) : $email;
-
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/profile/lostpass.php?email={$email}" . (empty($_GET['code']) ? "" : "&" . $_GET['code']));
+        if (EprofileCorePreload::isActive()) {
+            $email = isset($_GET['email']) ? trim($_GET['email']) : '';
+            $email = isset($_POST['email']) ? trim($_POST['email']) : $email;
+            header("location: ./modules/eprofile/lostpass.php?email={$email}" . (empty($_GET['code']) ? "" : "&" . $_GET['code']));
             exit();
         }
     }
 
     function eventCoreRegisterStart($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/profile/register.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if (EprofileCorePreload::isActive()) {
+            header("location: ./modules/eprofile/register.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
             exit();
         }
     }
 
     function eventCoreUserinfoStart($args)
     {
-        if (ProfileCorePreload::isActive()) {
-            header("location: ./modules/profile/userinfo.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+        if (EprofileCorePreload::isActive()) {
+            header("location: ./modules/eprofile/userinfo.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
             exit();
         }
     }
@@ -114,7 +111,7 @@ class ProfileCorePreload extends XoopsPreloadItem
     function isActive()
     {
         $module_handler =& xoops_getHandler('module');
-        $module = $module_handler->getByDirname('profile');
+        $module = $module_handler->getByDirname('eprofile');
         return ($module && $module->getVar('isactive')) ? true : false;
     }
 }

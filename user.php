@@ -15,19 +15,15 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: user.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: user.php 22 2013-04-01 16:13:35Z alfred $
  */
 
 $xoopsOption['pagetype'] = 'user';
 include 'header.php';
 
-$op = 'main';
+$op = ( isset($_REQUEST['op']) ) ? $_REQUEST['op'] : 'main';
 
-if ( isset($_POST['op']) ) {
-    $op = trim($_POST['op']);
-} elseif ( isset($_GET['op']) ) {
-    $op = trim($_GET['op']);
-}
+if ( !in_array( $op,array('main','login','logout','actv','delete')) ) $op = 'main';
 
 if ($op == 'main') {
     if ( !$xoopsUser ) {
@@ -115,6 +111,10 @@ if ($op == 'delete') {
         $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
         if ($ok != 1) {
             include 'header.php';
+            $xoopsOption['template_main'] = 'profile_header.html';
+            include $GLOBALS['xoops']->path('header.php');
+            $xoopsTpl->assign('section_name', _US_SURETODEL);
+            include_once "include/themeheader.php";
             xoops_confirm(array('op' => 'delete', 'ok' => 1), 'user.php', _US_SURETODEL . '<br/>' . _US_REMOVEINFO);
             include 'footer.php';
         } else {

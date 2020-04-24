@@ -15,17 +15,48 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: menu.php 2021 2008-08-31 02:02:45Z phppp $
+ * @version         $Id: menu.php 29 2014-02-07 21:38:38Z alfred $
  */
-$adminmenu[1]['title'] = _PROFILE_MI_USERS;
-$adminmenu[1]['link'] = "admin/user.php";
-$adminmenu[2]['title'] = _PROFILE_MI_CATEGORIES;
-$adminmenu[2]['link'] = "admin/category.php";
-$adminmenu[3]['title'] = _PROFILE_MI_FIELDS;
-$adminmenu[3]['link'] = "admin/field.php";
-$adminmenu[4]['title'] = _PROFILE_MI_STEPS;
-$adminmenu[4]['link'] = "admin/step.php";
-$adminmenu[5]['title'] = _PROFILE_MI_PERMISSIONS;
-$adminmenu[5]['link'] = "admin/permissions.php";
 
+if ( file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))){
+  $module_handler =& xoops_gethandler('module');
+	$xoopsModule =& XoopsModule::getByDirname('eprofile');
+	$moduleInfo =& $module_handler->get($xoopsModule->getVar('mid'));
+	$pathIcon32 = $moduleInfo->getInfo('icons32');
+}
+
+$i = 0;
+$adminmenu[$i]['title'] = _EPROFILE_MI_INDEX;
+$adminmenu[$i]['link'] = "admin/index.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/home.png';
+
+$i++;
+$adminmenu[$i]['title'] = _EPROFILE_MI_USERS;
+$adminmenu[$i]['link'] = "admin/admin_user.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/users.png';
+
+$i++;
+$adminmenu[$i]['title'] = _EPROFILE_MI_CATEGORIES;
+$adminmenu[$i]['link'] = "admin/admin_category.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/folder_txt.png';
+
+$i++;
+$adminmenu[$i]['title'] = _EPROFILE_MI_FIELDS;
+$adminmenu[$i]['link'] = "admin/admin_field.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/identity.png';
+
+$i++;
+$adminmenu[$i]['title'] = _EPROFILE_MI_STEPS;
+$adminmenu[$i]['link'] = "admin/admin_step.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/groupmod.png';
+
+$i++;
+$adminmenu[$i]['title'] = _EPROFILE_MI_PERMISSIONS;
+$adminmenu[$i]['link'] = "admin/admin_permissions.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/firewall.png';
+
+$i++;
+$adminmenu[$i]['title'] = _EPROFILE_MI_ABOUT;
+$adminmenu[$i]['link'] = "admin/about.php";
+$adminmenu[$i]['icon'] = '../../'.$pathIcon32.'/about.png';
 ?>

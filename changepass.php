@@ -15,29 +15,30 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: changepass.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: changepass.php 35 2014-02-08 17:37:13Z alfred $
  */
 
 $xoopsOption['pagetype'] = "user";
 include 'header.php';
-if (!$xoopsUser) {
+
+if ( !$isOwner ) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
 }
 $xoopsOption['template_main'] = 'profile_editprofile.html';
 include XOOPS_ROOT_PATH . "/header.php";
-include_once 'social.php';
-$xoopsTpl->assign('section_name', _PROFILE_MA_CHANGEPASSWORD);
+include_once "include/themeheader.php";
+$xoopsTpl->assign('section_name', _EPROFILE_MA_CHANGEPASSWORD);
 
 if (!isset($_POST['submit'])) {
     //show change password form
     include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-    $form = new XoopsThemeForm(_PROFILE_MA_CHANGEPASSWORD, 'userinfo', $_SERVER['REQUEST_URI'], 'post', true);
-    $form->addElement(new XoopsFormPassword(_PROFILE_MA_OLDPASSWORD, 'oldpass', 15, 50), true);
-    $form->addElement(new XoopsFormPassword(_PROFILE_MA_NEWPASSWORD, 'newpass', 15, 50), true);
+    $form = new XoopsThemeForm(_EPROFILE_MA_CHANGEPASSWORD, 'userinfo', $_SERVER['REQUEST_URI'], 'post', true);
+    $form->addElement(new XoopsFormPassword(_EPROFILE_MA_OLDPASSWORD, 'oldpass', 15, 50), true);
+    $form->addElement(new XoopsFormPassword(_EPROFILE_MA_NEWPASSWORD, 'newpass', 15, 50), true);
     $form->addElement(new XoopsFormPassword(_US_VERIFYPASS, 'vpass', 15, 50), true);
     $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
     $form->assign($xoopsTpl);
-    $xoBreadcrumbs[] = array('title' => _PROFILE_MA_CHANGEPASSWORD);
+    $xoBreadcrumbs[] = array('title' => _EPROFILE_MA_CHANGEPASSWORD);
 
 } else {
     $config_handler =& xoops_gethandler('config');
@@ -48,7 +49,7 @@ if (!isset($_POST['submit'])) {
     $vpass = @$myts->stripSlashesGPC(trim($_POST['vpass']));
     $errors = array();
     if (md5($oldpass) != $xoopsUser->getVar('pass', 'n')) {
-        $errors[] = _PROFILE_MA_WRONGPASSWORD;
+        $errors[] = _EPROFILE_MA_WRONGPASSWORD;
     }
     if (strlen($password) < $xoopsConfigUser['minpass']) {
         $errors[] = sprintf(_US_PWDTOOSHORT, $xoopsConfigUser['minpass']);
@@ -65,9 +66,9 @@ if (!isset($_POST['submit'])) {
         
         $member_handler =& xoops_gethandler('member');
         if ($member_handler->insertUser($xoopsUser)) {
-            $msg = _PROFILE_MA_PASSWORDCHANGED;
+            $msg = _EPROFILE_MA_PASSWORDCHANGED;
         } else {
-            $msg = _PROFILE_MA_ERRORDURINGSAVE;
+            $msg = _EPROFILE_MA_ERRORDURINGSAVE;
         }
     }
     redirect_header(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoopsUser->getVar('uid'), 2, $msg);

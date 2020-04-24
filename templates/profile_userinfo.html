@@ -1,15 +1,12 @@
-<{includeq file="db:profile_breadcrumbs.html"}>
+<{includeq file="db:profile_header.html"}>
 <{if $social_isactivte}>
-<div class="profile-profile-group1">
+	<div id="profile-profile-group1">
 <{else}>
-<div class="profile-profile-group3">
+	<div id="profile-profile-group3">
 <{/if}>
-    <div class="profile-visual odd">
-        <div class="profile-title head">
-            <{$smarty.const._PROFILE_MA_USERINFO}> :: <{$uname}>
-        </div>
+    <div class="profile-visual odd">        
         <div class="profile-avatar">
-            <{if $avatar!="" && $avatar!="blank.gif" }>
+            <{if $avatar != "" && $avatar != "blank.gif" }>
                 <img src="<{$avatar}>" alt="" border="0" />
             <{ else }>
                 <img src="images/noavatar.gif" alt="" border="0" />
@@ -26,11 +23,11 @@
                     <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/edituser.php"><{$smarty.const._US_EDITPROFILE}>
                     </a>
                     <br /><img class="social-nav-bar-icon" alt="" src="images/password.gif" />
-                    <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/changepass.php"><{$smarty.const._PROFILE_MA_CHANGEPASSWORD}>
+                    <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/changepass.php"><{$smarty.const._EPROFILE_MA_CHANGEPASSWORD}>
                     </a>
                     <{if $user_changeemail}>
                         <br /><img class="social-nav-bar-icon" alt="" src="images/email.gif" />
-                        <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/changemail.php"><{$smarty.const._PROFILE_MA_CHANGEMAIL}>
+                        <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/changemail.php"><{$smarty.const._EPROFILE_MA_CHANGEMAIL}>
                         </a>
                     <{/if}>
                     <br /><img class="social-nav-bar-icon" alt="" src="images/avatar.gif" />
@@ -38,67 +35,72 @@
                     </a>
                 <{/if}>
             </div>
-            <{if $isOwner != true && $xoops_isuser == true}>
-                <br /><br />
+
+            <{if !$isOwner && ( $perms.emails || $perms.profile_messages ) }>
                 <div id="profile-nav-bar">
+                  <{ if $perms.profile_messages }>
                     <ul class="profile-tabs-nav">
-                        <li><a href="javascript:openWithSelfMain('<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$uid}>', 'pmlite', 650, 500);"> <span><img class="profile-nav-bar-icon" alt="" src="images/email.gif" /> <{$sendpm_touser}></span></a> </li><br />
+                      <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/viewpmsg.php?send_messages=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/email.gif" /> <{$sendpm_touser}></span></a> </li><br />
                     </ul>
                     <br /> 
-                    <{if $allow_emails == 1}>
-                        <ul class="profile-tabs-nav">
-                            <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/mailto.php?toid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/email.gif" /> <{$sendmail_touser}></span></a> </li>
-                        </ul> 
-                    <{/if}>
+                  <{/if}>
+                  <{ if $perms.emails }>
+                    <ul class="profile-tabs-nav">
+                      <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/mailto.php?toid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/email.gif" /> <{$sendmail_touser}></span></a> </li>
+                    </ul> 
+                  <{/if}>
                 </div>
             <{/if}> 
             <br />
         </div>
     </div>
+    <div style="clear: both;"></div>
     <{if $categories}>	
         <div class="profile-visual odd">
-        <{foreach item=category from=$categories}>
-            <{if isset($category.fields)}>	    
-                <div class="profile-list-category" id="profile-category-<{$category.cat_id}>">
-                    <div class="profile-title head"><{$category.cat_title}></div>
-                    <{foreach item=field from=$category.fields}>
-                        <div class="<{ cycle values="odd,even"}>">
-                            <span class="profileinfo-label"><{$field.title}></span>
-                            <span class="profileinfo-value"><{$field.value}></span>
-                        </div>
-                    <{/foreach}>
-                </div>
-            <{/if}>
-        <{/foreach}>
-        </div>
+			<{foreach item=category from=$categories}>
+				<{if isset($category.fields)}>	    
+					<div class="profile-list-category" id="profile-category-<{$category.cat_id}>">
+						<div class="profile-title head"><{$category.cat_title}></div>
+						<{foreach item=field from=$category.fields}>
+							<div class="<{cycle values='odd,even'}>">
+								<span class="profileinfo-label"><{$field.title}></span>
+								<span class="profileinfo-value"><{$field.value}></span>
+								<div style="clear: both;"></div>
+							</div>							
+						<{/foreach}>
+					</div>
+				<{/if}>
+			<{/foreach}>
+        </div>		
     <{/if}>
+    <div style="clear: both;"></div>    
 </div>
 <{if $social_isactivte}>  
-    <div class="profile-profile-group2">            
-        <{ if $visit_user }>
+    <div id="profile-profile-group2">            
+        <{ if $perms.profile_stats}>
             <div class="profile-visual odd">
                 <div class="profile-title head"><{ $myvisit_text }></div>
                 <div class="profile-visitor odd">  
                     <{section name=i loop=$visit_user}>
-                        <a href="<{$xoops_url}>/modules/profile/userinfo.php?uid=<{$visit_user[i].uid}>" title="<{$visit_user[i].name}>"><{$visit_user[i].name}></a>,&nbsp;
+                        <a href="<{$xoops_url}>/modules/eprofile/userinfo.php?uid=<{$visit_user[i].uid}>" title="<{$visit_user[i].name}>"><{$visit_user[i].name}></a>,&nbsp;
                     <{sectionelse}>
                         <div class="profil-no-entry">
-                            <{$smarty.const._PROFILE_MA_NOENTRYEXISTS}>
+                            <{$smarty.const._EPROFILE_MA_NOENTRYEXISTS}>
                         </div>
                     <{/section}>
                 </div>
             </div>
         <{ /if }>
-        <{ if $myfriends_text }>
+        <{ if $myfriends }>
             <div class="profile-visual odd">
                 <div class="profile-title head"><{ $myfriends_text }></div>
                 <{section name=i loop=$myfriends}>
                     <div class="profil-friend-preview">  
-                        <p><a href="<{$xoops_url}>/modules/profile/userinfo.php?uid=<{$myfriends[i].uid}>" title="<{$myfriends[i].name}>"><{$myfriends[i].name}><br /><{$myfriends[i].avatar}></a></p>
+                        <p><a href="<{$xoops_url}>/modules/eprofile/userinfo.php?uid=<{$myfriends[i].uid}>" title="<{$myfriends[i].name}>"><{$myfriends[i].name}><br /><{$myfriends[i].avatar}></a></p>
                     </div>
                 <{sectionelse}>
                     <div class="profil-no-entry">
-                        <{$smarty.const._PROFILE_MA_NOENTRYEXISTS}>
+                        <{$smarty.const._EPROFILE_MA_NOENTRYEXISTS}>
                     </div>
                 <{/section}>
             </div>
@@ -113,7 +115,7 @@
                         <hr>                        
                     <{foreachelse}>
                         <div class="profil-no-entry">
-                            <{$smarty.const._PROFILE_MA_NOENTRYEXISTS}>
+                            <{$smarty.const._EPROFILE_MA_NOENTRYEXISTS}>
                         </div>
                     <{/foreach}>
                 </div>
@@ -129,12 +131,12 @@
                         <param name="wmode" value="transparent"></param>
                         <embed src="http://www.youtube.com/v/<{$myvideos[i].pic}>" type="application/x-shockwave-flash" wmode="transparent" width="200" height="170"></embed>
                         </object><br />             
-                        <a href="<{$xoops_url}>/modules/profile/videos.php?uid=<{$uid}>" title="<{$myvideos[i].title}>"> <{$myvideos[i].url}></a>
+                        <a href="<{$xoops_url}>/modules/eprofile/videos.php?uid=<{$uid}>" title="<{$myvideos[i].title}>"> <{$myvideos[i].url}></a>
                         </p>
                     </div>              
                 <{sectionelse}>
                     <div class="profil-no-entry">
-                        <{$smarty.const._PROFILE_MA_NOENTRYEXISTS}>
+                        <{$smarty.const._EPROFILE_MA_NOENTRYEXISTS}>
                     </div>
                 <{/section}>
 	        </div>
@@ -148,7 +150,7 @@
                     </div>
                 <{sectionelse}>
                     <div class="profil-no-entry">
-                        <{$smarty.const._PROFILE_MA_NOENTRYEXISTS}>
+                        <{$smarty.const._EPROFILE_MA_NOENTRYEXISTS}>
                     </div>
                 <{/section}>
 	        </div>
@@ -162,9 +164,9 @@
         <div class="profile-search-results">
             <div class="profile-title head"><{$recent_activity}></div>
             <{foreach item=module from=$modules name="search_results"}>
-                <div class="profileinfo-value" id="profileinfo-value-<{$smarty.foreach.search_results.iteration}>" >
+                <div class="profile-list-activity" id="profileinfo-value-<{$smarty.foreach.search_results.iteration}>" >
                     <div class="profile-title head"><{$module.name}></div>
-                    <div class="profileinfo-value" id="social-profile-search-module-results-<{$smarty.foreach.search_results.iteration}>">	
+                    <div class="profile-list-activity" id="profile-profile-search-module-results-<{$smarty.foreach.search_results.iteration}>">	
                         <{foreach item=result from=$module.results}>
                             <div class="<{ cycle values="odd,even"}>">  
                                 <img src="<{$result.image}>" alt="<{$module.name}>" />

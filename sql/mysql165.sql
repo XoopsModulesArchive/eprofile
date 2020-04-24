@@ -8,7 +8,7 @@ CREATE TABLE `profile_audio` (
   `data_creation` date NOT NULL,
   `data_update` date NOT NULL,
   PRIMARY KEY  (`audio_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE `profile_videos` (
   `video_id` int(11) NOT NULL auto_increment,
@@ -17,7 +17,7 @@ CREATE TABLE `profile_videos` (
   `youtube_code` text NOT NULL,
   `main_video` varchar(1) NOT NULL,
   PRIMARY KEY  (`video_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 ALTER TABLE `priv_msgs`  
   ADD `from_delete` tinyint(1) unsigned     NOT NULL default '1',

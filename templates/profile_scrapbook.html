@@ -1,36 +1,42 @@
-<{includeq file="db:profile_breadcrumbs.html"}>
+<{includeq file="db:profile_header.html"}>
+<div class="profile-title head"><{$section_name}></div>
+<br />
 <div class="profile-visual odd">
-  	<div class="profile-title head"><{$section_name}></div>
-  	<{ if $allow_send_scraps && $add_scraps}>
-    	<div class="profile-scraps-form">
-      		<p><{$sendscraps_text}></p>
-    	</div>
-    <{else}>
+  <{ if $allow_send_scraps && $add_scraps}>
+   	<div class="profile-scraps-form">
+   		<p><{$sendscraps_text}></p>
+   	</div>
+  <{else}>
 		<{ if $allow_send_scraps }>
-        	<ul class="profile-tabs-nav"> 
-	      		<li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/scrapbook.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/scrapbook.gif" /> <{$smarty.const._PROFILE_MA_MAILSUBJECTNEWSCRAP}></span></a> </li>    
-	    	</ul>
-	    	<br />
-    	<{/if}>
-    	<{ if $scraps }>	
-            <{section name=i loop=$scraps}>		
-                <div class="profile-list-activity <{cycle values='odd,even'}>">
+      <ul class="profile-tabs-nav"> 
+	    	<li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/scrapbook.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/scrapbook.gif" /> <{$smarty.const._EPROFILE_MA_MAILSUBJECTNEWSCRAP}></span></a> </li>    
+	    </ul>
+	    <br />
+    <{/if}>
+    <{ if $scraps }>	
+      <{section name=i loop=$scraps}>		
+        <div class="profile-list-activity <{cycle values='odd,even'}>">
 					<div class="profile-scrap-avatarandname">
-                         <{ if $isOwner}> 
-                            <div style="width:100%;">
-                                <a href="scrapbook.php?uid=<{$uid}>&amp;mainscrap=delete&amp;scrap_id=<{$scraps[i].id}>"><input value="<{$scraps[i].id}>" type="image" id="scrap_idimage" name="scrap_idimage" src="images/dele.gif" />	</a>
-                                &nbsp;&nbsp;
-                                <a href="scrapbook.php?uid=<{$uid}>&amp;mainscrap=edit&amp;scrap_id=<{$scraps[i].id}>"><input value="<{$scraps[i].id}>" type="image" id="scrap_idimage" name="scrap_idimage" src="images/edit.gif" /></a>
-                            </div>
+            <{ if $isOwner}> 
+              <div style="width:100%;">
+                <a href="scrapbook.php?uid=<{$uid}>&amp;mainscrap=delete&amp;scrap_id=<{$scraps[i].id}>"><input value="<{$scraps[i].id}>" type="image" id="scrap_idimage" name="scrap_idimage" src="images/dele.gif" />	</a>
+                &nbsp;&nbsp;
+                <a href="scrapbook.php?uid=<{$uid}>&amp;mainscrap=edit&amp;scrap_id=<{$scraps[i].id}>"><input value="<{$scraps[i].id}>" type="image" id="scrap_idimage" name="scrap_idimage" src="images/edit.gif" /></a>
+              </div>
 						<{ /if}>
 						<p>
-							&nbsp;<a href="userinfo.php?uid=<{$scraps[i].uid}>" ><{$scraps[i].uname}></a>
+							&nbsp;
+							<{if $scraps[i].uid > 0}>
+								<a href="userinfo.php?uid=<{$scraps[i].uid}>" ><{$scraps[i].uname}></a>
+							<{else}>
+								<{$scraps[i].uname}>
+							<{/if}>
 							<br /><{$scraps[i].date}>
-						</p>						
-						<{ if $scraps[i].user_avatar=="blank.gif" }>
+						</p>		
+						<{ if $scraps[i].user_avatar == "blank.gif" || $scraps[i].user_avatar == "" }>
 							<img src="images/noavatar.gif" alt="" /> 	
 						<{ else }>
-							<img width="100"  class="avatar_scrap" src="../../uploads/<{$scraps[i].user_avatar}>" alt="" /> 
+							<img width="100" class="avatar_scrap" src="../../uploads/<{$scraps[i].user_avatar}>" alt="" /> 
 						<{/if}>
 					</div>
                     <div class="profile-scrap-details">
@@ -38,10 +44,10 @@
 						&nbsp;<{$scraps[i].text}>
         			</div>                    
      			</div>
-                <hr style="clear: both;" />                
+                <div style="clear: both;" />                
    			<{/section}>
    		<{ else }>
-     		<h2><{$smarty.const._PROFILE_MA_NOSCRAPSYET}></h2>
+     		<h2><{$smarty.const._EPROFILE_MA_NOSCRAPSYET}></h2>
    		<{ /if }> 
 	<{/if}>
 </div>

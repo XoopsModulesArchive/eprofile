@@ -15,24 +15,24 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: install.php 2537 2008-11-29 12:03:30Z dhcst $
+ * @version         $Id: install.php 35 2014-02-08 17:37:13Z alfred $
  */
 
-function xoops_module_install_profile($module) 
+function xoops_module_install_eprofile($module) 
 {
-    global $module_id;
+    global $module_id, $xoopsDB;
     $module_id = $module->getVar('mid');
     xoops_loadLanguage('user');
     
     // Create registration steps
-    profile_install_addStep(_PROFILE_MI_STEP_BASIC, '', 1, 1);
-    profile_install_addStep(_PROFILE_MI_STEP_COMPLEMENTARY, '', 2, 1);
+    profile_install_addStep(_EPROFILE_MI_STEP_BASIC, '', 1, 1);
+    profile_install_addStep(_EPROFILE_MI_STEP_COMPLEMENTARY, '', 2, 1);
     
     // Create categories
-    profile_install_addCategory(_PROFILE_MI_CATEGORY_PERSONAL, 1);
-    profile_install_addCategory(_PROFILE_MI_CATEGORY_MESSAGING, 2);
-    profile_install_addCategory(_PROFILE_MI_CATEGORY_SETTINGS, 3);
-    profile_install_addCategory(_PROFILE_MI_CATEGORY_COMMUNITY, 4);
+    profile_install_addCategory(_EPROFILE_MI_CATEGORY_PERSONAL, 1);
+    profile_install_addCategory(_EPROFILE_MI_CATEGORY_MESSAGING, 2);
+    profile_install_addCategory(_EPROFILE_MI_CATEGORY_SETTINGS, 3);
+    profile_install_addCategory(_EPROFILE_MI_CATEGORY_COMMUNITY, 4);
     
     
     // Add user fields
@@ -68,19 +68,45 @@ function xoops_module_install_profile($module)
     profile_install_addField('user_viewemail', _US_ALLOWVIEWEMAIL, '', 3, 'yesno', 3, 1, 1, array(), 2, 1, false);
     profile_install_addField('attachsig', _US_SHOWSIG, '', 3, 'yesno', 3, 2, 1, array(), 0, 1, false);
     profile_install_addField('user_mailok', _US_MAILOK, '', 3, 'yesno', 3, 3, 1, array(), 2, 1, false);
-    profile_install_addField('theme', _PROFILE_MA_THEME, '', 3, 'theme', 1, 4, 1, array(), 0, 0, false);
+    profile_install_addField('theme', _EPROFILE_MA_THEME, '', 3, 'theme', 1, 4, 1, array(), 0, 0, false);
     profile_install_addField('umode', _US_CDISPLAYMODE, '', 3, 'select', 3, 5, 1, $umode_options, 0, 0, false);
     profile_install_addField('uorder', _US_CSORTORDER, '', 3, 'select', 3, 6, 1, $uorder_options, 0, 0, false);
     profile_install_addField('notify_mode', _NOT_NOTIFYMODE, '', 3, 'select', 3, 7, 1, $notify_mode_options, 0, 0, false);
     profile_install_addField('notify_method', _NOT_NOTIFYMETHOD, '', 3, 'select', 3, 8, 1, $notify_method_options, 0, 0, false);
 
-    profile_install_addField('url', _PROFILE_MI_URL_TITLE, '', 4, 'textbox', 1, 1, 1, array(), 2, 255);
+    profile_install_addField('url', _US_WEBSITE, '', 4, 'textbox', 1, 1, 1, array(), 2, 255);
     profile_install_addField('posts', _US_POSTS, '', 4, 'textbox', 3, 2, 0, array(), 0, 255);
     profile_install_addField('rank', _US_RANK, '', 4, 'rank', 3, 3, 2, array(), 0, 0);
     profile_install_addField('last_login', _US_LASTLOGIN, '', 4, 'datetime', 3, 4, 0, array(), 0, 10);
     profile_install_addField('user_sig', _US_SIGNATURE, '', 4, 'textarea', 1, 5, 1, array(), 0, 0);
 	   
     profile_install_initializeProfiles();
+    
+    $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD  `from_delete` INT( 2 ) NOT NULL"
+    );
+    
+    $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD  `to_delete` INT( 2 ) NOT NULL"
+    );
+    
+    $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD  `to_save` INT( 2 ) NOT NULL"
+    );
+    
+    $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD  `from_save` INT( 2 ) NOT NULL"
+    );
+    
+    $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("users") .
+        "   CHANGE `user_avatar` `user_avatar` VARCHAR( 250 )"
+    );
+       
     return true;
 }
 
@@ -111,7 +137,7 @@ function profile_install_addField($name, $title, $description, $category, $type,
 {
     global $xoopsDB, $module_id;
 
-    $profilefield_handler = xoops_getModuleHandler('field', 'profile');
+    $profilefield_handler = xoops_getModuleHandler('field', 'eprofile');
     $obj = $profilefield_handler->create();
     $obj->setVar('field_name', $name, true);
     $obj->setVar('field_moduleid', $module_id, true);
@@ -135,39 +161,6 @@ function profile_install_addField($name, $title, $description, $category, $type,
     profile_install_setPermissions($obj->getVar('field_id'), $module_id, $canedit, $visible);
     
     return true;
-    /*
-    //$xoopsDB->query("INSERT INTO ".$xoopsDB->prefix("profile_field")." VALUES (0, {$category}, '{$type}', {$valuetype}, '{$name}', " . $xoopsDB->quote($title) . ", " . $xoopsDB->quote($description) . ", 0, {$length}, {$weight}, '', 1, {$canedit}, 1, 0, '" . serialize($options) . "', {$step_id})");
-    $gperm_itemid = $obj->getVar('field_id');
-    unset($obj);
-    $gperm_modid = $module_id;
-    $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . 
-        " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " .
-        " VALUES " . 
-        ($canedit ?
-            " (" . XOOPS_GROUP_ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
-        : "" ) .
-        ($canedit == 1 ?
-            " (" . XOOPS_GROUP_USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), " 
-        : "" ) .
-        " (" . XOOPS_GROUP_ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search'), " .
-        " (" . XOOPS_GROUP_USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search') " .
-        " ";
-    $xoopsDB->query($sql);
-    
-    if ($visible) {
-        $sql = "INSERT INTO " . $xoopsDB->prefix("profile_visibility") . 
-            " (field_id, user_group, profile_group) " .
-            " VALUES " . 
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_ADMIN . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_USERS . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_ADMIN . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_USERS . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_ADMIN . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_USERS . ")" .
-            " ";
-        $xoopsDB->query($sql);
-    }
-    */
 }
 
 function profile_install_setPermissions($field_id, $module_id, $canedit, $visible)

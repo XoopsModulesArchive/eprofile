@@ -16,12 +16,8 @@
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: footer.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: footer.php 4 2012-08-20 08:48:43Z alfred $
  */
-
-if (count($xoBreadcrumbs) > 1) {
-    $xoopsTpl->assign('xoBreadcrumbs', $xoBreadcrumbs);
-}
 
 include $GLOBALS['xoops']->path('footer.php');
 ?>

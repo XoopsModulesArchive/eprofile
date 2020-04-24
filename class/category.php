@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: category.php 2021 2008-08-31 02:02:45Z phppp $
+ * @version         $Id: category.php 28 2013-09-06 21:58:22Z alfred $
  */
 if (!defined("XOOPS_ROOT_PATH")) {
     die("XOOPS root path not defined");
@@ -24,20 +24,17 @@ if (!defined("XOOPS_ROOT_PATH")) {
  * @package kernel
  * @copyright copyright &copy; 2000 XOOPS.org
  */
-class ProfileCategory extends XoopsObject
+class EprofileCategory extends XoopsObject
 {
     function __construct() 
     {
-        $this->initVar('cat_id', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('cat_title', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('cat_description', XOBJ_DTYPE_TXTAREA);
-        $this->initVar('cat_weight', XOBJ_DTYPE_INT);
-    }
+        parent::__construct();
+        $this->initVar('cat_id', 			XOBJ_DTYPE_INT, null, true);
+        $this->initVar('cat_title', 		XOBJ_DTYPE_TXTBOX);
+        $this->initVar('cat_description', 	XOBJ_DTYPE_TXTAREA);
+        $this->initVar('cat_weight', 		XOBJ_DTYPE_INT);
+    }   
     
-    function ProfileCategory()
-    {
-        $this->__construct();
-    }
     
     /**
     * Get {@link XoopsThemeForm} for adding/editing categories
@@ -51,35 +48,46 @@ class ProfileCategory extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        $title = $this->isNew() ? sprintf(_PROFILE_AM_ADD, _PROFILE_AM_CATEGORY) : sprintf(_PROFILE_AM_EDIT, _PROFILE_AM_CATEGORY);
+        $title = $this->isNew() ? sprintf(_EPROFILE_AM_ADD, _EPROFILE_AM_CATEGORY) : sprintf(_EPROFILE_AM_EDIT, _EPROFILE_AM_CATEGORY);
 
         include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
 
         $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
-        $form->addElement(new XoopsFormText(_PROFILE_AM_TITLE, 'cat_title', 35, 255, $this->getVar('cat_title')));
+        $form->addElement(new XoopsFormText(_EPROFILE_AM_TITLE, 'cat_title', 35, 255, $this->getVar('cat_title')));
         if (!$this->isNew()) {
             //Load groups
             $form->addElement(new XoopsFormHidden('id', $this->getVar('cat_id')));
         }
-        $form->addElement(new XoopsFormTextArea(_PROFILE_AM_DESCRIPTION, 'cat_description', $this->getVar('cat_description', 'e')));
-        $form->addElement(new XoopsFormText(_PROFILE_AM_WEIGHT, 'cat_weight', 35, 35, $this->getVar('cat_weight', 'e')));
+        $form->addElement(new XoopsFormTextArea(_EPROFILE_AM_DESCRIPTION, 'cat_description', $this->getVar('cat_description', 'e')));
+        $form->addElement(new XoopsFormText(_EPROFILE_AM_WEIGHT, 'cat_weight', 35, 35, $this->getVar('cat_weight', 'e')));
 
         $form->addElement(new XoopsFormHidden('op', 'save'));
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
     }
+	
 }
 
 /**
  * @package kernel
  * @copyright copyright &copy; 2000 XOOPS.org
  */
-class ProfileCategoryHandler extends XoopsPersistableObjectHandler
+class EprofileCategoryHandler extends XoopsPersistableObjectHandler
 {
     function __construct(&$db)
     {
-        parent::__construct($db, "profile_category", "profilecategory", "cat_id", 'cat_title');
+        parent::__construct($db, "profile_category", "Eprofilecategory", "cat_id", 'cat_title');
     }
+
+	function getNewId()
+	{
+		$sql = "SELECT cat_id FROM " . $this->db->prefix("profile_category") . " ORDER BY cat_id DESC LIMIT 1";
+		$result = $this->db->query($sql);
+		list($r_id) = $this->db->fetchRow($result);
+		$r_id++;
+		return $r_id;
+	}
+
 }
 ?>

@@ -15,29 +15,26 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: visibility.php 2637 2009-01-10 05:19:14Z phppp $
+ * @version         $Id: visibility.php 3 2012-08-16 20:15:01Z alfred $
  */
 
-class ProfileVisibility extends XoopsObject
+class EprofileVisibility extends XoopsObject
 {
     function __construct()
     {
-        $this->initVar('field_id', XOBJ_DTYPE_INT);
+        parent::__construct();
+		$this->initVar('field_id', XOBJ_DTYPE_INT);
         $this->initVar('user_group', XOBJ_DTYPE_INT);
         $this->initVar('profile_group', XOBJ_DTYPE_INT);
     }
 
-    function ProfileVisibility()
-    {
-        $this->__construct();
-    }
 }
 
-class ProfileVisibilityHandler extends XoopsPersistableObjectHandler
+class EprofileVisibilityHandler extends XoopsPersistableObjectHandler
 {
     function __construct($db)
     {
-        parent::__construct($db, 'profile_visibility', 'profilevisibility', 'field_id');
+        parent::__construct($db, 'profile_visibility', 'Eprofilevisibility', 'field_id');
     }
 
     /**

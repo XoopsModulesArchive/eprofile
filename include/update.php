@@ -14,10 +14,10 @@
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: update.php 2215 2008-10-01 07:10:34Z phppp $
+ * @version         $Id: update.php 9 2013-02-23 19:17:20Z alfred $
  */
 
-function xoops_module_update_profile(&$module, $oldversion = null) 
+function xoops_module_update_eprofile(&$module, $oldversion = null) 
 {
     GLOBAL $xoopsDB;
     
@@ -125,7 +125,28 @@ function xoops_module_update_profile(&$module, $oldversion = null)
     if ($oldversion < 169) {      
         // Create new tables for new profile module
         $xoopsDB->queryFromFile(XOOPS_ROOT_PATH . "/modules/" . $module->getVar('dirname', 'n') . "/sql/mysql169.sql");		
-    }     
+    }    
+
+	if ($oldversion < 180) {      
+        // Create new tables for new profile module
+        $xoopsDB->queryFromFile(XOOPS_ROOT_PATH . "/modules/" . $module->getVar('dirname', 'n') . "/sql/mysql180.sql");		
+        
+        $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD `from_delete` INT( 2 ) NOT NULL"
+        );
+    
+        $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD `to_delete` INT( 2 ) NOT NULL"
+        );
+    
+        $xoopsDB->queryF(
+        "   ALTER TABLE " . $xoopsDB->prefix("priv_msgs") .
+        "   ADD `to_save` INT( 2 ) NOT NULL"
+        );
+    }  
+ 
     $profile_handler =& xoops_getModuleHandler("profile", $module->getVar('dirname', 'n'));
     $profile_handler->cleanOrphan($xoopsDB->prefix("users"), "uid", "profile_id");
     $field_handler =& xoops_getModuleHandler('field', $module->getVar('dirname', 'n'));

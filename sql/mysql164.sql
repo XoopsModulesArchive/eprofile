@@ -8,7 +8,7 @@ CREATE TABLE `profile_pictures` (
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `private` tinyint(1) NOT NULL,
   PRIMARY KEY  (`pic_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE `profile_visitors` (
   `visit_id` int(11) NOT NULL auto_increment,
@@ -17,5 +17,5 @@ CREATE TABLE `profile_visitors` (
   `uname_visitor` varchar(30) NOT NULL,
   `datetime` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`visit_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 

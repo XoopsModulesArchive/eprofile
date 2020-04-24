@@ -1,12 +1,11 @@
-<div><a href="field.php?op=new"><{$smarty.const._ADD}> <{$smarty.const._PROFILE_AM_FIELD}></a></div>
-<form action="field.php" method="post" id="fieldform">
+<form action="admin_field.php" method="post" id="fieldform">
     <table>
-        <th><{$smarty.const._PROFILE_AM_NAME}></th>
-        <th><{$smarty.const._PROFILE_AM_TITLE}></th>
-        <th><{$smarty.const._PROFILE_AM_DESCRIPTION}></th>
-        <th><{$smarty.const._PROFILE_AM_TYPE}></th>
-        <th><{$smarty.const._PROFILE_AM_CATEGORY}></th>
-        <th><{$smarty.const._PROFILE_AM_WEIGHT}></th>
+        <th><{$smarty.const._EPROFILE_AM_NAME}></th>
+        <th><{$smarty.const._EPROFILE_AM_TITLE}></th>
+        <th><{$smarty.const._EPROFILE_AM_DESCRIPTION}></th>
+        <th><{$smarty.const._EPROFILE_AM_TYPE}></th>
+        <th><{$smarty.const._EPROFILE_AM_CATEGORY}></th>
+        <th><{$smarty.const._EPROFILE_AM_WEIGHT}></th>
         <th></th>
         <{foreach item=category from=$fieldcategories}>
             <{foreach item=field from=$category}>
@@ -30,10 +29,10 @@
                             <input type="hidden" name="oldweight[<{$field.field_id}>]" value="<{$field.field_weight}>" />
                             <input type="hidden" name="oldcat[<{$field.field_id}>]" value="<{$field.cat_id}>" />
                             <input type="hidden" name="field_ids[]" value="<{$field.field_id}>" />
-                            <a href="field.php?id=<{$field.field_id}>" title="<{$smarty.const._EDIT}>"><{$smarty.const._EDIT}></a>
+                            <a href="admin_field.php?op=edit&amp;id=<{$field.field_id}>" title="<{$smarty.const._EDIT}>"><{$smarty.const._EDIT}></a>
                         <{/if}>
                         <{if $field.canDelete}>
-                            &nbsp;<a href="field.php?op=delete&amp;id=<{$field.field_id}>" title="<{$smarty.const._DELETE}>"><{$smarty.const._DELETE}></a>
+                            &nbsp;<a href="admin_field.php?op=delete&amp;id=<{$field.field_id}>" title="<{$smarty.const._DELETE}>"><{$smarty.const._DELETE}></a>
                         <{/if}>
                     </td>
                 </tr>

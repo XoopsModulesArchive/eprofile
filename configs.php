@@ -1,5 +1,5 @@
 <?php
-// $Id: configs.php,v 1.9 2009/02/01 22:34:08 alfred Exp $
+// $Id: configs.php 32 2014-02-08 10:30:45Z alfred $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -24,73 +24,69 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include 'header.php';
 
-if ( !is_object($GLOBALS['xoopsUser']) ) {
-    redirect_header(XOOPS_URL, 3, _NOPERM);
-    exit();
+if ( !$isOwner ) {
+  redirect_header(XOOPS_URL, 3, _NOPERM);
+  exit();
 }
 
-$profileconfigs_handler = xoops_getmodulehandler('configs');
-$criteria = new Criteria('config_uid',$xoopsUser->uid());
-$configs = $profileconfigs_handler->getObjects($criteria);
-$config = ($configs) ? $configs[0] : null;
+$config = getConfig($uid);
 
 if (!isset($_POST['button'])) {
-    $xoopsOption['template_main'] = 'profile_configs.html';
-    include $GLOBALS['xoops']->path('header.php');  
-    include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'social.php';
-    $xoBreadcrumbs[] = array('title' => _PROFILE_MA_CONFIGS);
-    $xoopsOption['xoops_pagetitle'] = sprintf(_US_ALLABOUT, $GLOBALS['xoopsUser']->getVar('uname'))." :: "._PROFILE_MA_CONFIGS;        
-    $xoopsTpl->assign('user_ownpage', true);
-	$xoopsTpl->assign('user_uid', $xoopsUser->uid());
-	$xoopsTpl->assign('user_candelete', ($xoopsConfigUser['self_delete'] == 1) ? true:false);
-	$xoopsTpl->assign('user_changeemail', $xoopsConfigUser['allow_chgmail']);
-	$xoopsTpl->assign('section_name', _PROFILE_MA_CONFIGS);
-	
-	$xoopsTpl->assign('pgen', 	(($config) ? $config->getVar('profile_general') : 1));
-	$xoopsTpl->assign('psta', 	(($config) ? $config->getVar('profile_stats')   : 1));
-	$xoopsTpl->assign('scr' , 	(($config) ? $config->getVar('scraps') 			: 0));
-	$xoopsTpl->assign('scrnot', (($config) ? $config->getVar('scraps_notify')	: 0));
-	$xoopsTpl->assign('sscr', 	(($config) ? $config->getVar('sendscraps')   	: 0)); 
-	$xoopsTpl->assign('mail', 	(($config) ? $config->getVar('emails') 			: 0)); 
-	$xoopsTpl->assign('fri',  	(($config) ? $config->getVar('friends') 		: 0)); 
-	$xoopsTpl->assign('frinot', (($config) ? $config->getVar('friends_notify')	: 0)); 
-	$xoopsTpl->assign('pic', 	(($config) ? $config->getVar('pictures')		: 0));
-	$xoopsTpl->assign('vid', 	(($config) ? $config->getVar('videos')			: 0));
-	$xoopsTpl->assign('aud', 	(($config) ? $config->getVar('audio')			: 0));
-	$xoopsTpl->assign('trib', 	(($config) ? $config->getVar('tribes')			: 0));
-    $xoopsTpl->assign('mess', 	(($config) ? $config->getVar('profile_messages'): 1));
-    $xoopsTpl->assign('fb', 	(($config) ? $config->getVar('profile_facebook'): 0));
-	if (!$config) $xoopsTpl->assign('newconfig',_PROFILE_MA_NOCONFIGS);
-	include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+  $xoopsOption['template_main'] = 'profile_configs.html';
+  include $GLOBALS['xoops']->path('header.php');  
+  $xoopsOption['xoops_pagetitle'] = sprintf(_US_ALLABOUT, $GLOBALS['xoopsUser']->getVar('uname'))." :: "._EPROFILE_MA_CONFIGS;        
+	$xoopsTpl->assign('section_name', _EPROFILE_MA_CONFIGS);	
+  include_once "include/themeheader.php";
+	$xoopsTpl->assign('permsm',	$xoopsModuleConfig);
+	$xoopsTpl->assign('pgen', 	$config['profile_general']);
+	$xoopsTpl->assign('psta', 	$config['profile_stats']);
+	$xoopsTpl->assign('scr' , 	$config['scraps']);
+	$xoopsTpl->assign('scrnot', $config['scraps_notify']);
+	$xoopsTpl->assign('sscr', 	$config['sendscraps']);
+	$xoopsTpl->assign('mail', 	$config['emails']); 
+	$xoopsTpl->assign('fri',  	$config['friends']); 
+	$xoopsTpl->assign('frinot', $config['friends_notify']); 
+	$xoopsTpl->assign('pic', 	  $config['pictures']);
+	$xoopsTpl->assign('vid', 	  $config['videos']);
+	$xoopsTpl->assign('aud', 	  $config['audio']);
+	//$xoopsTpl->assign('trib', 	$config['tribes']);
+  $xoopsTpl->assign('mess',   $config['profile_messages']);
+	$xoopsTpl->assign('messnot',$config['messages_notify']);
+  $xoopsTpl->assign('tribnot',$config['tribes_notify']);
+	if (!$config['isConfig']) $xoopsTpl->assign('newconfig',_EPROFILE_MA_NOCONFIGS);
+	include 'footer.php';
+  exit();
 } else {
-  if (!($GLOBALS['xoopsSecurity']->check())){
-	redirect_header('configs.php', 3, _PROFILE_MA_EXPIRED);
-  }
-  if ($config) {
-    $config->unsetNew();
-  } else {
-    $config = $profileconfigs_handler->create();	
-  }
-  $config->setVar('config_uid',$xoopsUser->getVar("uid"));
-  if (isset($_POST['gen'])) $config->setVar('profile_general',$_POST['gen']);
-  if (isset($_POST['stat'])) $config->setVar('profile_stats',$_POST['stat']);
-  if (isset($_POST['scraps'])) $config->setVar('scraps',$_POST['scraps']);
-  $config->setVar('scraps_notify',(isset($_POST['scrapsnotify'])) ? 1:0);
-  if (isset($_POST['sendscraps'])) $config->setVar('sendscraps',$_POST['sendscraps']);
-  if (isset($_POST['emails'])) $config->setVar('emails',$_POST['emails']);
-  if (isset($_POST['friends'])) $config->setVar('friends',$_POST['friends']);
-  $config->setVar('friends_notify',(isset($_POST['friendsnotify'])) ? 1:0);  
-  if (isset($_POST['pic'])) $config->setVar('pictures',$_POST['pic']);
-  if (isset($_POST['vid'])) $config->setVar('videos',$_POST['vid']);
-  if (isset($_POST['aud'])) $config->setVar('audio',$_POST['aud']);
-  if (isset($_POST['trib'])) $config->setVar('tribes',$_POST['trib']);
-  if (isset($_POST['mess'])) $config->setVar('profile_messages',intval($_POST['mess']));
-  if (isset($_POST['fb'])) $config->setVar('profile_facebook',intval($_POST['fb']));
-  if (!$profileconfigs_handler->insert($config)) {
-     redirect_header("configs.php",3,_PROFILE_MA_DATANOTSENDET);
-  }
-  redirect_header("configs.php",1,_PROFILE_MA_CONFIGSSAVE);
+
+	if (!($GLOBALS['xoopsSecurity']->check())){
+		redirect_header('configs.php', 3, _EPROFILE_MA_EXPIRED);
+	}
+
+  $criteria = new Criteria('config_uid',$uid);
+  $configs = $profileconfigs_handler->getObjects($criteria);
+  $configs = $configs[0];	
+
+	$configs->setVar('config_uid',$uid);
+	$configs->setVar('messages_notify',	(isset($_POST['messagenotify'])) 	? 1 : 0);  
+	$configs->setVar('scraps_notify',	  (isset($_POST['scrapsnotify'])) 	? 1 : 0);
+	$configs->setVar('friends_notify',	(isset($_POST['friendsnotify'])) 	? 1 : 0); 
+  $configs->setVar('tribes_notify',	  (isset($_POST['tribesnotify'])) 	? 1 : 0);
+	if (isset($_POST['gen'])) 			    $configs->setVar('profile_general',	intval($_POST['gen']));
+	if (isset($_POST['stat'])) 			    $configs->setVar('profile_stats',	  intval($_POST['stat']));
+	if (isset($_POST['scraps'])) 		    $configs->setVar('scraps',			    intval($_POST['scraps']));	
+	if (isset($_POST['sendscraps'])) 	  $configs->setVar('sendscraps',		  intval($_POST['sendscraps']));
+	if (isset($_POST['emails'])) 		    $configs->setVar('emails',			    intval($_POST['emails']));
+	if (isset($_POST['friends'])) 		  $configs->setVar('friends',			    intval($_POST['friends']));
+	if (isset($_POST['pic'])) 			    $configs->setVar('pictures',			  intval($_POST['pic']));
+	if (isset($_POST['vid'])) 			    $configs->setVar('videos',			    intval($_POST['vid']));
+	if (isset($_POST['aud'])) 			    $configs->setVar('audio',			      intval($_POST['aud']));
+	if (isset($_POST['trib'])) 			    $configs->setVar('tribes',			    intval($_POST['trib']));
+	if (isset($_POST['mess'])) 			    $configs->setVar('profile_messages',intval($_POST['mess']));
+	if (!$profileconfigs_handler->insert($configs)) {
+		redirect_header("configs.php",3,_EPROFILE_MA_DATANOTSENDET);
+	}
+	redirect_header("configs.php",1,_EPROFILE_MA_CONFIGSSAVE);
 } 
 ?>

@@ -16,19 +16,28 @@
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: index.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: index.php 11 2013-02-24 19:57:08Z alfred $
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include 'header.php';
 
-$op = 'main';
-
-if ( isset($_POST['op']) ) {
-    $op = trim($_POST['op']);
-} elseif ( isset($_GET['op']) ) {
-    $op = trim($_GET['op']);
-    if (!in_array($op,array('main','login','logout','actv','delete'))) $op='main';
+if ( !$isOwner ) {
+	if ($uid <= 1) {
+		redirect_header(XOOPS_URL . "/user.php", 2, _US_SORRYNOTFOUND);
+	}
+	$thisUser =& $member_handler->getUser($uid);
+  if ( !$thisUser ) {
+		redirect_header(XOOPS_URL . "/user.php", 2, _US_SELECTNG);
+	}
+	if ( !$thisUser->isActive() || !isAdmin ) {
+		redirect_header(XOOPS_URL . "/user.php", 2, _US_SELECTNG);
+	}	
+} else {
+	$thisUser = $GLOBALS['xoopsUser'];
 }
+
+$op = ( isset($_REQUEST['op']) ) ? trim($_REQUEST['op']) : 'main';
+if ( !in_array($op,array('main','login','logout','actv','delete')) ) $op = 'main';
 
 if ($op == 'main') {
     if (!$GLOBALS['xoopsUser']) {
@@ -92,22 +101,19 @@ if ($op == 'logout') {
 }
 
 if ($op == 'actv') {
-    $id = intval($_GET['id']);
+    $id     = intval($_GET['id']);
     $actkey = trim($_GET['actkey']);
     redirect_header(XOOPS_URL."/modules/".$GLOBALS['xoopsModule']->getVar('dirname')."/activate.php?op=actv&amp;id={$id}&amp;actkey={$actkey}", 1, '');
-    exit();
 }
 
 if ($op == 'delete') {
     if (!$GLOBALS['xoopsUser'] || $GLOBALS['xoopsConfigUser']['self_delete'] != 1) {
         redirect_header(XOOPS_URL . '/', 5, _US_NOPERMISS);
-        exit();
     } else {
         $groups = $GLOBALS['xoopsUser']->getGroups();
         if (in_array(XOOPS_GROUP_ADMIN, $groups)){
             // users in the webmasters group may not be deleted
             redirect_header(XOOPS_URL . '/', 5, _US_ADMINNO);
-            exit();
         }
         $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
         if ($ok != 1) {
@@ -125,7 +131,6 @@ if ($op == 'delete') {
             }
             redirect_header(XOOPS_URL . '/', 5, _US_NOPERMISS);
         }
-        exit();
     }
 }
 ?>

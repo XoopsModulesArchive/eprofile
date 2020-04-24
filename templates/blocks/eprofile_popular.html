@@ -1,0 +1,7 @@
+<{foreach item=users from=$block.users}>
+  <{if $block.avatar == '1'}>
+    <img style="width:32px;" src="<{$users.avatar}>" />&nbsp; 
+  <{/if}>
+  <{$users.link}><br />
+  <{$users.count}> <{$block.count_name}><hr>
+<{/foreach}>

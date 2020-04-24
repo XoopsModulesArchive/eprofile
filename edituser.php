@@ -15,20 +15,27 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: edituser.php 2020 2008-08-31 01:54:14Z phppp $
+ * @version         $Id: edituser.php 35 2014-02-08 17:37:13Z alfred $
  */
 
-$xoopsOption['pagetype'] = 'user';
-include 'header.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
-
 // If not a user, redirect
-if (!is_object($xoopsUser)) {
-    redirect_header(XOOPS_URL, 3, _US_NOEDITRIGHT);
-    exit();
+include 'header.php';
+
+if ( !$isOwner && !$isAdmin ) {
+ 	redirect_header(XOOPS_URL, 3, _NOPERM);
+  exit();
 }
 
+$xoopsOption['pagetype'] = 'user';
+include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
+
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'editprofile';
+//check op
+if ($op == 'avatarform') {
+  header("location: " . XOOPS_URL . "/modules/eprofile/pictures.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
+  exit();
+}
+
 $config_handler =& xoops_gethandler('config');
 $xoopsConfigUser = $config_handler->getConfigsByCat(XOOPS_CONF_USER);
 
@@ -44,7 +51,8 @@ if ($op == 'save') {
         $edituser->setVar('uname', trim($_POST['uname']));
         $edituser->setVar('email', trim($_POST['email']));
     }
-    xoops_load("userUtility");
+    
+    xoops_load("XoopsuserUtility");
     $stop = XoopsUserUtility::validate($edituser);
     
     if (!empty($stop)) {
@@ -57,7 +65,7 @@ if ($op == 'save') {
         $fields = $profile_handler->loadFields();
         // Get ids of fields that can be edited
         $gperm_handler =& xoops_gethandler('groupperm');
-        $editable_fields = $gperm_handler->getItemIds('profile_edit', $xoopsUser->getGroups(), $xoopsModule->getVar('mid'));
+        $editable_fields = $gperm_handler->getItemIds('profile_edit', $GLOBALS['xoopsUser']->getGroups(), $GLOBALS['xoopsModule']->getVar('mid'));
 
         if (!$profile = $profile_handler->get($edituser->getVar('uid'))) {
             $profile = $profile_handler->create();
@@ -82,7 +90,7 @@ if ($op == 'save') {
             $profile->setVar('profile_id', $edituser->getVar('uid'));
             $profile_handler->insert($profile);
             unset($_SESSION['xoopsUserTheme']);
-            redirect_header(XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname', 'n').'/userinfo.php?uid=' . $edituser->getVar('uid'), 2, _US_PROFUPDATED);
+            redirect_header(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname', 'n').'/userinfo.php?uid=' . $edituser->getVar('uid'), 2, _US_PROFUPDATED);
         }
     }
 }
@@ -90,25 +98,22 @@ if ($op == 'save') {
 
 if ($op == 'editprofile') {
     $xoopsOption['template_main'] = 'profile_editprofile.html';
-    include_once XOOPS_ROOT_PATH . '/header.php';
-	include_once 'social.php';
-	$xoopsTpl->assign('section_name', _US_EDITPROFILE);
+    include_once XOOPS_ROOT_PATH . '/header.php';    
+    include_once "include/themeheader.php";
+    $xoopsTpl->assign('section_name', _US_EDITPROFILE);
     include_once 'include/forms.php';
-    $form = profile_getUserForm($xoopsUser);
+    $form = profile_getUserForm($thisUser);
     $form->assign($xoopsTpl);
     if (!empty($stop)) {
         $xoopsTpl->assign('stop', $stop);
     }
-
-    $xoBreadcrumbs[] = array('title' => _US_EDITPROFILE);
 }
 
 if ($op == 'avatarform') {
     $xoopsOption['template_main'] = 'profile_avatar.html';
     include XOOPS_ROOT_PATH . '/header.php';
-    $xoBreadcrumbs[] = array('title' => _US_MYAVATAR);
-	include_once 'social.php';
     $xoopsTpl->assign('section_name', _US_AVATAR);
+    include_once "include/themeheader.php";
     
     $oldavatar = $xoopsUser->getVar('user_avatar');
     if (!empty($oldavatar) && $oldavatar != 'blank.gif') {
@@ -127,7 +132,7 @@ if ($op == 'avatarform') {
         $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
         $form->assign($xoopsTpl);
 	  } else {
-	    xoops_result(sprintf(_PROFILE_MA_POSTSTOUPLOAD,$xoopsConfigUser['avatar_minposts']));
+	    xoops_result(sprintf(_EPROFILE_MA_POSTSTOUPLOAD,$xoopsConfigUser['avatar_minposts']));
 	  }
     }
     $avatar_handler =& xoops_gethandler('avatar');
@@ -175,7 +180,7 @@ if ($op == 'avatarupload') {
                 $avt_handler =& xoops_gethandler('avatar');
                 $avatar =& $avt_handler->create();
                 $avatar->setVar('avatar_file', $uploader->getSavedFileName());
-                $avatar->setVar('avatar_name', $xoopsUser->getVar('uname'));
+                $avatar->setVar('avatar_name', $xoopsUser->getVar('name'));
                 $avatar->setVar('avatar_mimetype', $uploader->getMediaType());
                 $avatar->setVar('avatar_display', 1);
                 $avatar->setVar('avatar_type', 'C');

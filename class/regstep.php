@@ -15,31 +15,28 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: regstep.php 2068 2008-09-12 03:44:46Z phppp $
+ * @version         $Id: regstep.php 3 2012-08-16 20:15:01Z alfred $
  */
 
-class ProfileRegstep extends XoopsObject  
+class EprofileRegstep extends XoopsObject  
 {
     function __construct() 
     {
-        $this->initVar('step_id', XOBJ_DTYPE_INT);
+        parent::__construct();
+		$this->initVar('step_id', XOBJ_DTYPE_INT);
         $this->initVar('step_name', XOBJ_DTYPE_TXTBOX);
         $this->initVar('step_desc', XOBJ_DTYPE_TXTAREA);
         $this->initVar('step_order', XOBJ_DTYPE_INT, 1);
         $this->initVar('step_save', XOBJ_DTYPE_INT, 0);
     }
     
-    function ProfileRegstep()
-    {
-        $this->__construct();
-    }
 }
 
-class ProfileRegstepHandler extends XoopsPersistableObjectHandler 
+class EprofileRegstepHandler extends XoopsPersistableObjectHandler 
 {
     function __construct($db) 
     {
-        parent::__construct($db, 'profile_regstep', 'profileregstep', 'step_id', 'step_name');
+        parent::__construct($db, 'profile_regstep', 'Eprofileregstep', 'step_id', 'step_name');
     }
     
     /**
