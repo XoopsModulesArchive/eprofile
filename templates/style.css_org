@@ -62,7 +62,7 @@ table.profile-form  {
 	padding:5px;
 }
 
-.profile-nav-bar .profile-nav-bar2 {
+.profile-nav-bar {
 	margin:5px;
 	width:100%;
 	padding:2px;
@@ -72,13 +72,11 @@ table.profile-form  {
     margin: 0;
     padding: 0 0 0 4px;
 }
-
 .profile-tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
     display: block;
     clear: both;
     content: " ";
 }
-
 .profile-tabs-nav li {
     float: left;
     margin: 0 0 0 1px;
@@ -103,7 +101,6 @@ table.profile-form  {
     text-decoration: none;
     white-space: nowrap; /* required in IE 6 */    
 }
-
 img.profile-nav-bar-icon {
 	width:15px;
 	height:15px;
@@ -149,47 +146,6 @@ img.profile-nav-bar-icon {
 .profile-tabs-nav .profile-tabs-disabled {
     opacity: .4;
 }
-
-.profile-tabs-nav-in ul{
-	padding: 0;
-	margin: 0;
-}
-
-.profile-tabs-nav-in li{
-	float: left;
-	padding-right:5px;
-	padding-left: 3px;
-	list-style: none;
-	margin: 0;
-}
-
-
-.profile-tabs-nav-in a{
-	float: left;
-	line-height: 31px;
-	padding-left:10px;
-	display: block;
-	color:#4b657f;
-	font-size: 14px;
-	background: url(../images/tab2.png) left -62px no-repeat;
-	}
-
-.profile-tabs-nav-in a span{
-	float:left;
-    padding-right: 10px;
-	cursor:pointer;
-	background: url(../images/tab2.png) right top no-repeat;
-}
-
-.profile-tabs-nav-in a:hover{
-	background: url(../images/tab2.png) left -93px no-repeat;
-}
-
-.profile-tabs-nav-in a:hover span{
-	background: url(../images/tab2.png) right -31px no-repeat;
-}
-
-
 .profile-tabs-container {
     border-top: 1px solid #97a5b0;
     padding: 3px;
@@ -372,9 +328,4 @@ span.profileinfo-value {
 }
 .profile-scraptext{
 	margin:5px;
-}
-
-.social-audio-meta-label {
-    margin:2px;
-    font-size: 0.7em;
 }

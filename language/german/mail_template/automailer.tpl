@@ -5,7 +5,7 @@ der User {X_FROMNAME} sendet Ihnen eine Nachricht
 {X_MESSAGE}
 
 -------------------------------------------------
-Um auf diese Mail antworten zu können folgen Sie dem Link:
+Um auf diese Mail antworten zu kÃ¶nnen folgen Sie dem Link:
 {X_ULINK}
 
 Sollte diese Mail Spam sein oder in irgendeiner Weise nicht

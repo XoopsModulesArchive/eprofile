@@ -46,7 +46,7 @@ if ($op == 'send') {
         exit();
     }
 	$title = $myts->displayTarea($_POST['subject']);
-	$message = $myts->displayTarea($_POST['body']);
+	$message = $myts->displayTarea($_POST['body'],1,1,1,1,0);
 	$xoopsMailer = xoops_getMailer();
     $xoopsMailer->reset();
 	$xoopsMailer->useMail();

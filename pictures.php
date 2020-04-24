@@ -288,8 +288,11 @@ if ($op=='add') {
   	$pics = array();	
 	  	
   	foreach ($pictures as $p) {
-	    $onMouseOver = ' onmouseover="return overlib(\''.$myts->htmlSpecialChars(addslashes($myts->displayTarea($p->getVar("pic_desc","n"),0,1,1,1,1))).'\', STICKY, CLOSETEXT, \''._CLOSE.'\', CELLPAD, 10, 5, CAPTION, \''.$myts->htmlSpecialChars($p->getVar("pic_title","s")).'\');" onmouseout="return nd();"';
-    	$purl = '<a href="'.$p->upload_url."/".$p->getVar('pic_url').'" title="" rel="lightbox[pic_group_'.$uid.']" '.$onMouseOver.'><img src="'.$p->upload_url."/thumbs/".$p->getVar('pic_url').'" alt="" title="" /></a>';
+	    //$onMouseOver = ' onmouseover="return overlib(\''.$myts->htmlSpecialChars(addslashes($myts->displayTarea($p->getVar("pic_desc","n"),0,1,1,1,1))).'\', STICKY, CLOSETEXT, \''._CLOSE.'\', CELLPAD, 10, 5, CAPTION, \''.$myts->htmlSpecialChars($p->getVar("pic_title","s")).'\');" onmouseout="return nd();"';
+    	//$purl = '<a href="'.$p->upload_url."/".$p->getVar('pic_url').'" title="" rel="lightbox[pic_group_'.$uid.']" '.$onMouseOver.'><img src="'.$p->upload_url."/thumbs/".$p->getVar('pic_url').'" alt="" title="" /></a>';
+    	$purl = '<a rel="profile-box" href="'.$p->upload_url."/".$p->getVar('pic_url').'" title="'.$myts->htmlSpecialChars($p->getVar("pic_title","s")).'">
+    				<img src="'.$p->upload_url."/thumbs/".$p->getVar('pic_url').'" alt="" title="" />
+    			</a>';
     	$pics[]=array( 	'url'   	=> $purl,
 	               		'title' 	=> $p->getVar("pic_title"),
 	               		'desc' 		=> $p->getVar("pic_desc"),

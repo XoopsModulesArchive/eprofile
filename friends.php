@@ -114,6 +114,7 @@ if ($op=='add' && (is_object($xoopsUser) && $xoopsUser->uid()>0)) {
 		 if (is_object($nuser) && $nuser->isactive()) {
 	       $ok_img = '<a href="friends.php?op=addfriend&amp;uid='.$uid.'&amp;friend='.$friends["friend_id"].'"><img src="images/green.gif" title="'._ADD.'" alt="'._GO.'"/></a>';
 	       $del_img = '<a href="friends.php?op=delfriend&amp;uid='.$uid.'&amp;friend='.$friends["friend_id"].'"><img src="images/dele.gif" title="'._DELETE.'" alt="'._DELETE.'"/></a>';  
+               $rem_img = '<a href="friends.php?op=removefriend&amp;uid='.$uid.'&amp;friend='.$friends["friend_id"].'"><img src="images/dele.gif" title="'._REMOVE.'" alt="'._REMOVE.'"/></a>';
 	       $class = ($class=='odd') ? 'even':'odd';
 		   echo '<tr><td class="'.$class.'"></td>';
 		   echo '<td class="'.$class.'"><a href="'.XOOPS_URL.'/userinfo.php?uid='.$nuser->uid().'">'.$nuser->uname().'</a></td>';

@@ -219,8 +219,6 @@ define("_PROFILE_MA_PMUNSAVE","Speichern rückgängig");
 define("_PROFILE_MA_PMEMPTY","Leeren");
 define("_PROFILE_MA_PMREPLY", "Antworten");
 
-define("_PROFILE_MI_NEVER_LOGED_IN","niemals");
-
 define("_PROFILE_MA_CONFIGSMESSAGES","Private Nachrichten");
 define("_PROFILE_MA_CONFIGSMESSNO","deaktiviert");
 define("_PROFILE_MA_CONFIGSMESSYES","aktiviert");
@@ -245,7 +243,7 @@ define("_PROFILE_MA_PMSAVED_PART","Sie dürfen %d PNs speichern und haben moment
 define("_PROFILE_MA_PMMAILNOTIFY","%s - Sie haben eine neue PN von %s");
 define("_PROFILE_MA_PMMAILMESSAGE","Hallo!\nSie haben eine neue PN von %s erhalten\n\nTitel der PN ist\n%s\n\nSie können die PN hier lesen\n%s\n\n-----------\nSie erhalten diese Nachricht, weil Sie benachrichtigt werden wollten, wenn Sie eine neue PN haben\n\nSie können Ihre PM-Konfiguration ändern\n%s\n\nBitte antworten Sie nicht auf diese Nachricht\n\n---------\nMit freundlichen Grüßen\n%s\n%s\n%s");
 define("_PROFILE_MA_PMEMAIL", "E-Mail");
-define("_PROFILE_MA_PMEMAIL_DESC", "Hallo %s, dies ist eine Nachricht von Ihrem Konto auf ".$xoopsConfig['sitename']);
+define("_PROFILE_MA_PMEMAIL_DESC", "Hallo %s, dies ist eine Nachricht von Ihrem Konto auf ".$GLOBALS['xoopsConfig']['sitename']);
 define("_PROFILE_MA_PMEMAIL_FROM", "Von %s");
 define("_PROFILE_MA_PMEMAIL_TO", "An %s");
 define("_PROFILE_MA_PMEMAIL_SUBJECT", "[Nachricht]%s");

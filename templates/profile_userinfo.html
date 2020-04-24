@@ -1,9 +1,3 @@
-<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
-<script type= "text/javascript"> 
-<!-- 
-jQuery.noConflict();
-//--> 
-</script>
 <{includeq file="db:profile_breadcrumbs.html"}>
 <{if $social_isactivte}>
 <div class="profile-profile-group1">
@@ -16,9 +10,9 @@ jQuery.noConflict();
         </div>
         <div class="profile-avatar">
             <{if $avatar!="" && $avatar!="blank.gif" }>
-                <img src="<{$avatar}>" border="0" />
+                <img src="<{$avatar}>" alt="" border="0" />
             <{ else }>
-                <img src="images/noavatar.gif" border="0" />
+                <img src="images/noavatar.gif" alt="" border="0" />
             <{ /if }>
         </div>
         <div class="profile-commit">
@@ -28,18 +22,18 @@ jQuery.noConflict();
                     <br /><{ $user_ranktitle }>
                 </div>
                 <{if $isOwner}>
-                    <br /><img class="social-nav-bar-icon" src="images/edit.gif" />
+                    <br /><img class="social-nav-bar-icon" alt="" src="images/edit.gif" />
                     <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/edituser.php"><{$smarty.const._US_EDITPROFILE}>
                     </a>
-                    <br /><img class="social-nav-bar-icon" src="images/password.gif" />
+                    <br /><img class="social-nav-bar-icon" alt="" src="images/password.gif" />
                     <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/changepass.php"><{$smarty.const._PROFILE_MA_CHANGEPASSWORD}>
                     </a>
                     <{if $user_changeemail}>
-                        <br /><img class="social-nav-bar-icon" src="images/email.gif" />
+                        <br /><img class="social-nav-bar-icon" alt="" src="images/email.gif" />
                         <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/changemail.php"><{$smarty.const._PROFILE_MA_CHANGEMAIL}>
                         </a>
                     <{/if}>
-                    <br /><img class="social-nav-bar-icon" src="images/avatar.gif" />
+                    <br /><img class="social-nav-bar-icon" alt="" src="images/avatar.gif" />
                     <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/edituser.php?op=avatarform"><{$smarty.const._US_AVATAR}>
                     </a>
                 <{/if}>
@@ -48,12 +42,12 @@ jQuery.noConflict();
                 <br /><br />
                 <div id="profile-nav-bar">
                     <ul class="profile-tabs-nav">
-                        <li><a href="javascript:openWithSelfMain('<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$uid}>', 'pmlite', 650, 500);"> <span><img class="profile-nav-bar-icon" src="images/email.gif" /> <{$sendpm_touser}></span></a> </li><br />
+                        <li><a href="javascript:openWithSelfMain('<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$uid}>', 'pmlite', 650, 500);"> <span><img class="profile-nav-bar-icon" alt="" src="images/email.gif" /> <{$sendpm_touser}></span></a> </li><br />
                     </ul>
                     <br /> 
                     <{if $allow_emails == 1}>
                         <ul class="profile-tabs-nav">
-                            <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/mailto.php?toid=<{$uid}>"><span><img class="profile-nav-bar-icon" src="images/email.gif" /> <{$sendmail_touser}></span></a> </li>
+                            <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/mailto.php?toid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/email.gif" /> <{$sendmail_touser}></span></a> </li>
                         </ul> 
                     <{/if}>
                 </div>
@@ -150,7 +144,7 @@ jQuery.noConflict();
                 <div class="profile-title head"><{ $mypictures_text }></div>
                 <{section name=i loop=$mypictures}>
                     <div class="profile-album-picture-preview">   
-                        <a href="<{$xoops_url}>/modules/profile/pictures.php?uid=<{$uid}>" rel="lightbox" title="<{$mypictures[i].title}>"> <{$mypictures[i].pic}></a>
+                        <{$mypictures[i].pic}>
                     </div>
                 <{sectionelse}>
                     <div class="profil-no-entry">

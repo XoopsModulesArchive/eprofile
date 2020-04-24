@@ -65,12 +65,9 @@ $visit_handler->setvisit($uid);
 
 //Permissions
 $profile_permission = $profileconfigs_handler->getperm('all',$uid);
-$GLOBALS['xoTheme']->addScript(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/prototype.js');
-$GLOBALS['xoTheme']->addScript(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/scriptaculous.js?load=effects,builder');
-$GLOBALS['xoTheme']->addScript(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/lightbox.js');
-$GLOBALS['xoTheme']->addScript(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/overlib.js');
-
-$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/lightbox.css');
+$GLOBALS['xoTheme']->addScript(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/jquery142.js');
+$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/colorbox.css');
+$GLOBALS['xoTheme']->addScript(XOOPS_URL.'/modules/'.$GLOBALS['xoopsModule']->getVar('dirname').'/js/jquery.colorbox-min.js');
 
 $GLOBALS['xoopsTpl']->assign('token',$GLOBALS['xoopsSecurity']->getTokenHTML());
 

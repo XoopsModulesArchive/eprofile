@@ -25,7 +25,7 @@
  */
 $modversion = array();
 $modversion['name']         = _PROFILE_MI_NAME;
-$modversion['version']      = 1.69;
+$modversion['version']      = 1.70;
 $modversion['description']  = _PROFILE_MI_DESC;
 $modversion['author']       = "Jan Pedersen; Taiwen Jiang <phppp@users.sourceforge.net>; alfred <myxoops@t-online.de>";
 $modversion['credits']      = "Ackbarr, mboyden, marco, mamba, etc.";
@@ -303,6 +303,15 @@ $modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_AUDIOS';
 $modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_AUDIOS_DESC';
 $modversion['config'][$i]['formtype']       = 'yesno';
 $modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['default']        = 0;
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_audioplayer';
+$modversion['config'][$i]['title']          = '_PROFILE_MI_PROFILE_AUDIOPLAYER';
+$modversion['config'][$i]['description']    = '_PROFILE_MI_PROFILE_AUDIOPLAYER_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['options']        = array("dewplayer" => 0, "musicplayer" => 1, "flashmp3player" => 2);
 $modversion['config'][$i]['default']        = 0;
 
 $i++;

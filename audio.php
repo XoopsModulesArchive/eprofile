@@ -133,22 +133,87 @@ if ($op=='add') {
   	}
 } else {
     $scountmax = (!empty($xoopsModuleConfig['profile_audios_perpage'])) ? intval($xoopsModuleConfig['profile_audios_perpage']) : 1;
+    $player = (!empty($xoopsModuleConfig['profile_audioplayer'])) ? intval($xoopsModuleConfig['profile_audioplayer']) : 0;
     $criteriaUidAudio = new criteria('audio_uid',$uid);
     $criteriaUidAudio->setStart($start);
     $criteriaUidAudio->setOrder('DESC');
     $criteriaUidAudio->setSort('audio_uid');
     $criteriaUidAudio->setLimit($scountmax);
-
+    $audio_player = "";
+    $playlist = "";
+    $xmldatei   = XOOPS_UPLOAD_PATH. "/profile/mp3list_".$uid.".xml";
+    $xmlurl     = XOOPS_UPLOAD_URL. "/profile/mp3list_".$uid.".xml";     
+        
+    if ($player == 1) {
+        $audio_player ='
+                <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                    codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="301" height="212">
+                    <param name="movie" value="audioplayers/musicplayer.swf?playlist='.$xmlurl.'" />
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="transparent" />
+                    <embed src="audioplayers/musicplayer.swf?playlist='.$xmlurl.'" quality="high" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                          type="application/x-shockwave-flash" width="301" height="212">
+                    </embed>
+                </object>';
+        $playlist .= "<player showDisplay=\"yes\" showPlaylist=\"yes\" autoStart=\"no\">\n";
+    }elseif ($player == 2) {
+        $audio_player ='
+                <object data="audioplayers/flashmp3player.swf?playlist='.$xmlurl.'" type="application/x-shockwave-flash" width="300" height="200">
+                    <param name="movie" value="audioplayers/flashmp3player.swf?playlist='.$xmlurl.'" />
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="transparent" />
+                </object>';
+        $playlist .= '<?xml version="1.0" encoding="UTF-8"?>
+                        <playlist version="1" xmlns="http://xspf.org/ns/0/">
+                        <trackList>'; 
+    } else {
+        $audio_player = '
+                <object type="application/x-shockwave-flash" data="audioplayers/dewplayer.swf" width="250" height="230" id="dewplayer" name="dewplayer">
+                    <param name="movie" value="audioplayers/dewplayer.swf" />
+                    <param name="flashvars" value="xml='.$xmlurl.'" />
+                    <param name="wmode" value="transparent">
+                    <param name="allowScriptAccess" value="sameDomain" />
+                </object>';        
+        $playlist .="<?xml version='1.0' encoding='utf-8'?>\n";
+        $playlist .= "<playlist version='1' xmlns='http://xspf.org/ns/0/'>\n";
+        $playlist .= "  <title>"._PROFILE_MA_MYAUDIOS."</title>\n";
+        $playlist .= "  <info>" . XOOPS_URL . "</info>\n";
+        $playlist .= "  <trackList>\n";   
+    }
+    
     $audios = $audio_handler->getAudio($criteriaUidAudio);
     $audios_array = $audio_handler->assignAudioContent($audio_count,$audios);
     if(is_array($audios_array)) {
         $xoopsTpl->assign('audios', $audios_array);
-        $audio_list = '';
         foreach($audios_array as $audio_item) {
-            $audio_list .= $aud->upload_url.'/'.$audio_item['url'].' | ';
+            if ($player == 1) {
+                // for the title it filters the directory and the .mp3 extension out
+                $title = $audio_item['title'];   
+                $playlist .= "  <song path=\"" . $aud->upload_url.'/'.$audio_item['url'] . "\" title=\"$title\" />";
+            
+            } else {
+                // ...then we loop through the array...
+                $playlist .= "    <track>\n"; 
+                $playlist .= "      <creator>&nbsp;" . $audio_item['author'] . "</creator>\n";  
+                $playlist .= "      <title>&nbsp;" . $audio_item['title'] . "</title>\n";  
+                $playlist .= "      <location>" . $aud->upload_url.'/'.$audio_item['url'] . "</location>\n";
+                $playlist .= "    </track>\n";
+            }
         }
-        //$audio_list = substr($audio_list,-2);
-        $xoopsTpl->assign('audio_list',$audio_list);
+
+        if ($player == 1) {
+            $playlist .= "</player>";        
+        } else {
+            // ...and last we add the closing tags
+            $playlist .= "  </trackList>\n";
+            $playlist .= "</playlist>\n";                    
+        }
+        if ($fp = fopen($xmldatei, 'w')) {        
+            fputs($fp, $playlist);
+            fclose($fp);
+        }     
+        
+        $xoopsTpl->assign('player',$audio_player);
     } 
     $xoopsTpl->assign('nb_audio',count($audios_array));
     $xoopsTpl->assign('player_url',$aud->upload_url);

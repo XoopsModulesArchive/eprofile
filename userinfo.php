@@ -273,7 +273,8 @@ if ($allow_pictures)
   	$lpictures = array();
   	foreach ($list_pictures as $f) 
 	{
-     	$purl = '<a href="'.XOOPS_UPLOAD_URL."/".$xoopsModule->dirname()."/".$f->getvar('pic_url').'" title="" rel="lightbox[pic_group_'.$uid.']"><img src="'.XOOPS_UPLOAD_URL."/".$xoopsModule->dirname()."/thumbs/".$f->getVar('pic_url').'" alt="'.$f->getVar('pic_title').'"/></a>';
+     	//$purl = '<a href="'.XOOPS_UPLOAD_URL."/".$xoopsModule->dirname()."/".$f->getvar('pic_url').'" title="" rel="lightbox[pic_group_'.$uid.']"><img src="'.XOOPS_UPLOAD_URL."/".$xoopsModule->dirname()."/thumbs/".$f->getVar('pic_url').'" alt="'.$f->getVar('pic_title').'" /></a>';
+     	$purl =	'<a rel="profile-box" href="'.XOOPS_UPLOAD_URL."/".$xoopsModule->dirname()."/".$f->getvar('pic_url').'"><img src="'.XOOPS_UPLOAD_URL."/".$xoopsModule->dirname()."/thumbs/".$f->getVar('pic_url').'" alt="'.$f->getVar('pic_title').'" title="" /></a>';
      	$lpictures[] = array('title'=>$f->getVar('pic_title'),'pic'=>$purl);
   	}
   	if (intval(count($lpictures)) > 0) 
@@ -305,9 +306,12 @@ if (is_object($xoopsUser) && $xoopsUser->uid() == $uid) {
   $visit_user = $visit_handler->getvisit();
   $allow_more = true;
   $xoopsTpl->assign('myvisit_text',_PROFILE_MA_PREVIEWVISTORS);
-  if (count($visit_user)>0) {
+  if (count($visit_user)>0) 
+  {
     $xoopsTpl->assign('visit_user',$visit_user);
-  } else {
+  } 
+  else 
+  {
     $xoopsTpl->assign('visit_user','No user found');
   }  
 }

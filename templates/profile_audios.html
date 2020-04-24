@@ -37,55 +37,36 @@
         <{if $audios}>
             <div class="profile-allaudiocontainer">
                 <div class="profile-title head">
-                    <{$smarty.const._PROFILE_MA_PLAYER}>
-                </div>
-                <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="240" height="20" id="dewplayer" align="middle">
-                    <param name="wmode" value="transparent">
-                    <param name="allowScriptAccess" value="sameDomain" />
-                    <param name="movie" value="audioplayers/dewplayer-multi.swf?mp3=<{$audio_list}>" />
-                    <param name="quality" value="high" />
-                    <param name="bgcolor" value="FFFFFF" />
-                    <embed src="audioplayers/dewplayer-multi.swf?mp3=<{$audio_list}>" quality="high" bgcolor="FFFFFF" width="240" height="20" name="dewplayer" wmode="transparent" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>            
-                </object>
-            </div>
-            <div class="profile-allaudiocontainer">
-                <div class="profile-title head">
                     <{$smarty.const._PROFILE_MA_MYAUDIOS}>
                 </div>
+                <{$player}>
+            </div>
+            <div class="profile-allaudiocontainer">
                 <{if $nb_audio<=0}>
                     <h2><{$smarty.const._PROFILE_MA_NOAUDIOYET}></h2>
                 <{/if}>		
                 <{section name=i loop=$audios}>
-                    <div class="profile-audio-container <{cycle values="odd,even"}>">   
-                        <b><{$audios[i].title}> <{$audios[i].author}></b><br />      
-                        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="200" height="20" id="dewplayer" align="middle">
-                            <param name="wmode" value="transparent">
-                            <param name="allowScriptAccess" value="sameDomain" />
-                            <param name="movie" value="audioplayers/dewplayer-multi.swf?mp3=<{$player_url}>/<{$audios[i].url}>&amp;showtime=1&amp;bgcolor=FFFFFF" />
-                            <param name="quality" value="high" />
-                            <param name="bgcolor" value="FFFFFF" />
-                        <embed src="audioplayers/dewplayer-multi.swf?mp3=<{$player_url}>/<{$audios[i].url}>&amp;showtime=1&amp;bgcolor=FFFFFF" width="200" height="20" align="middle" quality="high" bgcolor="FFFFFF" name="dewplayer" wmode="transparent" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>
-                        </object>
+                    <div class="profile-audio-container <{cycle values="odd,even"}>"> 
+                        <{ if $isOwner==1 }>
+                            <form action="audio.php" method="post" id="deleteform" class="social-audio-forms">
+                                <input type="hidden" value="<{$audios[i].id}>" name="audio_id" />
+                                <input type="hidden" value="audiodelete" name="op" />
+                                <{$token}>
+                                <input name="submit" type="image" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" src="images/dele.gif"/>
+                                <b><{$audios[i].title}> <{$audios[i].author}></b>
+                            </form> 
+                        <{else}>
+                            <b><{$audios[i].title}> <{$audios[i].author}></b>
+                        <{ /if}>                            
                     </div>
-                    <div class="profil-audio-details">
-                        <p>
-                            <p class="profile-audio-metainfo"> <{$smarty.const._PROFILE_MA_META}></p>
-                            <p class="profile-audio-meta-title"><span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_TITLE}>:</span> <{$audios[i].meta.Title}></p>
-                            <p class="profile-audio-meta-title"><span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_ALBUM}>:</span> <{$audios[i].meta.Album}></p>
-                            <p class="profile-audio-meta-title"><span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_ARTIST}>:</span> <{$audios[i].meta.Artist}></p>
-                            <p class="profile-audio-meta-title"><span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_YEAR}>:</span> <{$audios[i].meta.Year}></p>
-                        </p>
-                    </div>	
-                    <{ if $isOwner==1 }>
-                        <form action="audio.php" method="post" id="deleteform" class="social-audio-forms">
-                            <input type="hidden" value="<{$audios[i].id}>" name="audio_id" />
-                            <input type="hidden" value="audiodelete" name="op" />
-                            <{$token}>
-                            <input name="submit" type="image" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" src="images/dele.gif"/>
-                        </form> 
-                    <{ /if}>
-                    <br />            
-                <{/section}>
+                    <div class="profile-audio-metainfo"> <{$smarty.const._PROFILE_MA_META}></div>
+                    <div class="profile-audio-meta-title">
+                        <span class="social-audio-meta-label" ><{$smarty.const._PROFILE_MA_META_TITLE}>:</span> <{$audios[i].meta.Title}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_ALBUM}>:</span> <{$audios[i].meta.Album}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_ARTIST}>:</span> <{$audios[i].meta.Artist}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._PROFILE_MA_META_YEAR}>:</span> <{$audios[i].meta.Year}><br />
+                    </div>
+                 <{/section}>
             </div>
         <{/if}>
         <div style="clear:both;width:100%"></div>

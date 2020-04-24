@@ -108,4 +108,7 @@ define("_PROFILE_MI_PROFILE_PICTURESTITLE","Bilder");
 define("_PROFILE_MI_PROFILE_AUDIOSTITLE","Musik");
 define("_PROFILE_MI_PROFILE_VIDEOSTITLE","Gästebuch");
 define("_PROFILE_MI_PROFILE_GROUPSTITLE","Freundesliste");
+//Add in 1.70
+define("_PROFILE_MI_PROFILE_AUDIOPLAYER","Audioplayer");
+define("_PROFILE_MI_PROFILE_AUDIOPLAYER_DESC","der zu verwendete Audioplayer");
 ?>
