@@ -1,0 +1,92 @@
+<{includeq file="db:profile_header.html"}>
+<div class="profile-title head"><{$section_name}></div>
+<br />
+<div class="profile-profile-group3">
+  	<div class="profile-visual odd">
+		<div style="float:right; width: 50%; text-align: right;">
+    		<{if $op == "out"}>
+        		<a href='viewpmsg.php?op=in'><{$smarty.const._EPROFILE_MA_PMINBOX}></a> | <a href='viewpmsg.php?op=save'><{$smarty.const._EPROFILE_MA_PMSAVEBOX}></a>
+    		<{elseif $op == "save"}>
+        		<a href='viewpmsg.php?op=in'><{$smarty.const._EPROFILE_MA_PMINBOX}></a> | <a href='viewpmsg.php?op=out'><{$smarty.const._EPROFILE_MA_PMOUTBOX}></a>
+    		<{elseif $op == "in"}>
+        		<a href='viewpmsg.php?op=out'><{$smarty.const._EPROFILE_MA_PMOUTBOX}></a> | <a href='viewpmsg.php?op=save'><{$smarty.const._EPROFILE_MA_PMSAVEBOX}></a>
+    		<{/if}>
+  		</div>
+  		<div style="float:left; width: 80%;">
+    		<{if $op == "out"}><{$smarty.const._EPROFILE_MA_PMOUTBOX}>
+    		<{elseif $op == "save"}><{$smarty.const._EPROFILE_MA_PMSAVEBOX}>
+    		<{else}><{$smarty.const._EPROFILE_MA_PMINBOX}><{/if}>
+		</div>
+		<br /><br />
+		<{if $msg}>
+    		<div class="confirmMsg"><{$msg}></div>
+        <{/if}>
+		<{if $errormsg}>
+    		<div class="errorMsg"><{$errormsg}></div>
+		<{/if}>
+		<form name='prvmsg' method='post' action='viewpmsg.php'>
+  			<table border='0' cellspacing='1' cellpadding='4' width='100%' class='head'>
+   				<tr align='center' valign='middle'>
+      				<th><input name='allbox' id='allbox' onclick='xoopsCheckAll("prvmsg", "allbox");' type='checkbox' value='Check All' /></th>
+      				<th><img src='<{$xoops_url}>/images/download.gif' alt='' border='0' /></th>
+      				<th>&nbsp;</th>
+      				<th><{$smarty.const._EPROFILE_MA_PMFROM}></th>
+      				<th><{$smarty.const._EPROFILE_MA_PMSUBJECT}></th>
+      				<th align='center'><{$smarty.const._EPROFILE_MA_PMDATE}></th>
+   				</tr>  
+    			<{section name=i loop=$pm_array}>
+      				<tr align='left' class='<{ cycle values="odd,even"}>'>
+        				<td valign='top' width='2%' align='center'>
+         					<input type='checkbox' id='msg_id[]' name='msg_id[]' value='<{$pm_array[i].msg_id}>' />
+        				</td>        
+        				<td valign='top' width='5%' align='center'>
+          					<{if $pm_array[i].read_msg == 1}>&nbsp;
+          					<{ else }>
+            					<img src='<{$xoops_url}>/images/read.gif' alt='<{$smarty.const._PM_NOTREAD}>' />
+          					<{ /if }>
+        				</td>
+        				<td valign='top' width='5%' align='center'>
+          					<img src='<{$xoops_url}>/images/subject/<{$pm_array[i].msg_image}>' alt='' />
+        				</td>
+        				<td valign='middle' width='10%'>
+          					<{$pm_array[i].postername}>
+        				</td>
+        				<td valign='middle'>
+          					<a href='readpmsg.php?msg_id=<{$pm_array[i].msg_id}>&amp;start=<{$pm_array[i].msg_no}>&amp;total_messages=<{$total_messages}>&amp;op=<{$op}>'>
+              					<{$pm_array[i].subject}>
+          					</a>          
+        				</td>
+        				<td valign='middle' align='center' width='20%'>
+          					<{$pm_array[i].msg_time}>
+        				</td>
+      				</tr>
+    			<{/section}>
+  			</table>
+            <div id="social-nav-bar">
+    		<{$pmform.elements.send_messages.body}>
+    		<{if $display}>
+        		&nbsp;<{$pmform.elements.move_messages.body}>
+        		&nbsp;<{$pmform.elements.delete_messages.body}>
+        		&nbsp;<{$pmform.elements.empty_messages.body}>
+    		<{/if}>
+    		<{foreach item=element from=$pmform.elements}>
+        		<{if $element.hidden == 1}>
+           			<{$element.body}>
+        		<{/if}>
+    		<{/foreach}>
+		    </div>
+  		</form>
+		<{if $pagenav}>
+    		<div style="padding: 5px; float: right; text-align:right;">
+    			<{$pagenav}>
+    		</div>
+    		<br style="clear: both;" />
+		<{/if}>
+  	</div>
+  	<div style="clear:both;width:100%"></div>
+  	<div id="profil-navigator">
+		<{$pageNav}>
+  	</div>
+</div>
+<div style="clear: both;"></div>
+<{includeq file="db:profile_footer.html"}>

@@ -1,0 +1,372 @@
+.register-steps {
+    font-size: 120%;
+    padding: 5px 2px;
+}
+
+.register-steps span {
+    border: 0;
+    padding: 0 2px;
+}
+
+.register-steps .current {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.register-steps .delimiter {
+    font-size: 120%;
+}
+
+table.profile-form  {
+    width: 90%
+}
+
+.profile-form td.head {
+    width: 20%;
+}
+
+.profile-list-category table {
+    width: 90%;
+    margin: 1px 1px; 
+}
+
+.profile-list-category td.head {
+    width: 20%;
+}
+
+.profile-list-activity {
+    width: 90%;
+    padding: 5px;    
+}
+
+.profile-container {
+  padding: 8px; 
+}
+
+.profile-title {
+  padding: 8px;
+}
+
+.profile-nav-bar {
+	margin:5px;
+	width:90%;
+	padding:2px;
+  display:inline;
+}
+.profile-tabs-nav .profile-tabs-selected {
+  list-style: none;
+  margin: 0;
+  padding: 4 0 0 4px;
+}
+
+.profile-tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
+  display: block;
+  clear: both;
+  content: " ";
+}
+
+.profile-tabs-nav li {
+  float: left;
+  margin: 0 0 0 1px;
+  min-width: 64px; /* be nice to Opera */
+	list-style:none;
+}
+.profile-tabs-nav a, .profile-tabs-nav a span {
+  display: block;
+  padding: 0 10px;
+  background: url(../images/tab.png) no-repeat;
+}
+.profile-tabs-nav a {
+  position: relative;
+  top: 1px;
+  z-index: 2;
+  padding-left: 0;
+  color: #27537a;
+  font-size: 12px;
+  font-weight: bold;    
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap; /* required in IE 6 */    
+}
+
+img.profile-nav-bar-icon {
+	width:15px;
+	height:15px;
+	border:none;
+}
+.profile-tabs-nav .profile-tabs-selected a {
+  color: #000;
+}
+.profile-tabs-nav .profile-tabs-selected a, .profile-tabs-nav a:hover, .profile-tabs-nav a:focus, .profile-tabs-nav a:active {
+  background-position: 100% -150px;
+  outline: 0; /* prevent dotted border in Firefox */
+}
+.profile-tabs-nav a, .profile-tabs-nav .profile-tabs-disabled a:hover, .profile-tabs-nav .profile-tabs-disabled a:focus, .profile-tabs-nav .profile-tabs-disabled a:active {
+  background-position: 100% -100px;
+}
+.profile-tabs-nav a span {
+    width: 64px; /* IE 6 treats width as min-width */
+    min-width: 64px;
+    height: 18px; /* IE 6 treats height as min-height */
+    min-height: 18px;
+    padding-top: 6px;
+    padding-right: 0;
+}
+*>.profile-tabs-nav a span { /* hide from IE 6 */
+    width: auto;
+    height: auto;
+}
+.profile-tabs-nav .profile-tabs-selected a span {
+    padding-top: 6px;
+}
+.profile-tabs-nav .profile-tabs-selected a span, .profile-tabs-nav a:hover span, .profile-tabs-nav a:focus span, .profile-tabs-nav a:active span {
+    background-position: 0 -50px;
+}
+.profile-tabs-nav a span, .profile-tabs-nav .profile-tabs-disabled a:hover span, .profile-tabs-nav .profile-tabs-disabled a:focus span, .profile-tabs-nav .profile-tabs-disabled a:active span {
+    background-position: 0 0;
+}
+.profile-tabs-nav .profile-tabs-selected a:link, .profile-tabs-nav .profile-tabs-selected a:visited, .profile-tabs-nav .profile-tabs-disabled a:link, .profile-tabs-nav .profile-tabs-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+    cursor: text;
+}
+.profile-tabs-nav a:hover, .profile-tabs-nav a:focus, .profile-tabs-nav a:active { /* @ Opera, we need to be explicit again here now... */
+    cursor: pointer;
+}
+.profile-tabs-nav .profile-tabs-disabled {
+    opacity: .4;
+}
+
+.profile-tabs-nav-in ul{
+	padding: 0;
+	margin: 0;
+}
+
+.profile-tabs-nav-in li{
+	float: left;
+	padding-right:5px;
+	padding-left: 3px;
+	list-style: none;
+	margin: 0;
+}
+
+
+.profile-tabs-nav-in a{
+	float: left;
+	line-height: 31px;
+	padding-left:10px;
+	display: block;
+	color:#4b657f;
+	font-size: 14px;
+	background: url(../images/tab-button.png) left -62px no-repeat;
+	}
+
+.profile-tabs-nav-in a span{
+	float:left;
+  padding-right: 10px;
+	cursor:pointer;
+	background: url(../images/tab2.png) right top no-repeat;
+}
+
+.profile-tabs-nav-in a:hover{
+	background: url(../images/tab2.png) left -93px no-repeat;
+}
+
+.profile-tabs-nav-in a:hover span{
+	background: url(../images/tab2.png) right -31px no-repeat;
+}
+
+
+.profile-tabs-loading em {
+    padding: 0 0 0 20px;
+    background: url(../images/loading.gif) no-repeat 0 50%;
+}
+.profile_friends{
+  color:#000000; 
+  background-color:#FDFDE4; 
+  border-color:#000000; 
+	border: 1px solid #BBDCF7;
+  margin:5px;
+  padding:10px;
+}
+.profile-footer {
+  margin:3px;
+	float:left;
+	padding:1px;
+	width:95%;
+	overflow:hidden;
+	text-align:center;
+	font-size:0.7em;
+}
+#profile-profile-group1 {
+	float:left;
+	width:50%;
+}
+#profile-profile-group2 {
+	float:right;
+	width:50%;
+}
+#profile-profile-group3, .profile-details{
+	float:left;
+	width:99%;
+}
+.profile-visual, .profile-search-results{
+	margin:2px;
+	float:left;
+	padding:2px;
+	width:99%;
+	overflow:hidden;
+}
+
+.profile-avatar {   
+    margin:1px 1px 1px 0;
+    width:36%;  
+    float:left;
+    text-align:center;
+    min-height:150px;
+}
+.profile-commit {  
+    margin:5px;
+    width:60%; /*45*/
+    float:right;
+    text-align:center;
+    min-height:150px;
+}
+.profil-friend-preview{
+    margin:1px;
+    width:49%;
+    height:150px;
+    float:left;
+    text-align:center;
+}
+.profil-no-entry{
+    margin:1px;
+    width:99%;
+    height:50px;
+    float:left;
+    text-align:center;
+}
+.profile-list-category{
+    margin:2px;
+    float:left;
+    width:99%;
+}
+.profileinfo-label{
+    margin:5px 6px;
+    font-weight:bold;    
+    display:inline;
+	text-align:left;
+	float:left;
+}
+.profileinfo-value {
+  margin:5px 6px;
+	display:inline;
+	text-align:left;
+	float:left;
+}
+.profile-video-details-preview {
+    text-align:center;
+    margin:3px;
+    float:left;
+    width:49%;
+    height: 190px;
+}
+.profile-album-picture-preview {
+    margin:0px;
+    width:49%;
+    height:140px;
+    float:left;
+    text-align:center;
+}
+.profil-navigator {
+    margin:auto;
+    float:left;
+    width:300px;
+    overflow:hidden;
+}
+.profile-scrap-avatarandname {
+    float:left;
+    padding: 10px;
+    height:100%;
+}
+.profile-scrap-details {
+    float:right;
+    height:100%;
+    margin:3px;
+    padding:10px;
+    text-align:left;
+    width:75%;
+}
+.profile-scraps-form{
+    margin:1px 5px;
+}
+.profile-album-picture {
+    margin:2px;
+    width:30%;
+    height:250px;
+    float:left;
+    text-align:center;
+}
+.profile-album-private{
+    margin:1px 5px;
+    color:#FF0000; 
+    background-color:#FFEAF4; 
+    border-color:#FF0000; 
+    border-width:thick;
+}
+.profile-video {
+	float:left;
+	width:99%;
+}
+.profile-video-container {
+	float:left;
+	width:50%;
+}
+.profile-video-details {
+	
+}
+.profile-preview-video {
+	
+}
+.profile-video-details-preview{
+	float:left;
+	width:49%;
+}
+.profile-allaudiocontainer {
+	float:left;
+	width:99%;
+}
+.profile-audiocontainer {
+	float:left;
+	width:99%;
+}
+.profile-friend {   
+    margin:1px;
+    width:31%;  
+    float:left;
+    text-align:center;
+    height: 235px;
+}
+.profile-visitor {
+	margin:5px;
+}
+.profile-scraptext{
+	margin:5px;
+}
+
+.profil-audio-meta-label {
+    margin:2px;
+    font-size: 0.7em;
+}
+
+.profile-tribes {
+  width:100%;
+}
+
+.profile-tribes-title {
+  float:left;
+  width:49%;
+}
+
+.profile-tribes-user {
+  float:right;
+  width:49%;
+}

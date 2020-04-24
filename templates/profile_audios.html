@@ -1,0 +1,81 @@
+<{includeq file="db:profile_header.html"}>
+<{ if $err_audio }>
+  <div class="errorMsg"><div><pre><{ $err_audio }></pre></div></div>
+<{ /if }>
+<div class="profile-profile-group3">
+  	<div class="profile-title head"><{$section_name}></div>
+    <{if $add_audio}>
+        <{$uploadaudio.javascript}>
+        <form name="<{$uploadaudio.name}>" action="<{$uploadaudio.action}>" method="<{$uploadaudio.method}>" <{$uploadaudio.extra}>>
+            <table class="outer" cellspacing="1">
+                <tr><th colspan="2"><{$uploadaudio.title}></th></tr>
+                <!-- start of form elements loop -->
+                <{foreach item=element from=$uploadaudio.elements}>
+                    <{if $element.hidden != true}>
+                    <tr>
+                        <td class="head"><{$element.caption}>
+                            <{if $element.description}>
+                                <div style="font-weight: normal"><{$element.description}></div>
+                            <{/if}>
+                        </td>
+                        <td class="<{cycle values="even,odd"}>"><{$element.body}></td>
+                    </tr>
+                <{else}>
+                    <{$element.body}>
+                <{/if}>
+                <{/foreach}>
+                <!-- end of form elements loop -->
+            </table>
+        </form>
+    <{else}>
+        <{ if $isOwner }>
+            <ul class="profile-tabs-nav"> 
+                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/audio.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/audio.gif" /> <{$smarty.const._EPROFILE_MA_ADDNEWAUDIO}></span></a> </li>    
+            </ul>
+            <br />
+        <{ /if}> 
+        <{if $audios}>
+            <div class="profile-allaudiocontainer">
+                <div class="profile-title head">
+                    <{$smarty.const._EPROFILE_MA_MYAUDIOS}>
+                </div>
+                <{$player}>
+            </div>
+            <div class="profile-allaudiocontainer">
+                <{if $nb_audio<=0}>
+                    <h2><{$smarty.const._EPROFILE_MA_NOAUDIOYET}></h2>
+                <{/if}>		
+                <{section name=i loop=$audios}>
+                    <div class="profile-audio-container <{cycle values="odd,even"}>"> 
+                        <{ if $isOwner==1 }>
+                            <form action="audio.php" method="post" id="deleteform" class="social-audio-forms">
+                                <input type="hidden" value="<{$audios[i].id}>" name="audio_id" />
+                                <input type="hidden" value="audiodelete" name="op" />
+                                <{$token}>
+                                <input name="submit" type="image" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" src="images/dele.gif"/>
+                                <b><{$audios[i].title}> <{$audios[i].author}></b>
+                            </form> 
+                        <{else}>
+                            <b><{$audios[i].title}> <{$audios[i].author}></b>
+                        <{ /if}>                            
+                    </div>
+                    <!--
+                    <div class="profile-audio-metainfo"> <{$smarty.const._EPROFILE_MA_META}></div>
+                    <div class="profile-audio-meta-title">
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_TITLE}>:</span> <{$audios[i].meta.Title}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_ALBUM}>:</span> <{$audios[i].meta.Album}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_ARTIST}>:</span> <{$audios[i].meta.Artist}><br />
+                        <span class="social-audio-meta-label" > <{$smarty.const._EPROFILE_MA_META_YEAR}>:</span> <{$audios[i].meta.Year}><br />
+                    </div>
+                    //-->
+                 <{/section}>
+            </div>
+        <{/if}>
+        <div style="clear:both;width:100%"></div>
+        <div id="profil-navigator">
+            <{$pageNav}>
+        </div>
+    <{ /if}>
+</div>
+<div style="clear:both;width:100%"></div>
+<{includeq file="db:profile_footer.html"}>

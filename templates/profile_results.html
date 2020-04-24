@@ -1,0 +1,27 @@
+<{includeq file="db:profile_header.html"}>
+<{if $total_users}>
+  <div>( <{$total_users}> )</div>
+<{/if}>
+<{if $users}>
+    <table width="100%">
+        <tr>
+            <{foreach item=caption from=$captions}>
+                <th><{$caption}></th>
+            <{/foreach}>
+        </tr>
+        <{foreach item=user from=$users}>
+            <tr class="<{cycle values='odd, even'}>">
+                <{foreach item=fieldvalue from=$user.output}>
+                    <td><{$fieldvalue}></td>
+                <{/foreach}>
+            </tr>
+        <{/foreach}>
+    </table>
+    
+    <{$nav}>
+<{else}>
+    <div class="errorMsg">
+        <{$smarty.const._EPROFILE_MA_NOUSERSFOUND}>
+    </div>
+<{/if}>
+<{includeq file="db:profile_footer.html"}>

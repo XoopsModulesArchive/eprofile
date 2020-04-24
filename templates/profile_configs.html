@@ -1,0 +1,209 @@
+<{includeq file="db:profile_header.html"}>
+<div class="profile-title head"><{$section_name}></div>
+<{ if $newconfig }>
+	<div class="errorMsg"><div><pre><{ $newconfig }></pre></div></div>
+<{ /if }>
+<div class="profile-visual odd">
+	<form action="configs.php" method="POST" id="form_configs" name="form_configs" class="even">
+		<h2><{$smarty.const._EPROFILE_MA_WHOCAN}></h2>	
+		<table cellpadding="5" cellspacing='0'>
+		<tr class='<{ cycle values="odd,even"}>'>
+			<td width="50%" valign="top">
+				<div class="myconfigs-legend" for="gen"><{$smarty.const._EPROFILE_MA_CONFIGSPROFILEGENERAL}></div>
+				<select name="gen" size="1">
+					<option value="1" <{ if $pgen==1 }>selected<{ /if }>> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $pgen==2 }>selected<{ /if }>> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $pgen==3 }>selected<{ /if }>> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $pgen==4 }>selected<{ /if }>> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $pgen==0 }>selected<{ /if }>> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+			</td>
+			<td width="50%" valign="top">
+				<div class="myconfigs-legend" for="stat"><{$smarty.const._EPROFILE_MA_CONFIGSPROFILESTATS}></div>
+				<select name="pmod" size="1">
+					<option value="1" <{ if $pmod==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $pmod==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $pmod==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $pmod==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $pmod==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+			</td>
+		</tr>	
+
+	<{ if $permsm.profile_scraps || $permsm.profile_emails}>
+		<tr class='<{ cycle values="odd,even"}>'>      
+			<td width="50%">
+        <{ if $permsm.profile_scraps }>
+				<div class="myconfigs-legend" for="scraps"><{$smarty.const._EPROFILE_MA_CONFIGSSCRAPS}></div>
+				<select name="scraps" size="1">
+					<option value="1" <{ if $scr==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $scr==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $scr==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $scr==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $scr==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+        <{else}>
+          &nbsp;
+        <{/if}>
+			</td>       
+			<td width="50%" valign="top">
+        <{ if $permsm.profile_emails}>
+        <div class="myconfigs-legend" for="email"><{$smarty.const._EPROFILE_MA_CONFIGSEMAILS}></div>
+					<select name="emails" size="1">
+						<option value="2" <{ if $mail==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+						<option value="3" <{ if $mail==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+						<option value="0" <{ if $mail==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+					</select>
+        </div>				
+        <{else}>
+          &nbsp;
+        <{/if}>
+			</td>
+		</tr>
+	<{ /if }>
+
+	<{ if $permsm.profile_scraps || $permsm.profile_messages}>
+		<tr class='<{ cycle values="odd,even"}>'>
+			<td width="50%" valign="top">
+				<{ if $permsm.profile_scraps }>
+        <div class="myconfigs-legend" for="sendscraps"><{$smarty.const._EPROFILE_MA_CONFIGSSENDSCRAPS}></div>
+				<select name="sendscraps" size="1">
+					<option value="1" <{ if $sscr==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $sscr==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $sscr==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $sscr==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $sscr==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+				<p><input type="checkbox" name="scrapsnotify" id="scrapsnotify0" value="0" <{ if $scrnot==1 }>checked="checked"<{/if}> /><label for="scrapsnotify0"><{$smarty.const._EPROFILE_MA_CONFIGSEMAILNOTIFY}></label></p>
+        <{ else }>
+					&nbsp;
+				<{ /if }>	  
+			</td>
+			<td width="50%" valign="top">
+				<{ if $permsm.profile_messages }>
+					<div class="myconfigs-legend" for="audios"><{$smarty.const._EPROFILE_MA_CONFIGSMESSAGES}></div>
+					<select name="mess" size="1">
+						<option value="2" <{ if $mess==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+						<option value="3" <{ if $mess==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+						<option value="0" <{ if $mess==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSMESSNO}></option>
+					</select>
+					<p><input type="checkbox" name="messagenotify" id="messagenotify0" value="0" <{ if $messnot==1 }>checked="checked"<{/if}> /><label for="messagenotify0"><{$smarty.const._EPROFILE_MA_CONFIGSEMAILNOTIFY}></label></p>
+				<{ else }>
+					&nbsp;
+				<{ /if }>
+			</td>
+			<td width="50%" valign="top">
+				&nbsp;
+			</td>
+		</tr>
+	<{ /if }>
+
+	<{ if $permsm.profile_pictures || $permsm.profile_videos }>
+    <tr class='<{ cycle values="odd,even"}>'>
+		<td width="50%" valign="top">
+			<{ if $permsm.profile_pictures }>
+				<div class="myconfigs-legend" for="pictures"><{$smarty.const._EPROFILE_MA_CONFIGSPICTURES}></div>
+				<select name="pic" size="1">
+					<option value="1" <{ if $pic==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $pic==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $pic==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $pic==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $pic==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+			<{ else }>
+				&nbsp;
+			<{ /if }>
+		</td>
+		<td width="50%" valign="top">
+			<{ if $permsm.profile_videos }>
+				<div class="myconfigs-legend" for="videos"><{$smarty.const._EPROFILE_MA_CONFIGSVIDEOS}></div>
+				<select name="vid" size="1">
+					<option value="1" <{ if $vid==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $vid==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $vid==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $vid==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $vid==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+			<{ else }>
+				&nbsp;
+			<{ /if }>
+		</td>
+	</tr>
+	<{ /if }>
+  
+  <{ if $permsm.profile_audios || $permsm.profile_audio }>
+    <tr class='<{ cycle values="odd,even"}>'>
+		<td width="50%" valign="top">
+			<{ if $permsm.profile_audios }>
+				<div class="myconfigs-legend" for="audios"><{$smarty.const._EPROFILE_MA_CONFIGSAUDIOS}></div>
+		        <select name="aud" size="1">
+					<option value="1" <{ if $aud==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $aud==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $aud==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $aud==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $aud==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+			<{ else }>
+				&nbsp;
+			<{ /if }>
+		</td>
+		<td width="50%" valign="top">
+			<{ if $permsm.profile_audio }>
+				<div class="myconfigs-legend" for="audios"><{$smarty.const._EPROFILE_MA_CONFIGSAUDIOS}></div>
+				<select name="aud" size="1">
+					<option value="1" <{ if $aud==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $aud==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $aud==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $aud==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $aud==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+      <{ else }>
+				&nbsp;
+			<{ /if }>
+		</td>
+	</tr>
+	<{ /if }>
+
+	<{ if $permsm.profile_friends || $permsm.profile_tribes }>
+    <tr class='<{ cycle values="odd,even"}>'>
+      <td width="50%" valign="top">
+      <{ if $permsm.profile_friends }>
+				<div class="myconfigs-legend" for="friends"><{$smarty.const._EPROFILE_MA_CONFIGSFRIENDS}></div>
+				<select name="friends" size="1">
+					<option value="1" <{ if $fri==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $fri==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $fri==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $fri==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>
+					<option value="0" <{ if $fri==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+			  <p><input type="checkbox" name="friendsnotify" id="friendsnotify0" value="0" <{ if $frinot==1 }>checked="checked"<{/if}> /><label for="friendsnotify0"><{$smarty.const._EPROFILE_MA_CONFIGSEMAILNOTIFY}></label></p>
+      <{ else }>
+				&nbsp;
+			<{ /if }>
+			</td>
+			<td width="50%" valign="top">	
+      <{ if $permsm.profile_tribes}>
+				<div class="myconfigs-legend" for="tribes"><{$smarty.const._EPROFILE_MA_CONFIGSTRIBES}></div>
+				<select name="trib" size="1">
+					<option value="1" <{ if $trib==1 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSEVERYONE}></option>
+					<option value="2" <{ if $trib==2 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEUSERS}></option>
+					<option value="3" <{ if $trib==3 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+					<option value="4" <{ if $trib==4 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSONLYME}></option>				 
+					<option value="0" <{ if $trib==0 }>selected<{/if}> /> <{$smarty.const._EPROFILE_MA_CONFIGSNOTHING}></option>
+				</select>
+        <p><input type="checkbox" name="tribesnotify" id="tribesnotify0" value="0" <{ if $tribnot==1 }>checked="checked"<{/if}> /><label for="tribesnotify0"><{$smarty.const._EPROFILE_MA_CONFIGSEMAILNOTIFY}></label></p>
+			<{ else }>
+				&nbsp;
+			<{ /if }>			
+			</td>
+		</tr>
+	<{ /if }>
+  
+  
+	
+  </table>
+  <{$token}>
+  <p><input type="submit" name="button" id="button" value="<{$smarty.const._SUBMIT}>"></p>
+</form>
+</div>
+<{includeq file="db:profile_footer.html"}>

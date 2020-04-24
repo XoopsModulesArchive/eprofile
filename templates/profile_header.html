@@ -1,0 +1,57 @@
+<div class="profile-container">
+  <div class="profile-title head">
+    <{$smarty.const._EPROFILE_MA_USERINFO}> :: <{$uname}>
+  </div>
+  <div class="profile-nav-bar">
+      <ul class="profile-tabs-nav">
+        <li <{if $section_name==$smarty.const._EPROFILE_MA_USERINFO}>class="profile-tabs-selected"<{/if}>><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/userinfo.php?uid=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/user.gif" /> <{$smarty.const._EPROFILE_MA_USERINFO}></span></a> </li>    
+        <{if $isOwner}>
+          <{ if $perms.profile_messages }> 
+            <li <{if $section_name==$smarty.const._US_INBOX}>class="profile-tabs-selected"<{/if}>><a href="<{$xoops_url}>/viewpmsg.php"> <span><img class="profile-nav-bar-icon" alt="" src="images/pn.gif" /> <{$smarty.const._US_INBOX}> <{if $pm_count}> <small>(<{$pm_count}>)</small><{/if}></span></a> </li>
+          <{/if}>
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_CONFIGS}>class="profile-tabs-selected"<{/if}>> <a href="configs.php"><span><img class="profile-nav-bar-icon" alt="" src="images/configs.gif" /> <{$smarty.const._EPROFILE_MA_CONFIGS}></span></a></li>
+          <li <{if $section_name==$smarty.const._SEARCH}>class="profile-tabs-selected"<{/if}>> <a href="search.php"><span><img class="profile-nav-bar-icon" alt="" src="images/search.png" /> <{$smarty.const._SEARCH}></span></a></li>
+          <{if $user_candelete == true}>
+            <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=delete"> <span><img class="profile-nav-bar-icon" alt="" src="images/dele.gif" /> <{$smarty.const._US_DELACCOUNT}></span></a> </li>
+          <{/if}>	
+        <{/if}>
+        <{if $isAdmin}>
+					<{if !$isOwner}>
+            <li <{if $section_name==$smarty.const._US_EDITPROFILE}>class="profile-tabs-selected" <{/if}>><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/admin_user.php?op=edit&amp;id=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/user.gif" /> <{$smarty.const._US_EDITPROFILE}></span></a> </li>
+            <{if $userlevel == 1}>
+              <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/deactivate.php?uid=<{$uid}>&amp;level=0"> <span><img class="profile-nav-bar-icon" alt="" src="images/unlock.gif" /> <{$smarty.const._EPROFILE_MA_DEACTIVATE}></span></a> </li>
+            <{else}> 
+              <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/admin/deactivate.php?uid=<{$uid}>&amp;level=1"> <span><img class="profile-nav-bar-icon" alt="" src="images/lock.gif" /> <{$smarty.const._EPROFILE_MA_ACTIVATE}></span></a> </li>
+            <{/if}>
+            <li <{if $section_name==$smarty.const._EPROFILE_MA_USERCHECK}>class="profile-tabs-selected" <{/if}>><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/checker.php?uid=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/user.gif" /> <{$smarty.const._EPROFILE_MA_USERCHECK}></span></a> </li>
+          <{/if}>
+        <{/if}> 
+      
+        <{ if $perms.scraps }> 
+          <li class=<{if $section_name==$smarty.const._EPROFILE_MA_SCRAPBOOK}>"profile-tabs-selected"<{else}>"profile-tabs"<{/if}>><a href="scrapbook.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/scrapbook.gif"  /> <{$smarty.const._EPROFILE_MA_SCRAPBOOK}> <{if $scraps_count}> <small>(<{$scraps_count}>)</small><{/if}></span></a> </li>
+        <{/if}>
+        <{ if $perms.pictures }> 
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_PHOTOS}>class="profile-tabs-selected" <{/if}>><a href="pictures.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/pictures.gif"  /> <{$smarty.const._EPROFILE_MA_PHOTOS}> <{if $pictures_count}> <small>(<{$pictures_count}>)</small><{/if}></span></a> </li>
+        <{/if}>
+        <{ if $perms.videos }> 
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_VIDEOS}>class="profile-tabs-selected" <{/if}>><a href="videos.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/video.gif"  /> <{$smarty.const._EPROFILE_MA_VIDEOS}> <{if $videos_count}> <small>(<{$videos_count}>)</small><{/if}></span></a> </li>
+        <{/if}>
+        <{ if $perms.audio }> 
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_AUDIOS}>class="profile-tabs-selected" <{/if}>><a href="audio.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/audio.gif"  /> <{$smarty.const._EPROFILE_MA_AUDIOS}> <{if $audio_count}> <small>(<{$audio_count}>)</small><{/if}></span></a> </li>
+        <{/if}>
+        <{ if $perms.friends }> 
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_FRIENDS}>class="profile-tabs-selected" <{/if}>><a href="friends.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/friends.gif"  /> <{$smarty.const._EPROFILE_MA_FRIENDS}><{if $friends_count}> <small>(<{$friends_count}>)</small><{/if}></span></a> </li>
+        <{/if}>
+        <{ if $perms.tribes }> 
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_TRIBES}>class="profile-tabs-selected" <{/if}>><a href="tribes.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/groups.gif"  /> <{$smarty.const._EPROFILE_MA_TRIBES}> <{if $tribes_count}> <small>(<{$tribes_count}>)</small><{/if}></span></a> </li>
+        <{/if}>
+        <{if $isOwner}>
+          <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=logout"> <span><img class="profile-nav-bar-icon" alt="<{$smarty.const._US_LOGOUT}>" src="images/logout.png" /> <{$smarty.const._US_LOGOUT}></span></a> </li>
+        <{/if}>
+      </ul>
+  </div>  
+  <div style="clear:both;"></div>
+  <{ if $lang_addfriends }> 
+    <div class="profile_friends"><{ $lang_addfriends }></div>
+    <div style="clear: both;"></div>
+  <{ /if }> 
