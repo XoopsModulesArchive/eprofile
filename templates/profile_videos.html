@@ -1,0 +1,72 @@
+<{includeq file="db:profile_breadcrumbs.html"}>
+<{ if $err_video }>
+  <div class="errorMsg"><div><pre><{ $err_video }></pre></div></div>
+<{ /if }>
+<div class="profile-profile-group3">
+  <div class="profile-title head"><{$section_name}></div>
+  <{if $add_video}>
+        <{$uploadvideo.javascript}>
+        <form name="<{$uploadvideo.name}>" action="<{$uploadvideo.action}>" method="<{$uploadvideo.method}>" <{$uploadvideo.extra}>>
+            <table class="outer" cellspacing="1">
+                <tr>
+                    <th colspan="2"><{$uploadvideo.title}></th>
+                </tr>
+                <!-- start of form elements loop -->
+                <{foreach item=element from=$uploadvideo.elements}>
+                <{if $element.hidden != true}>
+                    <tr>
+                        <td class="head"><{$element.caption}>
+                            <{if $element.description}>
+                                <div style="font-weight: normal"><{$element.description}></div>
+                            <{/if}>
+                        </td>
+                        <td class="<{cycle values="even,odd"}>"><{$element.body}></td>
+                    </tr>
+                <{else}>
+                    <{$element.body}>
+                <{/if}>
+                <{/foreach}>
+                <!-- end of form elements loop -->
+            </table>
+        </form>
+    <{else}>
+        <{if $isOwner}>
+            <ul class="profile-tabs-nav"> 
+                <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/videos.php?uid=<{$uid}>&amp;op=add"> <span><img class="profile-nav-bar-icon" src="images/user.gif" /> <{$smarty.const._PROFILE_MA_ADDVIDEO}></span></a> </li>    
+            </ul>
+            <br />
+        <{/if}> 
+    <{/if}>  
+    <div class="profile-video">
+        <{if $nb_videos<=0}>
+            <h2><{$lang_novideoyet}></h2>
+        <{/if}>
+        <{section name=i loop=$videos}>
+            <div class="profile-video-container <{cycle values="odd,even"}>">
+                <div class="profile-preview-video">   
+                    <object width="<{$width}>" height="<{$height}>">
+                        <param name="movie" value="http://www.youtube.com/v/<{$videos[i].url}>"></param>
+                        <param name="wmode" value="transparent"></param>
+                        <embed src="http://www.youtube.com/v/<{$videos[i].url}>" type="application/x-shockwave-flash" wmode="transparent" width="<{$width}>" height="<{$height}>"></embed>
+                    </object>	
+                </div>
+                <div class="profile-video-details">
+                    <p><{$videos[i].desc}></p> 
+                    <{ if $isOwner==1 }>
+                        <a href="videos.php?uid=<{$uid}>&amp;op=deletevideo&amp;video_id=<{$videos[i].id}>"><input value="<{$videos[i].id}>" type="image" id="<{$smarty.const._DELETE}>" name="<{$smarty.const._DELETE}>" src="images/dele.gif" /></a>
+                        &nbsp;&nbsp;
+                        <a href="videos.php?uid=<{$uid}>&amp;op=editvideo&amp;video_id=<{$videos[i].id}>"><input value="<{$videos[i].id}>" type="image" id="<{$smarty.const._EDIT}>" name="<{$smarty.const._EDIT}>" src="images/edit.gif" /></a>          
+                    <{ /if}>
+                </div> 
+            </div>          
+        <{/section}>
+    </div>
+    <div style="clear:both;width:100%"></div>
+    <{ if $pageNav }> 
+        <div id="profil-navigator">
+            <{$pageNav}>
+        </div>
+    <{/if}>  
+</div>
+<div style="clear:both;width:100%"></div>
+<{includeq file="db:profile_footer.html"}>

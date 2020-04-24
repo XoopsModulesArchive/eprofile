@@ -1,0 +1,57 @@
+Version 1.69
+--------------------
+- remove old templates (dhcst)
+- fix add a friend (dhcst,sittel)
+- change stylesheet (dhcst,bleek)
+- add Facebook Application (dhcst)
+- fix Config not save (dhcst)
+- fix friends not visible (dhcst, sittel)
+- update english language (mamba)
+
+Version 1.68
+-------------------
+- Refactoring Code
+- fixed visit Visitors in Profile 
+- fixed Permission for profile
+
+Version 1.62
+---------------------
+- Added Social Network from yogurt - Module
+
+Version 1.52
+-------------------
+- Fixed Bug sorted Categories (dhcst/trabis)
+- Fixed bug visible all profilefields for guests (dhcst)
+- Added count User for search (dhcst)
+- Added search for groups (only webmasters) (dhcst)
+
+Version 1.51
+----------------
+???
+
+Profile version 1.50
+August 15th, 2008
+=============================
+- Made compatible with XOOPS 2.30 (phppp)
+- Made PHP4/PHP5 compliant (phppp/marco)
+- Fixed many bugs (phppp/mboyden/marco)
+- Added templates (phppp)
+- Added breadcrumbs (phppp)
+- Improved installation, mainly for localization and completeness (phppp)
+- Added CAPTCHA to register (phppp)
+- Added upgrade scripts (phppp)
+
+
+Version 1.0
+- Removed the "Allow to view account" feature as it only caused problems for anonymous
+- Register.php now requires a registration step in the database or it will redirect to the front page
+- Removed avatar preferences as they were duplicates of core
+
+Version 0.2
+
+- Modified to allow the core to be independent of this module
+- Changed visibility management to allow for more granular permissions on profiles
+
+Version 0.1 (2005)
+
+- Developed for XOOPS 2.2 to replace core user management

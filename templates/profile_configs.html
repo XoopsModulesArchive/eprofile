@@ -1,0 +1,209 @@
+<{includeq file="db:profile_breadcrumbs.html"}>
+<div class="profile-title head"><{$section_name}></div>
+<{ if $newconfig }>
+  <div class="errorMsg"><div><pre><{ $newconfig }></pre></div></div>
+<{ /if }>
+<div class="profile-visual odd">
+<form action="configs.php" method="POST" id="form_configs" name="form_configs" class="even">
+  <h2><{$smarty.const._PROFILE_MA_WHOCAN}></h2>	
+  <table cellpadding="5" cellspacing='0'>
+    <tr><td width="50%">
+      <fieldset  class="myconfigs-fieldset" name="gen" id="gen" >
+        <legend class="myconfigs-legend" for="gen"><{$smarty.const._PROFILE_MA_CONFIGSPROFILEGENERAL}></legend>
+		  <p>
+		    <select name="gen" size="1">
+			  <option value="1" <{ if $pgen==1 }>selected<{ /if }>> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+			  <option value="2" <{ if $pgen==2 }>selected<{ /if }>> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+			  <option value="3" <{ if $pgen==3 }>selected<{ /if }>> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+			  <option value="4" <{ if $pgen==4 }>selected<{ /if }>> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+			</select>
+		  </p>
+        </fieldset>
+   </td><td width="50%">
+     <fieldset  class="myconfigs-fieldset" name="stat" id="stat" >
+       <legend class="myconfigs-legend" for="stat"><{$smarty.const._PROFILE_MA_CONFIGSPROFILESTATS}></legend>
+	   <p> 
+	     <select name="stat" size="1">
+            <option value="1" <{ if $psta==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+            <option value="2" <{ if $psta==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+            <option value="3" <{ if $psta==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+            <option value="4" <{ if $psta==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+	        <option value="0" <{ if $psta==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+	     </select>
+	   </p>
+     </fieldset>
+    </td></tr>
+	<{ if $allow_config_emails!=0 || $allow_config_scraps!=0}>
+	  <tr class='<{ cycle values="odd,even"}>'><td width="50%" valign="top">
+	    <{ if $allow_config_emails!=0 }>
+	          <fieldset  class="myconfigs-fieldset" name="email" id="email" >			   
+                  <legend class="myconfigs-legend" for="email"><{$smarty.const._PROFILE_MA_CONFIGSEMAILS}></legend>
+				  <p> 
+	                 <select name="emails" size="1">
+                       <option value="2" <{ if $mail==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+                       <option value="3" <{ if $mail==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+		               <option value="0" <{ if $mail==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+					 </select>
+				  </p>
+             </fieldset>
+		<{ else }>&nbsp;
+		<{ /if }>	  
+      </td><td width="50%" valign="top">
+	    <{ if $allow_config_scraps!=0 }>
+		  <fieldset  class="myconfigs-fieldset" name="scraps" id="scraps" >
+          <legend class="myconfigs-legend" for="scraps"><{$smarty.const._PROFILE_MA_CONFIGSSCRAPS}></legend>
+		  <p> 
+	         <select name="scraps" size="1">
+               <option value="1" <{ if $scr==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+               <option value="2" <{ if $scr==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+               <option value="3" <{ if $scr==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+               <option value="4" <{ if $scr==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+	           <option value="0" <{ if $scr==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+			 </select>
+			</p>
+		  </fieldset>
+	   <{ else }>&nbsp;
+	   <{ /if }>
+     </td></tr>
+    <{ /if }>
+	<{ if $allow_config_emails!=0 || $allow_config_friends!=0}>
+	  <tr class='<{ cycle values="odd,even"}>'><td width="50%">
+	    <{ if $allow_config_friends!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="friends" id="friends" >
+            <legend class="myconfigs-legend" for="friends"><{$smarty.const._PROFILE_MA_CONFIGSFRIENDS}></legend>
+			<p> 
+	           <select name="friends" size="1">
+                 <option value="1" <{ if $fri==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+                 <option value="2" <{ if $fri==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+			     <option value="3" <{ if $fri==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+                 <option value="4" <{ if $fri==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+				 <option value="0" <{ if $fri==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+			   </select>
+			</p>
+            <p><input type="checkbox" name="friendsnotify" id="friendsnotify0" value="0" <{ if $frinot==1 }>checked="checked"<{/if}> /><label for="friendsnotify0"><{$smarty.const._PROFILE_MA_CONFIGSEMAILNOTIFY}></label></p>				 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td><td width="50%">
+	   <{ if $allow_config_scraps!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="sendscraps" id="sendscraps" >
+            <legend class="myconfigs-legend" for="sendscraps"><{$smarty.const._PROFILE_MA_CONFIGSSENDSCRAPS}></legend>
+		    <p> 
+	         <select name="sendscraps" size="1">
+              <option value="2" <{ if $sscr==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+              <option value="3" <{ if $sscr==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+              <option value="4" <{ if $sscr==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+	          <option value="0" <{ if $sscr==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+		     </select>
+		    </p>
+		    <p><input type="checkbox" name="scrapsnotify" id="scrapsnotify0" value="0" <{ if $scrnot==1 }>checked="checked"<{/if}> /><label for="scrapsnotify0"><{$smarty.const._PROFILE_MA_CONFIGSEMAILNOTIFY}></label></p>
+         </fieldset>
+       <{ /if }>
+     </td></tr>
+  <{ /if }>
+  <{ if $allow_config_pictures!=0 || $allow_config_videos!=0}>
+    <tr class='<{ cycle values="odd,even"}>'><td width="50%">
+	    <{ if $allow_config_pictures!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="pictures" id="pictures" >
+            <legend class="myconfigs-legend" for="pictures"><{$smarty.const._PROFILE_MA_CONFIGSPICTURES}></legend>
+			<p> 
+	           <select name="pic" size="1">
+                 <option value="1" <{ if $pic==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+                 <option value="2" <{ if $pic==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+			     <option value="3" <{ if $pic==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+                 <option value="4" <{ if $pic==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+				 <option value="0" <{ if $pic==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+			   </select>
+			</p> 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td><td width="50%">
+	   <{ if $allow_config_videos!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="videos" id="videos" >
+            <legend class="myconfigs-legend" for="videos"><{$smarty.const._PROFILE_MA_CONFIGSVIDEOS}></legend>
+			<p> 
+	           <select name="vid" size="1">
+                 <option value="1" <{ if $vid==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+                 <option value="2" <{ if $vid==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+			     <option value="3" <{ if $vid==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+                 <option value="4" <{ if $vid==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+				 <option value="0" <{ if $vid==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+			   </select>
+			</p> 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td></tr>
+  <{ /if }>
+  <{ if $allow_config_audios!=0 || $allow_config_tribes!=0}>
+    <tr class='<{ cycle values="odd,even"}>'><td width="50%">
+	    <{ if $allow_config_audios!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="audios" id="audios" >
+            <legend class="myconfigs-legend" for="audios"><{$smarty.const._PROFILE_MA_CONFIGSAUDIOS}></legend>
+			<p> 
+	           <select name="aud" size="1">
+                 <option value="1" <{ if $aud==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+                 <option value="2" <{ if $aud==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+			     <option value="3" <{ if $aud==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+                 <option value="4" <{ if $aud==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+				 <option value="0" <{ if $aud==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+			   </select>
+			</p> 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td><td width="50%">
+	   <{ if $allow_config_tribes!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="tribes" id="tribes" >
+            <legend class="myconfigs-legend" for="tribes"><{$smarty.const._PROFILE_MA_CONFIGSTRIBES}></legend>
+			<p> 
+	           <select name="trib" size="1">
+                 <option value="1" <{ if $trib==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSEVERYONE}></option>
+                 <option value="2" <{ if $trib==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEUSERS}></option>
+			     <option value="3" <{ if $trib==3 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYEFRIENDS}></option>
+                 <option value="4" <{ if $trib==4 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSONLYME}></option>
+				 <option value="0" <{ if $trib==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSNOTHING}></option>
+			   </select>
+			</p> 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td></tr>
+  <{ /if }>
+  <{ if $allow_config_messages!=0  || $allow_config_facebook!=0}>
+    <tr class='<{ cycle values="odd,even"}>'><td width="50%">
+	    <{ if $allow_config_messages!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="audios" id="audios" >
+            <legend class="myconfigs-legend" for="audios"><{$smarty.const._PROFILE_MA_CONFIGSMESSAGES}></legend>
+			<p> 
+	           <select name="mess" size="1">
+                 <option value="1" <{ if $mess==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSMESSYES}></option>
+                 <option value="2" <{ if $mess==2 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSMESSYESMAIL}></option>
+			     <!--<option value="0" <{ if $mess==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSMESSNO}></option>//-->
+			   </select>
+			</p> 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td><td width="50%">
+	   <{ if $allow_config_facebook!=0 }>
+	      <fieldset  class="myconfigs-fieldset" name="audios" id="audios" >
+            <legend class="myconfigs-legend" for="audios"><{$smarty.const._PROFILE_MA_FACEBOOK}></legend>
+			<p> 
+	           <select name="fb" size="1">
+                 <option value="1" <{ if $fb==1 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSMESSYES}></option>
+                 <option value="0" <{ if $fb==0 }>selected<{/if}> /> <{$smarty.const._PROFILE_MA_CONFIGSMESSNO}></option>
+			   </select>
+			</p> 
+          </fieldset>
+	    <{ else }>&nbsp;
+	    <{ /if }>
+     </td></tr>
+  <{ /if }>
+  </table>
+  <{$token}>
+  <p><input type="submit" name="button" id="button" value="<{$smarty.const._SUBMIT}>"></p>
+</form>
+</div>
+<{includeq file="db:profile_footer.html"}>

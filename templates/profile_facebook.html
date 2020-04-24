@@ -1,0 +1,19 @@
+<{includeq file="db:profile_breadcrumbs.html"}>
+<{if $facebook_ok}>
+    <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/de_DE" type="text/javascript"></script>
+    <script type="text/javascript">FB.init('<{$api_key}>');</script>
+    <div class="profile-visual odd">
+        <fb:live-stream event_app_id="<{$apid}>" xid="YOUR_EVENT_XID" width="99%" height="600"></fb:live-stream>
+    </div>
+<{else}> 
+    <div align="center">
+        <br /><br /><br />
+        <h2>NO API KEY OR APPID DEFINED!</h2>
+        <br />
+        <a href="http://developers.facebook.com/setup.php">SEE MORE ON FACEBOOK</a>
+        <p></p>
+        <br /><br /><br />
+    </div>
+<{/if}>
+<div style="clear:both;"></div>
+<{includeq file="db:profile_footer.html"}>

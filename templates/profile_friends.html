@@ -1,0 +1,24 @@
+<{includeq file="db:profile_breadcrumbs.html"}>
+<div class="profile-profile-group3">
+    <div class="profile-title head"><{$section_name}></div>
+    <{if $lang_nofriendsyet==""}>
+        <{section name=i loop=$friends}>
+            <div class="profile-friend <{cycle values="odd,even"}>">  
+                <{if $isOwner }>
+                    <p><a href="<{$xoops_url}>/modules/profile/friends.php?uid=<{$uid}>&amp;op=removefriend&amp;friend=<{$friends[i].id}>">
+                    <img src="images/dele.gif" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/></a></p>
+                <{ /if }>
+                <p><a href="<{$xoops_url}>/modules/profile/userinfo.php?uid=<{$friends[i].uid}>" title="<{$friends[i].uname}>"> <{ if $friends[i].user_avatar=="blank.gif" }><img src="images/noavatar.gif" alt=" <{$friends[i].uname}>" /> <{ else }> <img src="<{$xoops_upload_url}>/<{$friends[i].user_avatar}>" alt=" <{$friends[i].uname}>" /><{/if}><br /><br /><{$friends[i].uname}></a></p>
+            </div>
+        <{/section}>
+    <{ else }>
+        <h2><{$lang_nofriendsyet}></h2>
+    <{ /if}>
+    <{ if $pageNav }> 
+        <div id="profil-navigator">
+            <{$pageNav}>
+        </div>
+    <{/if}> 
+</div>
+<div style="clear:both"></div>
+<{includeq file="db:profile_footer.html"}>
