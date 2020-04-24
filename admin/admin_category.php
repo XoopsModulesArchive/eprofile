@@ -1,5 +1,5 @@
 <?php
-// $Id: admin_category.php 35 2014-02-08 17:37:13Z alfred $
+// $Id: category.php 2 2012-08-16 08:20:47Z alfred $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

@@ -1,6 +1,6 @@
 Hallo {X_UNAME},
 
-Ihre E-Mail-Adresse auf {SITENAME} 
+Ihre Email-Adresse auf {SITENAME} 
 wurde erfolgreich geändert. 
 
 Sollten Sie noch Fragen haben, 

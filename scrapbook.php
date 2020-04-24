@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: scrapbook.php 33 2014-02-08 16:58:34Z alfred $
+ * @version         $Id: scrapbook.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include 'header.php';

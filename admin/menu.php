@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: menu.php 29 2014-02-07 21:38:38Z alfred $
+ * @version         $Id: menu.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 if ( file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))){

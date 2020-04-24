@@ -1,5 +1,5 @@
 <?php
-// $Id: about.php 3 2012-08-16 20:15:01Z alfred $
+// $Id: about.php,v 1.3 2005/10/19 17:20:32 phppp Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

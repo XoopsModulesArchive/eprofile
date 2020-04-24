@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: readpmsg.php 28 2013-09-06 21:58:22Z alfred $
+ * @version         $Id: readpmsg.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include 'header.php';

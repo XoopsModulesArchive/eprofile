@@ -39,51 +39,54 @@ table.profile-form  {
     padding: 5px;    
 }
 
-#profile-container {
-  margin:2px;
-	width:100%;
-	font-size: 12px;
+.profile-container {
+  padding: 8px; 
 }
 
-#profile-nav-bar, #profile-nav-bar2 {
-	margin:5px;
-	width:100%;
-	padding:2px;
+.profile-title {
+  padding: 8px;
 }
-.profile-tabs-nav {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 4px;
+
+.profile-nav-bar {
+	margin:5px;
+	width:90%;
+	padding:2px;
+  display:inline;
+}
+.profile-tabs-nav .profile-tabs-selected {
+  list-style: none;
+  margin: 0;
+  padding: 4 0 0 4px;
 }
 
 .profile-tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
-    display: block;
-    clear: both;
-    content: " ";
+  display: block;
+  clear: both;
+  content: " ";
 }
 
 .profile-tabs-nav li {
-    float: left;
-    margin: 0 0 0 1px;
-    min-width: 64px; /* be nice to Opera */
+  float: left;
+  margin: 0 0 0 1px;
+  min-width: 64px; /* be nice to Opera */
 	list-style:none;
 }
 .profile-tabs-nav a, .profile-tabs-nav a span {
-    display: block;
-    padding: 0 10px;
-    background: url(../images/tab.png) no-repeat;
+  display: block;
+  padding: 0 10px;
+  background: url(../images/tab.png) no-repeat;
 }
 .profile-tabs-nav a {
-    position: relative;
-    top: 1px;
-    z-index: 2;
-    padding-left: 0;
-    color: #27537a;
-    font-size: 12px;
-    font-weight: bold;    
-    text-align: center;
-    text-decoration: none;
-    white-space: nowrap; /* required in IE 6 */    
+  position: relative;
+  top: 1px;
+  z-index: 2;
+  padding-left: 0;
+  color: #27537a;
+  font-size: 12px;
+  font-weight: bold;    
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap; /* required in IE 6 */    
 }
 
 img.profile-nav-bar-icon {
@@ -92,14 +95,14 @@ img.profile-nav-bar-icon {
 	border:none;
 }
 .profile-tabs-nav .profile-tabs-selected a {
-    color: #000;
+  color: #000;
 }
 .profile-tabs-nav .profile-tabs-selected a, .profile-tabs-nav a:hover, .profile-tabs-nav a:focus, .profile-tabs-nav a:active {
-    background-position: 100% -150px;
-    outline: 0; /* prevent dotted border in Firefox */
+  background-position: 100% -150px;
+  outline: 0; /* prevent dotted border in Firefox */
 }
 .profile-tabs-nav a, .profile-tabs-nav .profile-tabs-disabled a:hover, .profile-tabs-nav .profile-tabs-disabled a:focus, .profile-tabs-nav .profile-tabs-disabled a:active {
-    background-position: 100% -100px;
+  background-position: 100% -100px;
 }
 .profile-tabs-nav a span {
     width: 64px; /* IE 6 treats width as min-width */
@@ -153,12 +156,12 @@ img.profile-nav-bar-icon {
 	display: block;
 	color:#4b657f;
 	font-size: 14px;
-	background: url(../images/tab2.png) left -62px no-repeat;
+	background: url(../images/tab-button.png) left -62px no-repeat;
 	}
 
 .profile-tabs-nav-in a span{
 	float:left;
-    padding-right: 10px;
+  padding-right: 10px;
 	cursor:pointer;
 	background: url(../images/tab2.png) right top no-repeat;
 }
@@ -177,15 +180,15 @@ img.profile-nav-bar-icon {
     background: url(../images/loading.gif) no-repeat 0 50%;
 }
 .profile_friends{
-    color:#000000; 
-    background-color:#FDFDE4; 
-    border-color:#000000; 
+  color:#000000; 
+  background-color:#FDFDE4; 
+  border-color:#000000; 
 	border: 1px solid #BBDCF7;
-    margin:5px;
-    padding:10px;
+  margin:5px;
+  padding:10px;
 }
 .profile-footer {
-    margin:3px;
+  margin:3px;
 	float:left;
 	padding:1px;
 	width:95%;
@@ -212,14 +215,7 @@ img.profile-nav-bar-icon {
 	width:99%;
 	overflow:hidden;
 }
-.profile-title {
-    margin:6px;
-    color:#000000;
-    padding:5px;
-    font-size: 18px;
-    font-weight: bold;
-	border:1px solid #BBDCF7;
-}
+
 .profile-avatar {   
     margin:1px 1px 1px 0;
     width:36%;  

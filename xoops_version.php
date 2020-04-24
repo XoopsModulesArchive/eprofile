@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: xoops_version.php 35 2014-02-08 17:37:13Z alfred $
+ * @version         $Id: xoops_version.php 41 2014-04-14 20:58:09Z alfred $
  */
  
 /**
@@ -27,10 +27,11 @@ xoops_loadLanguage('main', 'eprofile');
  
 $modversion = array();
 $modversion['name']         = _EPROFILE_MI_NAME;
-$modversion['version']      = 1.73;
+$modversion['version']      = 1.79;
+$modversion['simple-xoops'] = true; 
 $modversion['description']  = _EPROFILE_MI_DESC;
 $modversion['author']       = "Jan Pedersen; Taiwen Jiang; alfred";
-$modversion['credits']      = "Ackbarr, mboyden, marco, mamba, etc.";
+$modversion['credits']      = "alfred, Ackbarr, mboyden, marco, mamba, etc.";
 $modversion['license']      = "GPL see XOOPS LICENSE";
 $modversion['image']        = "images/logo.png";
 $modversion['dirname']      = "eprofile";
@@ -45,10 +46,10 @@ $modversion['onInstall']    = "include/install.php";
 $modversion['onUpdate']     = "include/update.php";
 
 //about
-$modversion['release_date']     	  = '2012/08/26';
-$modversion["module_website_url"] 	= "www.simple-xoops.de/";
+$modversion['release_date']     	  = '2014/05/04';
+$modversion["module_website_url"] 	= "http://www.simple-xoops.de/";
 $modversion["module_website_name"] 	= "SIMPLE-XOOPS";
-$modversion["module_status"] 		    = "Alpha 1";
+$modversion["module_status"] 		    = "RC 1";
 $modversion['min_php']				      = "5.3";
 $modversion['min_xoops']			      = "2.5.5";
 $modversion['min_admin']			      = "1.1";
@@ -68,8 +69,13 @@ if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->isActive()) {
     $modversion['sub'][2]['url']    = "search.php";
     $modversion['sub'][3]['name']   = _EPROFILE_MI_CHANGEPASS;
     $modversion['sub'][3]['url']    = "changepass.php";
-    $modversion['sub'][3]['name']   = _EPROFILE_MI_CHANGEMAIL;
-    $modversion['sub'][3]['url']    = "changemail.php";
+    
+    $config_handler =& xoops_gethandler('config');
+    $xoopsConfigUser = $config_handler->getConfigsByCat(XOOPS_CONF_USER);
+    if ($xoopsConfigUser['allow_chgmail'] == 1) {
+      $modversion['sub'][4]['name']   = _EPROFILE_MI_CHANGEMAIL;
+      $modversion['sub'][4]['url']    = "changemail.php";
+    }    
 }
 
 // Mysql file
@@ -110,6 +116,15 @@ $modversion['blocks'][$i]['edit_func']    = 'eprofile_popular_edit';
 $modversion['blocks'][$i]['options']      = '0|0|5';
 $modversion['blocks'][$i]['template']     = 'eprofile_popular.html';
 
+$i++;
+$modversion['blocks'][$i]['file']         = 'online.php';
+$modversion['blocks'][$i]['name']         = _EPROFILE_MI_BLOCK_NEIGTHBAR;
+$modversion['blocks'][$i]['description']  = '';
+$modversion['blocks'][$i]['show_func']    = 'eprofile_neigthbar_show';
+$modversion['blocks'][$i]['edit_func']    = 'eprofile_neigthbar_edit';
+$modversion['blocks'][$i]['options']      = '25|0|0|5|demo';
+$modversion['blocks'][$i]['template']     = 'eprofile_neigthbar.html';
+
 // Config items
 $i=0;
 $modversion['config'][$i]['name']           = 'profile_delimiter0';
@@ -119,13 +134,12 @@ $modversion['config'][$i]['title']          = "_EPROFILE_MI_CAT_SETTINGS";
 $modversion['config'][$i]['valuetype']      = 'line_break';
 
 $i++;
-$modversion['config'][$i]['name']           = 'profile_search';
+$modversion['config'][$i]['name']           = 'profile_general';
 $modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_SEARCH';
 $modversion['config'][$i]['description']    = '_EPROFILE_MI_EPROFILE_SEARCH_DESC';
 $modversion['config'][$i]['formtype']       = 'select';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['options']        = array(
-                                              '_EPROFILE_MA_CONFIGSNOTHING'=>0,
                                               '_EPROFILE_MA_CONFIGSEVERYONE'=>1,
                                               '_EPROFILE_MA_CONFIGSONLYEUSERS'=>2 ,
                                               '_EPROFILE_MA_CONFIGSONLYEFRIENDS'=>3,
@@ -496,6 +510,65 @@ $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 5;
 */
 
+$i++;
+$modversion['config'][$i]['name']           = 'profile_delimiter6';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_EPROFILE_ANTISPAM';
+$modversion['config'][$i]['description']    = '';
+$modversion['config'][$i]['formtype']       = 'line_break';
+$modversion['config'][$i]['valuetype']      = 'line_break';
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_antispam_apikey';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_ANTISPAM_APIKEY';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_ANTISPAM_APIKEY_DESC';
+$modversion['config'][$i]['formtype']       = 'textbox';
+$modversion['config'][$i]['valuetype']      = 'text';
+$modversion['config'][$i]['default']        = '';
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_antispam_submit';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_ANTISPAM_SUBMIT';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_ANTISPAM_SUBMIT_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['default']        = 1;
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_antispam_sendmail';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_ANTISPAM_SENDMAIL';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_ANTISPAM_SENDMAIL_DESC';
+$modversion['config'][$i]['formtype']       = 'select';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['formtype']       = 'yesno';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['default']        = 1;
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_antispam_ip';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_ANTISPAM_IP';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_ANTISPAM_IP_DESC';
+$modversion['config'][$i]['formtype']       = 'textbox';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['default']        = '5';
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_antispam_email';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_ANTISPAM_EMAIL';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_ANTISPAM_EMAIL_DESC';
+$modversion['config'][$i]['formtype']       = 'textbox';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['default']        = '5';
+
+$i++;
+$modversion['config'][$i]['name']           = 'profile_antispam_uname';
+$modversion['config'][$i]['title']          = '_EPROFILE_MI_ANTISPAM_UNAME';
+$modversion['config'][$i]['description']    = '_EPROFILE_MI_ANTISPAM_UNAME_DESC';
+$modversion['config'][$i]['formtype']       = 'textbox';
+$modversion['config'][$i]['valuetype']      = 'int';
+$modversion['config'][$i]['default']        = '5';
+
 // Templates
 $i = 0;
 $i++;
@@ -596,5 +669,9 @@ $modversion['templates'][$i]['description'] = '';
 
 $i++;
 $modversion['templates'][$i]['file']        = 'profile_email.html';
+$modversion['templates'][$i]['description'] = '';
+
+$i++;
+$modversion['templates'][$i]['file']        = 'profile_start.html';
 $modversion['templates'][$i]['description'] = '';
 ?>

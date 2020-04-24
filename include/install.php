@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: install.php 35 2014-02-08 17:37:13Z alfred $
+ * @version         $Id: install.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 function xoops_module_install_eprofile($module) 

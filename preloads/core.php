@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.4.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: core.php 24 2013-05-24 19:31:14Z alfred $
+ * @version         $Id: core.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');

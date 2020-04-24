@@ -1,12 +1,12 @@
 <?php
-// $Id: admin.php 28 2013-09-06 21:58:22Z alfred $
+// $Id: admin.php 2 2012-08-16 08:20:47Z alfred $
 // _LANGCODE: de
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team
 
-define("_EPROFILE_AM_FIELD",				"Feld");
+define("_EPROFILE_AM_FIELD",			"Feld");
 define("_EPROFILE_AM_FIELDS",			"Felder");
-define("_EPROFILE_AM_CATEGORY",			"Kategorie");
+define("_EPROFILE_AM_CATEGORY",		"Kategorie");
 define("_EPROFILE_AM_STEP",				"Schritt weiter");
 
 define("_EPROFILE_AM_SAVEDSUCCESS",		"%s erfolgreich gespeichert");
@@ -28,7 +28,7 @@ define("_EPROFILE_AM_DEFAULT",	"Vorgabe");
 define("_EPROFILE_AM_NOTNULL",	"Nicht Null?");
 
 define("_EPROFILE_AM_ARRAY",		"Array");
-define("_EPROFILE_AM_EMAIL",		"E-Mail");
+define("_EPROFILE_AM_EMAIL",		"Email");
 define("_EPROFILE_AM_INT",		"Ganzzahl");
 define("_EPROFILE_AM_TXTAREA",	"Textbereich");
 define("_EPROFILE_AM_TXTBOX",	"Textfeld");
@@ -88,7 +88,7 @@ define("_EPROFILE_AM_USERCREATED",   "User erstellt");
 define("_EPROFILE_AM_CANNOTDELETESELF",	"Das Löschen Ihres eigenen Accounts ist nicht erlaubt - benutzen Sie Ihre Profilseite, um Ihren eigenen Account zu löschen");
 define("_EPROFILE_AM_CANNOTDELETEADMIN", "Das Löschen eines Administratorkontos ist nicht erlaubt.");
 
-define("_EPROFILE_AM_NOSELECTION",			"Kein User Ausgewählt");
+define("_EPROFILE_AM_NOSELECTION",			"Kein User ausgewählt");
 define("_EPROFILE_AM_USER_ACTIVATED",		"User aktivieren");
 define("_EPROFILE_AM_USER_DEACTIVATED",		"User deaktivieren");
 define("_EPROFILE_AM_USER_NOT_ACTIVATED",	"Fehler: User NICHT aktiviert");

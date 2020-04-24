@@ -1,5 +1,5 @@
 <?php
-// $Id: mailto.php 35 2014-02-08 17:37:13Z alfred $
+// $Id: mailto.php 2 2012-08-16 08:20:47Z alfred $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -29,8 +29,8 @@ include 'header.php';
 $toid = (!empty($_GET['toid'])) ? intval($_GET['toid']) : 0;
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : '';
 
-if ( !$profileconfigs_handler->getperm('emails', $toid, $muid) ) {
-  redirect_header(XOOPS_URL . '/modules/eprofile/userinfo.php?uid='.$uid, 2, _EPROFILE_MA_NOPERM);
+if ( !$profileconfigs_handler->getperm('emails', $toid, $uid) ) {
+  redirect_header(XOOPS_URL . '/modules/eprofile/userinfo.php?uid='.$toid, 2, _EPROFILE_MA_NOPERM);
 }
 
 $xoopsOption['template_main'] = 'profile_email.html';

@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: profile.php 27 2013-05-26 11:40:34Z alfred $
+ * @version         $Id: profile.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 /**

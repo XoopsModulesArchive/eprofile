@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id: video.php 3 2012-08-16 20:15:01Z alfred $
+ * @version         $Id: video.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 class EprofileVideo extends XoopsObject  

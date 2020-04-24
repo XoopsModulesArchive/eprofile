@@ -16,14 +16,19 @@
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: index.php 11 2013-02-24 19:57:08Z alfred $
+ * @version         $Id: index.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include 'header.php';
 
 if ( !$isOwner ) {
 	if ($uid <= 1) {
-		redirect_header(XOOPS_URL . "/user.php", 2, _US_SORRYNOTFOUND);
+		//redirect_header(XOOPS_URL . "/user.php", 2, _US_SELECTNG); //_US_SORRYNOTFOUND);
+    $xoopsOption['template_main'] = 'profile_start.html';
+    include $GLOBALS['xoops']->path('header.php');   
+    $xoopsTpl->assign('eprofile_version','eProfile '.XoopsLocal::number_format(($xoopsModule->getVar('version') / 100)));
+    include $GLOBALS['xoops']->path('footer.php');
+    exit();
 	}
 	$thisUser =& $member_handler->getUser($uid);
   if ( !$thisUser ) {

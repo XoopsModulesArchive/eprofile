@@ -1,7 +1,12 @@
-Version 1.71
+Version 1.79
 --------------------
+- Configuration default or User
+- Add antispam from stopforumspam.com
+- Check required fields
 - Rename Modul profile to eprofile
 - Update Admin to Xoops 2.5.5
+- Add default start Page to module (sato-san)
+- Add block user near
 
 Version 1.69
 --------------------

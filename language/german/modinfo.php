@@ -1,5 +1,5 @@
 <?php
-// $Id: modinfo.php 35 2014-02-08 17:37:13Z alfred $
+// $Id: modinfo.php 49 2014-05-31 22:58:46Z alfred $
 // _LANGCODE: EN
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team
@@ -10,7 +10,7 @@ define("_EPROFILE_MI_DESC", "Modul um erweiterte Userprofilfelder zu verwalten")
 //Main menu links
 define("_EPROFILE_MI_EDITACCOUNT", "Konto bearbeiten");
 define("_EPROFILE_MI_CHANGEPASS", "Passwort ändern");
-define("_EPROFILE_MI_CHANGEMAIL", "E-Mail ändern");
+define("_EPROFILE_MI_CHANGEMAIL", "Email ändern");
 
 //Admin links
 define("_EPROFILE_MI_INDEX", "Index");
@@ -123,4 +123,25 @@ define("_EPROFILE_MI_EPROFILE_STATS_DESC","User können in Ihrem Profil sehen, w
 define("_EPROFILE_MI_BLOCK_POPULAR","populärste User");
 define("_EPROFILE_MI_BLOCK_COUNTER","Posting(s)");
 
+define("_EPROFILE_MI_EPROFILE_ANTISPAM","Antispam Einstellungen");
+define("_EPROFILE_MI_ANTISPAM_APIKEY","API-KEY");
+define("_EPROFILE_MI_ANTISPAM_APIKEY_DESC","Tragen Sie den Key für Ihre Seite ein um Daten senden zu können.<br />Diesen Key erhalten Sie unter http://http://www.stopforumspam.com/");
+define("_EPROFILE_MI_ANTISPAM_SUBMIT","Daten senden?");
+define("_EPROFILE_MI_ANTISPAM_SUBMIT_DESC","Spamanmeldungen automatisch an www.stopforumspam.com senden");
+define("_EPROFILE_MI_ANTISPAM_SENDMAIL","Anmeldeversuch per Mail melden?");
+define("_EPROFILE_MI_ANTISPAM_SENDMAIL_DESC","Für jede fehlgeschlagene Meldung erhält die Administratorgruppe eine Mail mit den Daten.");
+define("_EPROFILE_MI_ANTISPAM_IP","Anzahl Versuche von der IP-Adresse");
+define("_EPROFILE_MI_ANTISPAM_IP_DESC","Ab dieser Anzahl der gleichen IP-Adresse wird die Registrierung verweigert");
+define("_EPROFILE_MI_ANTISPAM_EMAIL","Anzahl Versuche von dieser Emailadresse");
+define("_EPROFILE_MI_ANTISPAM_EMAIL_DESC","Ab dieser Anzahl der gleichen Emailadresse wird die Registrierung verweigert");
+define("_EPROFILE_MI_ANTISPAM_UNAME","Anzahl Versuche von diesem Usernamen");
+define("_EPROFILE_MI_ANTISPAM_UNAME_DESC","Ab dieser Anzahl des gleichen Usernames wird die Registrierung verweigert");
+
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR","Umkreissuche von Usern");
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR_SIZE","im Umkreis von:");
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR_COUNTRY","Land:");
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR_PLZ","Postleitzahl:");
+define("_EPROFILE_MI_BLOCK_APIUSER","Username für API bei http://geonames.org");
+define("_EPROFILE_MI_USERFROMPLZ","aus der Nähe von");
+define("_EPROFILE_MI_BLOCK_ERRORAPI","keine Daten gefunden");
 ?>

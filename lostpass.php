@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: lostpass.php 4 2012-08-20 08:48:43Z alfred $
+ * @version         $Id: lostpass.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include "header.php";
@@ -82,11 +82,11 @@ if (empty($user)) {
         $xoopsMailer->setFromName($xoopsConfig['sitename']);
         $xoopsMailer->setSubject(sprintf(_US_NEWPWDREQ,$xoopsConfig['sitename']));
         if ( !$xoopsMailer->send() ) {
-			include XOOPS_ROOT_PATH . "/header.php";        
-            echo $xoopsMailer->getErrors();
-			include "footer.php";
+          include XOOPS_ROOT_PATH . "/header.php";        
+          echo $xoopsMailer->getErrors();
+          include "footer.php";
         }
-		redirect_header('index.php',3,sprintf(_US_CONFMAIL,$user->getVar('uname')));
+        redirect_header('index.php',3,sprintf(_US_CONFMAIL,$user->getVar('uname')));
         exit();        
     }
 }

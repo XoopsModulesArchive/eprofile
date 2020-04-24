@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id: configs.php 32 2014-02-08 10:30:45Z alfred $
+ * @version         $Id: configs.php 42 2014-04-14 22:05:58Z alfred $
  */
 
 class EprofileConfigs extends XoopsObject  
@@ -39,6 +39,7 @@ class EprofileConfigs extends XoopsObject
       $this->initVar("profile_stats",		XOBJ_DTYPE_INT,0,false,1);
       $this->initVar("profile_messages",XOBJ_DTYPE_INT,0,false,1);
       $this->initVar("messages_notify",	XOBJ_DTYPE_INT,0,false,1);
+      $this->initVar("user_module",	    XOBJ_DTYPE_INT,0,false,1);
     }
 
 }
@@ -51,62 +52,58 @@ class EprofileConfigsHandler extends XoopsPersistableObjectHandler
     parent::__construct($db, 'profile_configs', 'Eprofileconfigs', 'config_id', 'config_uid');
   }
 	
-	public function getperm($art=null, $uid=null, $accessgroup=0) 
+	public function getperm($art=null, $uid=0, $accessgroup=0) 
 	{
 	  	global $xoopsUser,$xoopsModuleConfig;
-	  	if( $art == null || $uid <= 0 ) return false;
-           
-      if (in_array($art,array("emails", "scraps", "pictures", "audio", "videos", "tribes", "friends"))) {
-	    	if ( $xoopsModuleConfig["profile_".$art] != 1 ) return false;
-	  	}
-	  	$criteria = new Criteria('config_uid',$uid);
-      $configs = $this->getObjects($criteria);
-	  	$config = ($configs) ? $configs[0] : false;
-	  	if ($art == "all") {
-    
-	    	$u = array( 'profile_general'  => $xoopsModuleConfig['profile_search'],
-                    'profile_stats'    => $xoopsModuleConfig['profile_stats'],
-                    'profile_messages' => $xoopsModuleConfig['profile_messages'],
-                    'scraps'           => $xoopsModuleConfig['profile_scraps'],
-                    'emails'           => $xoopsModuleConfig['profile_emails'],
-                    'friends'          => $xoopsModuleConfig['profile_friends'],
-                    'pictures'         => $xoopsModuleConfig['profile_pictures'],
-                    'audio'            => $xoopsModuleConfig['profile_audio'],
-                    //'tribes'           => $xoopsModuleConfig['profile_tribes'],
-                    'videos'           => $xoopsModuleConfig['profile_videos'],
-                    'scraps_notify'    => true,
-                    'sendscraps'       => true,
-                    'friends_notify'   => true,
-                    'messages_notify'  => true,
-                    'tribes_notify'    => true,
-                    'isConfig'         => false
-                  );
-                  
-	    	if ($config != false)	{ 
-          $config = $config->toArray();                  
-		   		foreach ($config as $v => $wert) { 
-            if (in_array($v,array("emails", "scraps", "pictures", "audio", "videos", "friends"/*, "tribes"*/))) {
-              if ( $GLOBALS["xoopsModuleConfig"]["profile_".$v] != 1 ) {
-                $u[$v] = false;
-              } elseif ( $wert <= $accessgroup && $wert > 0) {
-                $u[$v] = true;
-              } else {
-                $u[$v] = false;
-              }              
-            } elseif (in_array($v,array("profile_stats", "profile_messages", "profile_general", "messages_notify", "scraps_notify", /*"tribes_notify", */"sendscraps"))) {
-              if ( $wert <= $accessgroup && $wert > 0) {
-                $u[$v] = true;
-              } else {
-                $u[$v] = false;
-              }            
+	  	if( $art == null ) return false;
+                 
+	  	$config = getConfig($uid);
+
+	  	if ($art == "all") {       
+        
+        foreach ($config as $v => $wert) {       
+          if (in_array($v,array("emails", "scraps", "pictures", "audio", "videos", "friends"/*, "tribes"*/))) {          
+            if ($xoopsModuleConfig['profile_' . $v] == 0) {
+              $u[$v] = false;
+            } elseif ( $wert <= $accessgroup && $wert > 0) {
+              $u[$v] = true;
+            } else {
+              $u[$v] = false;
+            } 
+          } elseif (in_array($v,array("profile_general", "profile_messages"))) {
+            if ($xoopsModuleConfig[$v] == 0 ) {
+              $u[$v] = false;      
+            } elseif ( $wert <= $accessgroup && $wert > 0) {
+              $u[$v] = true;
+            } else {
+              $u[$v] = false;
+            }   
+          } elseif (in_array($v,array("messages_notify", "scraps_notify", /*"tribes_notify", */"sendscraps"))) {
+            if ( $wert <= $accessgroup && $wert > 0) {
+              $u[$v] = true;
+            } else {
+              $u[$v] = false;
+            }
+          } elseif (in_array($v,array("user_module"))) {
+            if ( $wert <= $accessgroup && $wert > 0) {
+              $u[$v] = true;
+            } else {
+              $u[$v] = false;
+            }
+          } elseif (in_array($v,array("profile_stats"))) {
+            if ($xoopsModuleConfig[$v] == 0) {
+              $u[$v] = false;
+            } elseif ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->uid() == $uid) {
+              $u[$v] = true;
+            } else {
+              $u[$v] = false;
             }
           }
-          $u['isConfig'] = true; 
-        }         
+        }
         return $u;
         
       } else {
-	    	$wert = ($config) ? $config->getVar($art) : 0;        
+	    	$wert = $config[$art];     
         if ( $wert == 1 ) return true;
 	    	elseif ( $wert == 2 && $xoopsUser ) return true;
 	    	elseif ( $wert == 3 ) return $this->isMyFriend($uid); 

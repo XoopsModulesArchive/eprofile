@@ -1,10 +1,10 @@
 <?php
-// $Id: main.php 28 2013-09-06 21:58:22Z alfred $
+// $Id: main.php 2 2012-08-16 08:20:47Z alfred $
 // _LANGCODE: de
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team
 
-define("_EPROFILE_MA_REGISTER_NOTGROUP", "Neuer Benutzer wird nicht zu entsprechenden Gruppen registriert.");
+define("_EPROFILE_MA_REGISTER_NOTGROUP", "Neuer Benutzer wird nicht zur entsprechenden Gruppen registriert.");
 define("_EPROFILE_MA_FINISH_LOGIN","Ihr Account wurde erfolgreich erstellt, bitte anklicken um sich anzumelden.");
 define("_EPROFILE_MA_REGISTER_FINISH", "Danke für Ihre Registrierung");
 define("_EPROFILE_MA_REGISTER_STEPS", "Anmeldeschritte:");
@@ -12,8 +12,8 @@ define("_EPROFILE_MA_REGISTER_STEPS", "Anmeldeschritte:");
 define("_EPROFILE_MA_DEFAULT", "Standardeinstellungen");
 
 define("_EPROFILE_MA_ERRORDURINGSAVE", "Fehler beim Speichern");
-define("_EPROFILE_MA_NOSTEPSAVAILABLE", "Registration ist momentan nicht möglich. Bitte später nochmals versuchen.");
-define("_EPROFILE_MA_EXPIRED", "Die Zeit ist abgelaufen, bitte zurück gehen um es erneut zu Versuchen.");
+define("_EPROFILE_MA_NOSTEPSAVAILABLE", "Eine Registrierung ist momentan nicht möglich. Bitte später nochmals versuchen.");
+define("_EPROFILE_MA_EXPIRED", "Die Zeit ist abgelaufen, bitte zurückgehen um es erneut zu versuchen.");
 
 
 define('_EPROFILE_MA_RECENTACTIVITY','Auswahl Useraktivitäten');
@@ -43,22 +43,22 @@ define("_EPROFILE_MA_RESULTS", "Suchergebnisse");
 define("_EPROFILE_MA_SEARCH", "User suchen");
 
 //changemail.php
-define("_EPROFILE_MA_CHANGEMAIL", "E-Mail-Adresse ändern");
-define("_EPROFILE_MA_NEWMAIL", "Neue E-Mail-Adresse");
+define("_EPROFILE_MA_CHANGEMAIL", "Email-Adresse ändern");
+define("_EPROFILE_MA_NEWMAIL", "Neue Email-Adresse");
 
-define("_EPROFILE_MA_NEWEMAIL", "E-Mail-Adresse ist %s");
-define("_EPROFILE_MA_EMAILCHANGED", "E-Mail-Adresse wurde geändert");
+define("_EPROFILE_MA_NEWEMAIL", "Email-Adresse ist %s");
+define("_EPROFILE_MA_EMAILCHANGED", "Email-Adresse wurde geändert");
 define("_EPROFILE_MA_SITEDEFAULT", "Standardseite");
 
 define("_EPROFILE_MA_USERINFO","User Profil");
-define("_EPROFILE_MA_REGISTER","Registierungsformular");
+define("_EPROFILE_MA_REGISTER","Registrierungsformular");
 
 define("_EPROFILE_MA_ACTUS","%s User insgesamt");
 define("_EPROFILE_MA_FOUNDUSER","%s User wurden gefunden");
 
 
 // yogurt integration
-define("_EPROFILE_MA_USERCHECK","UserCheck");
+define("_EPROFILE_MA_USERCHECK","Userüberprüfung");
 define("_EPROFILE_MA_CONFIGS","Einstellungen");
 define("_EPROFILE_MA_POSTSTOUPLOAD","Sie benötigen mindestens %s Beiträge um einen eigenen Avatar hochladen zu können.");
 define("_EPROFILE_MA_SENDMAIL","Email senden");
@@ -66,19 +66,19 @@ define("_EPROFILE_MA_NOCONFIGS","Es existiert bisher noch keine Einstellung!<br 
 
 define("_EPROFILE_MA_CONFIGSSAVE","Einstellungen gespeichert!");
 define("_EPROFILE_MA_WHOCAN","Wer kann:");
-define("_EPROFILE_MA_CONFIGSPROFILEGENERAL","Die Details sehen"); 
-define("_EPROFILE_MA_CONFIGSPROFILESTATS","Die Aktivitäten sehen");
+define("_EPROFILE_MA_CONFIGSPROFILEGENERAL","die Details sehen"); 
+define("_EPROFILE_MA_CONFIGSPROFILESTATS","die Aktivitäten sehen");
 define("_EPROFILE_MA_CONFIGSEMAILS","das Emailsystem nutzen");
 define("_EPROFILE_MA_CONFIGSFRIENDS","die Freundeliste sehen");
 define("_EPROFILE_MA_CONFIGSEMAILNOTIFY","per Email benachrichtigen");
 define("_EPROFILE_MA_CONFIGSPICTURES","den Bilderbereich sehen");
 define("_EPROFILE_MA_CONFIGSVIDEOS","den Videobereich sehen");
 define("_EPROFILE_MA_CONFIGSAUDIOS","den Musikbereich sehen");
-define("_EPROFILE_MA_CONFIGSTRIBES","Gruppenbereich sehen");
+define("_EPROFILE_MA_CONFIGSTRIBES","den Gruppenbereich sehen");
 define("_EPROFILE_MA_CONFIGSEVERYONE","Jeder");
 define("_EPROFILE_MA_CONFIGSONLYEUSERS","Nur registrierte Mitglieder");
-define("_EPROFILE_MA_CONFIGSONLYEFRIENDS","Meine Freunde.");
-define("_EPROFILE_MA_CONFIGSONLYME","Nur ich");
+define("_EPROFILE_MA_CONFIGSONLYEFRIENDS","Meine Freunde");
+define("_EPROFILE_MA_CONFIGSONLYME","Ich selber");
 define("_EPROFILE_MA_CONFIGSNOTHING","deaktiviert");
 define("_EPROFILE_MA_NOENTRYEXISTS","es ist kein Eintrag vorhanden");
 
@@ -135,10 +135,10 @@ define("_EPROFILE_MA_ISFRIENDS","dieser User ist in deiner Freundesliste");
 define("_EPROFILE_MA_ISNOASFRIENDS","Der User möchte keine Freundschaft mit dir");
 define("_EPROFILE_MA_ISNOASFRIENDSFORME","Ich möchte keine Freundschaft mit diesem User haben. [ <a href='friends.php?op=refriend&amp;friend=%s'>Sperre aufheben</a> ]");
 define("_EPROFILE_MA_ADDTHISFRIENDS","Mit diesem User Freundschaft schließen");
-define("_EPROFILE_MA_FRIENDSMUSTCHECK","Du musst den <a href='friends.php?op=waiting&amp;uid=%s'>Antrag auf Freundschaft</a> mit diesem User noch bearbeiten");
+define("_EPROFILE_MA_FRIENDSMUSTCHECK","Du musst den <a href='friends.php?op=waiting'>Antrag auf Freundschaft</a> mit diesem User noch bearbeiten");
 define("_EPROFILE_MA_MAILSUBJECTNEWFRIEND","Antrag Freundesliste gestellt");
 define("_EPROFILE_MA_WAITTHISFRIENDS","Dein Antrag auf Freundschaft mit diesem User ist noch nicht beantwortet.");
-define("_EPROFILE_MA_CONFIRMADDTOUSER","<br />Willst du dem User<br /><br /><b><i>%s</i></b><br /><br />einen Freundschaftantrag schicken?<br />");
+define("_EPROFILE_MA_CONFIRMADDTOUSER","<br />Willst du dem User<br /><br /><b><i>%s</i></b><br /><br />einen Freundschaftsantrag schicken?<br />");
 define("_EPROFILE_MA_WAITFROMTHISFRIENDS","<a href='friends.php?op=waiting&amp;uid=%s'>Antrag auf Freundschaft gestellt (Anzahl: <b>%s</b>)</a>");
 define("_EPROFILE_MA_CONFIRMDELNEWUSER","Soll die Anfrage von<br /><br /><b><i>%s</i></b><br /><br />abgewiesen werden?<br />");
 define("_EPROFILE_MA_CONFIRMADDNEWUSER","Soll die Anfrage von<br /><br /><b><i>%s</i></b><br /><br />angenommen und der User in die Liste aufgenommen werden?<br />");
@@ -148,12 +148,12 @@ define("_EPROFILE_MA_CONFIRMREMOVEUSER","Soll der User<br /><b>%s</b><br />von d
 define("_EPROFILE_MA_USERSINCE","Mitglied seit");
 define("_EPROFILE_MA_FRIENDWILLSINCE","Antrag gestellt");
 define("_EPROFILE_MA_DELETEUSER","Diesen User jetzt entfernen");
-define("_EPROFILE_MA_WAITFRIENDUSER","Es warten noch <b><a href='friends.php?op=waiting'> %s Freunschaftsanträge</a></b> auf Bearbeitung.");
+define("_EPROFILE_MA_WAITFRIENDUSER","Es warten noch <b><a href='friends.php?op=waiting'> %s Freundschaftsanträge</a></b> auf Bearbeitung.");
 define("_EPROFILE_MA_DELETEBLOCKFRIEND","Usersperre aufgehoben<br/>User kann wieder Freundschaftsanfrage stellen.");
 
 //pictures.php
 define("_EPROFILE_MA_ADDNEWPICTURE","ein neues Bild hinzufügen");
-define("_EPROFILE_MA_MAXSPACEUSER","maximale Grösse der Datei für den Upload");
+define("_EPROFILE_MA_MAXSPACEUSER","maximale Größe der Datei für den Upload");
 define("_EPROFILE_MA_NOSPACEUSER","<b>kein Speicher mehr zur Verfügung</b>");
 define("_EPROFILE_MA_SPEICHERLIMIT","Es stehen noch %s kB von insgesamt %s kB zur Verfügung");
 define("_EPROFILE_MA_ALLOWED","erlaubte Dateiendungen");
@@ -215,8 +215,8 @@ define("_EPROFILE_MA_PMSUBJECT","Betreff");
 define("_EPROFILE_MA_PMDATE","Datum");
 define("_EPROFILE_MA_PMSEND","Nachricht senden");
 define("_EPROFILE_MA_PMDELETE","Löschen");
-define("_EPROFILE_MA_PMTOSAVE","Speichern");
-define("_EPROFILE_MA_PMUNSAVE","Speichern rückgängig");
+define("_EPROFILE_MA_PMTOSAVE","Archivieren");
+define("_EPROFILE_MA_PMUNSAVE","aus Archiv löschen");
 define("_EPROFILE_MA_PMEMPTY","Leeren");
 define("_EPROFILE_MA_PMREPLY", "Antworten");
 
@@ -244,8 +244,8 @@ define("_EPROFILE_MA_PMDELETED","Nachricht(en) wurde(n) gelöscht");
 define("_EPROFILE_MA_PMUSERWROTE","%s schrieb:");
 define("_EPROFILE_MA_PMSAVED_PART","Es dürfen %d PNs gespeichert werden. Momentan sind %d PNs gespeichert.");
 define("_EPROFILE_MA_PMMAILNOTIFY","%s - Du hast eine neue PN von %s");
-define("_EPROFILE_MA_PMMAILMESSAGE","Hallo!\nDu hast eine neue PN von %s erhalten\n\nTitel der PN ist\n%s\n\nDu kannst die PN hier lesen\n%s\n\n-----------\nDu erhältst diese Nachricht, weil du benachrichtigt werden wolltest, wenn du eine neue PN haben\n\nDu kannst deine PM-Konfiguration ändern\n%s\n\nBitte antworte nicht auf diese Nachricht\n\n---------\nMit freundlichen Grüßen\n%s\n%s\n%s");
-define("_EPROFILE_MA_PMEMAIL", "E-Mail");
+define("_EPROFILE_MA_PMMAILMESSAGE","Hallo!\nDu hast eine neue PN von %s erhalten\n\nTitel der PN ist\n%s\n\nDu kannst die PN hier lesen\n%s\n\n-----------\nDu erhältst diese Nachricht, weil du benachrichtigt werden wolltest, wenn du eine neue PN erhälst.\n\nDu kannst deine PN-Konfiguration ändern\n%s\n\nBitte antworte nicht auf diese Nachricht\n\n---------\nMit freundlichen Grüßen\n%s\n%s\n%s");
+define("_EPROFILE_MA_PMEMAIL", "Email");
 define("_EPROFILE_MA_PMEMAIL_DESC", "Hallo %s, dies ist eine Nachricht von deinem Konto auf ".$GLOBALS['xoopsConfig']['sitename']);
 define("_EPROFILE_MA_PMEMAIL_FROM", "Von %s");
 define("_EPROFILE_MA_PMEMAIL_TO", "An %s");
@@ -253,9 +253,9 @@ define("_EPROFILE_MA_PMEMAIL_SUBJECT", "[Nachricht]%s");
 define("_EPROFILE_MA_PMEMAIL_MESSAGE", "Nachrichteninhalt");
 define("_EPROFILE_MA_PMMAILNOTIFYSUBJECT","Du hast eine neue Nachricht erhalten");
 define("_EPROFILE_MA_ASKCONFIRMPICTURESASAVATAR","Das ausgewählte Bild als aktuellen Avatar benutzen?");
-define('_EPROFILE_MA_USERISSPAM','Die angegebenen Daten gelten als Spamverdächtig.<br />Bitte wenden Sie sich an den Webmaster.');
+define('_EPROFILE_MA_USERISSPAM','Die angegebenen Daten gelten als spamverdächtig.<br />Bitte wenden Sie sich an den Webmaster.');
 define('_EPROFILE_MA_USERISSPAMSUBJECT','ein User wurde geblockt');
-define('_EPROFILE_MA_USERISSPAMBODY','Der User meldete sich mit folgenden Daten an:');
+define('_EPROFILE_MA_USERISSPAMBODY','Der User meldete sich mit folgenden Daten an:\n');
 define("_EPROFILE_MA_SENDNEWMESSAGE","eine neue Nachricht versenden");
 define("_EPROFILE_MA_PMISDISABLED","Der User hat private Nachrichten deaktiviert.");
 
@@ -266,4 +266,7 @@ define("_EPROFILE_MA_TRIBESMODERATE","Gruppe moderieren<br />User können nur na
 define("_EPROFILE_MA_TRIBESPICTURE","Gruppenbild mit max %s kB<br />und einer Größe von %s X %s Pixel<br /> größere Bilder werden automatisch verkleinert.");
 define("_EPROFILE_MA_TRIBESTITLEEXIST","<font color='red'><b>Gruppenname existiert bereits</b></font>");
 define("_EPROFILE_MA_ADDGROUPSUCEESS","Gruppe erfolgreich hinzugefügt");
+
+define("_EPROFILE_MA_FIELD_REQUIRED","Das Feld <b>%s</b> muss ausgefüllt werden.");
+
 ?>

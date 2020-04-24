@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Jan Pedersen
- * @version         $Id: register.php 35 2014-02-08 17:37:13Z alfred $
+ * @version         $Id: register.php 41 2014-04-14 20:58:09Z alfred $
  */
 include 'header.php';
 
@@ -117,14 +117,14 @@ if ( $current_step == 0 ) {
     $_SESSION['profile_post'] = array();
 } else {
     // Merge current $_POST  with $_SESSION['profile_post']
-    $_SESSION['profile_post'] = array_merge($_SESSION['profile_post'], $postfields);
-    $_POST = array_merge($_SESSION['profile_post'], $_POST);
+    $_SESSION['profile_post'] = @array_merge($_SESSION['profile_post'], $postfields);
+    $_POST = @array_merge($_SESSION['profile_post'], $_POST);
 }
 
 // Set vars from $_POST/$_SESSION['profile_post']
 foreach (array_keys($fields) as $field ) {
     if ( !isset($_POST[$field]) ) continue;
-        $value = $fields[$field]->getValueForSave($_POST[$field]);
+    $value = $fields[$field]->getValueForSave($_POST[$field]);
     if ( in_array($field, $userfields)  ) {
         $newuser->setVar($field, $value);
     } else {
@@ -147,8 +147,8 @@ if ( $current_step == 1 ) {
         if ( empty($agree_disc)  ) {
             $stop .= _US_UNEEDAGREE . '<br />';
         }
-    }    
-    
+    }  
+  
     $newuser->setVar('uname', $uname);
     $newuser->setVar('email', $email);
     $newuser->setVar('pass', $pass ? md5($pass) : '');
@@ -157,13 +157,13 @@ if ( $current_step == 1 ) {
     xoops_load("Xoopscaptcha");
     $xoopsCaptcha = XoopsCaptcha::getInstance();
     if ( ! $xoopsCaptcha->verify()  ) {
-        $stop .= $xoopsCaptcha->getMessage();
+        $stop .= $xoopsCaptcha->getMessage(). '<br />';
     }    
     
     require XOOPS_ROOT_PATH."/modules/" . $GLOBALS['xoopsModule']->getVar('dirname', 'n') . "/include/antispam.php";
 
     if ( check_spam($uname,$email) == true ) {
-      $stop .= _US_USERISSPAM;
+      $stop .= _EPROFILE_MA_USERISSPAM;
     }
 }
 
@@ -181,7 +181,7 @@ if ( $current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['ste
         $newuser->setVar('uname', $uname);
         $newuser->setVar('email', $email);
         $newuser->setVar('pass', $pass ? md5($pass) : '');
-        $actkey = substr(md5(uniqid(mt_rand(), 1) ), 0, 8);
+        $actkey = substr(md5(uniqid(mt_rand(8,10), 1) ), 0, 8);
         $newuser->setVar('actkey', $actkey, true);
         $newuser->setVar('user_regdate', time(), true);
         $newuser->setVar('user_avatar', 'blank.gif', true);
@@ -190,13 +190,27 @@ if ( $current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['ste
         } else {
             $newuser->setVar('level', 0, true);
         }
+    }  
+    
+    // Check all required Fields
+    foreach (array_keys($fields) as $i) {     
+      if ($fields[$i]->getVar('step_id') == $current_step) {  
+        $value = $fields[$i]->getOutputValue($newuser, $profile);
+        if (is_array($value)) {
+          $value = implode('<br />', array_values($value) );
+        }      
+        if ($fields[$i]->getVar('field_required') > 0 && $value == '') {
+          $stop .= sprintf(_EPROFILE_MA_FIELD_REQUIRED,$fields[$i]->getVar('field_title')) . "<br />";
+        }
+      }
     }
-        
-    // Insert/update user and check if we have succeded
-    if ( !$member_handler->insertUser($newuser)  ) {
+          
+    if ( empty($stop) ) { 
+      // Insert/update user and check if we have succeded
+      if ( !$member_handler->insertUser($newuser)  ) {
         $stop .= _US_REGISTERNG . "<br />";
         $stop .= implode('<br />', $newuser->getErrors() );
-    } else {
+      } else {
         // User inserted! Now insert custom profile fields
         $profile->setVar('profile_id', $newuser->getVar('uid') );
         $profile_handler->insert($profile);
@@ -231,7 +245,7 @@ if ( $current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['ste
                 $xoopsMailer->assign('SITENAME', $GLOBALS['xoopsConfig']['sitename']);
                 $xoopsMailer->assign('ADMINMAIL', $GLOBALS['xoopsConfig']['adminmail']);
                 $xoopsMailer->assign('SITEURL', XOOPS_URL."/");
-                $xoopsMailer->assign('X_UPASS', $_POST['vpass']);
+                //$xoopsMailer->assign('X_UPASS', $_POST['vpass']);
                 $xoopsMailer->setToUsers($newuser);
                 $xoopsMailer->setSubject(sprintf(_US_USERKEYFOR, $newuser->getVar('uname') ));
                 if ( !$xoopsMailer->send(true)  ) {
@@ -262,16 +276,18 @@ if ( $current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['ste
                 $GLOBALS['xoopsTpl']->append('confirm',  $message);
             }
         }
+      }
     }
 }
 
 if ( !empty($stop) || isset($steps[$current_step])  ) {
     include_once dirname(__FILE__) . '/include/forms.php';
     $current_step = empty($stop) ? $current_step : $current_step - 1;
-    $reg_form = profile_getRegisterForm($newuser, $profile, $steps[$current_step]);
+    $reg_form = profile_getRegisterForm($newuser, $profile, $steps[$current_step]);    
     $reg_form->assign($GLOBALS['xoopsTpl']);
     $GLOBALS['xoopsTpl']->assign('current_step', $current_step);
     $GLOBALS['xoopsTpl']->assign('stop', $stop);
+    
 } else {
     // No errors and no more steps, finish
     $GLOBALS['xoopsTpl']->assign('finish', _EPROFILE_MA_REGISTER_FINISH);

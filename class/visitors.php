@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id: visitors.php 7 2012-10-07 15:38:55Z alfred $
+ * @version         $Id: visitors.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 class EprofileVisitors extends XoopsObject  

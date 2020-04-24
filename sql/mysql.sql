@@ -74,6 +74,7 @@ CREATE TABLE `profile_configs` (
   `profile_stats` tinyint(1) NOT NULL,
   `profile_messages` tinyint(1) NOT NULL default '1',
   `messages_notify` tinyint(1) NOT NULL default '0',
+  `user_module` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`config_id`),
   KEY `config_uid` (`config_uid`)
 ) ENGINE=MyISAM;

@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: admin_user.php 28 2013-09-06 21:58:22Z alfred $
+ * @version         $Id: user.php 2 2012-08-16 08:20:47Z alfred $
  */
 include 'admin_header.php';
 xoops_cp_header();

@@ -16,7 +16,7 @@
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: footer.php 4 2012-08-20 08:48:43Z alfred $
+ * @version         $Id: footer.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include $GLOBALS['xoops']->path('footer.php');

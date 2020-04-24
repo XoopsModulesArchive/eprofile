@@ -1,5 +1,5 @@
 <?php
-// $Id: admin.php 28 2013-09-06 21:58:22Z alfred $
+// $Id: admin.php 2 2012-08-16 08:20:47Z alfred $
 // _LANGCODE: EN
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team

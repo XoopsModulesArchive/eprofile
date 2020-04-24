@@ -15,11 +15,11 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: user.php 22 2013-04-01 16:13:35Z alfred $
+ * @version         $Id: user.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 $xoopsOption['pagetype'] = 'user';
-include 'header.php';
+include_once 'header.php';
 
 $op = ( isset($_REQUEST['op']) ) ? $_REQUEST['op'] : 'main';
 

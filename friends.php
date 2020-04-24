@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: friends.php 28 2013-09-06 21:58:22Z alfred $
+ * @version         $Id: friends.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include 'header.php';
@@ -82,13 +82,13 @@ if ($op=='add' && (is_object($xoopsUser) && $xoopsUser->uid()>0)) {
     $criteria->add(new Criteria('friend_uid',$xoopsUser->uid()));
     $criteria->add(new Criteria('level',1));
     $nbnew_friends = $friends_factory->getObjects($criteria,false,false);
-	if (count($nbnew_friends)>0) {
-	  echo '<table style="width:90%; text-align:center">';
-	  echo ' <tr><th></th><th>'._USERNAME.'</th><th>'._EPROFILE_MA_USERSINCE.'</th><th>'._EPROFILE_MA_FRIENDWILLSINCE.'</th><th></th></tr>';
-	  $class ='odd';
-	  foreach ($nbnew_friends as $friends) {
-	     $nuser = $member_handler->getUser($friends['self_uid']);
-		 if (is_object($nuser) && $nuser->isactive()) {
+    if (count($nbnew_friends)>0) {
+      echo '<table style="width:90%; text-align:center">';
+      echo ' <tr><th></th><th>'._USERNAME.'</th><th>'._EPROFILE_MA_USERSINCE.'</th><th>'._EPROFILE_MA_FRIENDWILLSINCE.'</th><th></th></tr>';
+      $class ='odd';
+      foreach ($nbnew_friends as $friends) {
+        $nuser = $member_handler->getUser($friends['self_uid']);
+        if (is_object($nuser) && $nuser->isactive()) {
 	       $ok_img  = '<a href="friends.php?op=addfriend&amp;uid='.$uid.'&amp;friend='.$friends["friend_id"].'"><img src="images/green.gif" title="'._ADD.'" alt="'._GO.'"/></a>';
 	       $del_img = '<a href="friends.php?op=delfriend&amp;uid='.$uid.'&amp;friend='.$friends["friend_id"].'"><img src="images/dele.gif" title="'._DELETE.'" alt="'._DELETE.'"/></a>';  
          $rem_img = '<a href="friends.php?op=removefriend&amp;uid='.$uid.'&amp;friend='.$friends["friend_id"].'"><img src="images/dele.gif" title="'._DELETE.'" alt="'._DELETE.'"/></a>';
@@ -112,15 +112,14 @@ if ($op=='add' && (is_object($xoopsUser) && $xoopsUser->uid()>0)) {
 elseif ($op == 'refriend') 
 {
   if ( $isOwner && (is_object($xoopsUser) && $xoopsUser->isActive()) ) {  
-    $friend_id = (!empty($_GET['friend'])) ? intval($_GET['friend']) : 0;    
+    $friend_id = (!empty($_GET['friend'])) ? intval($_GET['friend']) : 0;  
     if ($friend_id > 0) {
-      $fr_id = $friends_factory->getIdFromUid($friend_id);
-      $friend = $friends_factory->get($fr_id);  
+      $fr_id = $friends_factory->getIdFromUid($uid, $friend_id);       
+      $friend = $friends_factory->get($fr_id); 
 	  	if (is_object($friend)) {
-        if ($friend->getVar("friend_uid") == $xoopsUser->uid() && $friend->getVar("self_uid") == $friend_id ) {          
-          $friends_factory->delete($friend, true);
-          redirect_header("userinfo.php?uid=".$uid,3,_EPROFILE_MA_DELETEBLOCKFRIEND);
-        }
+        $friends_factory->delete($friend, true);
+        redirect_header("userinfo.php?uid=".$friend_id,3,_EPROFILE_MA_DELETEBLOCKFRIEND);
+        exit();
       }
     }
   }

@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id: pictures.php 11 2013-02-24 19:57:08Z alfred $
+ * @version         $Id: pictures.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 class EprofilePictures extends XoopsObject  

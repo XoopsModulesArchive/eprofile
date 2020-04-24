@@ -14,7 +14,7 @@
  * @package         profile
  * @since           4.4.0
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: tribes.php 24 2013-05-24 19:31:14Z alfred $
+ * @version         $Id: profile.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 class EprofileTribes extends XoopsObject

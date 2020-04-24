@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: tribes.php 35 2014-02-08 17:37:13Z alfred $
+ * @version         $Id: tribes.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include 'header.php';

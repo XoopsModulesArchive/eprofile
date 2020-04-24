@@ -1,5 +1,6 @@
 ALTER TABLE `profile_configs` ADD `messages_notify` tinyint(1) NOT NULL default '0';
 ALTER TABLE `profile_configs` ADD `tribes_notify` tinyint(1) NOT NULL default '0';
+ALTER TABLE `profile_configs` ADD `user_module` tinyint(1) NOT NULL default '0';
 ALTER TABLE `priv_msgs` ADD  `from_save` INT( 2 ) NOT NULL;
 ALTER TABLE `priv_msgs` ADD  `from_delete` INT( 2 ) NOT NULL;
 ALTER TABLE `priv_msgs` ADD  `to_delete` INT( 2 ) NOT NULL;

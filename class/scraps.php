@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id: scraps.php 18 2013-03-19 21:57:20Z alfred $
+ * @version         $Id: scraps.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 class EprofileScraps extends XoopsObject  

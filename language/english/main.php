@@ -1,5 +1,5 @@
 <?php
-// $Id: main.php 28 2013-09-06 21:58:22Z alfred $
+// $Id: main.php 2 2012-08-16 08:20:47Z alfred $
 // _LANGCODE: de
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team
@@ -14,7 +14,6 @@ define("_EPROFILE_MA_DEFAULT", "Defaults");
 define("_EPROFILE_MA_ERRORDURINGSAVE", "Error saving");
 define("_EPROFILE_MA_NOSTEPSAVAILABLE", "Registration is not currently possible. Please try again.");
 define("_EPROFILE_MA_EXPIRED", "The time has expired, please go back to try again.");
-
 
 define("_EPROFILE_MA_RECENTACTIVITY", "Select User Activities");
 define("_EPROFILE_MA_THEME", "Theme");
@@ -45,13 +44,13 @@ define("_EPROFILE_MA_SEARCH", "User Search");
 //changemail.php
 define("_EPROFILE_MA_CHANGEMAIL", "E-mail address change");
 define("_EPROFILE_MA_NEWMAIL", "New E-mail Address");
-
 define("_EPROFILE_MA_NEWEMAIL", "E-mail address is %s ");
 define("_EPROFILE_MA_EMAILCHANGED", "E-mail address has been changed");
 define("_EPROFILE_MA_SITEDEFAULT", "Default Page");
 
 define("_EPROFILE_MA_USERINFO", "User Profile");
 define("_EPROFILE_MA_REGISTER", "Registration form");
+
 define("_EPROFILE_MA_ACTUS", "%s  users total");
 define("_EPROFILE_MA_FOUNDUSER", "%s users found");
 
@@ -96,7 +95,6 @@ define("_EPROFILE_MA_FRIENDS", "Friends");
 define("_EPROFILE_MA_TRIBES", "Groups");
 define("_EPROFILE_MA_AUDIOS", "Music");
 define("_EPROFILE_MA_USERS", "User");
-define("_EPROFILE_MA_FACEBOOK", "Facebook");
 
 define("_EPROFILE_MA_NOPERM", "This function is not allowed.");
 define("_EPROFILE_MA_DIRNOEXIST", "The <b>directory %s </b> does not exist or is \"read only\"");
@@ -267,4 +265,5 @@ define("_EPROFILE_MA_TRIBESPICTURE","Group picture with max %s KB <br /> and a s
 define("_EPROFILE_MA_TRIBESTITLEEXIST","<font color='red'><b>Group name already exists</b></font>");
 define("_EPROFILE_MA_ADDGROUPSUCEESS","Group successfully added");
 
+define("_EPROFILE_MA_FIELD_REQUIRED","The field <b>%s</b> is required.");
 ?>

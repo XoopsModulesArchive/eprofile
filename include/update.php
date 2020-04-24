@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: update.php 9 2013-02-23 19:17:20Z alfred $
+ * @version         $Id: update.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 function xoops_module_update_eprofile(&$module, $oldversion = null) 

@@ -1,17 +1,16 @@
-<div id="profile-container">
+<div class="profile-container">
   <div class="profile-title head">
     <{$smarty.const._EPROFILE_MA_USERINFO}> :: <{$uname}>
   </div>
-  <div class="profile-title">
-    <div id="profile-nav-bar">
+  <div class="profile-nav-bar">
       <ul class="profile-tabs-nav">
-        <li <{if $section_name==$smarty.const._EPROFILE_MA_USERINFO}>class="profile-tabs-selected" <{/if}>><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/userinfo.php?uid=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/user.gif" /> <{$smarty.const._EPROFILE_MA_USERINFO}></span></a> </li>    
+        <li <{if $section_name==$smarty.const._EPROFILE_MA_USERINFO}>class="profile-tabs-selected"<{/if}>><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/userinfo.php?uid=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/user.gif" /> <{$smarty.const._EPROFILE_MA_USERINFO}></span></a> </li>    
         <{if $isOwner}>
           <{ if $perms.profile_messages }> 
-            <li <{if $section_name==$smarty.const._US_INBOX}>class="profile-tabs-selected" <{/if}>><a href="<{$xoops_url}>/viewpmsg.php"> <span><img class="profile-nav-bar-icon" alt="" src="images/pn.gif" /> <{$smarty.const._US_INBOX}> <{if $pm_count}> <small>(<{$pm_count}>)</small><{/if}></span></a> </li>
+            <li <{if $section_name==$smarty.const._US_INBOX}>class="profile-tabs-selected"<{/if}>><a href="<{$xoops_url}>/viewpmsg.php"> <span><img class="profile-nav-bar-icon" alt="" src="images/pn.gif" /> <{$smarty.const._US_INBOX}> <{if $pm_count}> <small>(<{$pm_count}>)</small><{/if}></span></a> </li>
           <{/if}>
-          <li <{if $section_name==$smarty.const._EPROFILE_MA_CONFIGS}>class="profile-tabs-selected" <{/if}>> <a href="configs.php"><span><img class="profile-nav-bar-icon" alt="" src="images/configs.gif" /> <{$smarty.const._EPROFILE_MA_CONFIGS}></span></a></li>
-          <li <{if $section_name==$smarty.const._SEARCH}>class="profile-tabs-selected" <{/if}>> <a href="search.php"><span><img class="profile-nav-bar-icon" alt="" src="images/search.png" /> <{$smarty.const._SEARCH}></span></a></li>
+          <li <{if $section_name==$smarty.const._EPROFILE_MA_CONFIGS}>class="profile-tabs-selected"<{/if}>> <a href="configs.php"><span><img class="profile-nav-bar-icon" alt="" src="images/configs.gif" /> <{$smarty.const._EPROFILE_MA_CONFIGS}></span></a></li>
+          <li <{if $section_name==$smarty.const._SEARCH}>class="profile-tabs-selected"<{/if}>> <a href="search.php"><span><img class="profile-nav-bar-icon" alt="" src="images/search.png" /> <{$smarty.const._SEARCH}></span></a></li>
           <{if $user_candelete == true}>
             <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=delete"> <span><img class="profile-nav-bar-icon" alt="" src="images/dele.gif" /> <{$smarty.const._US_DELACCOUNT}></span></a> </li>
           <{/if}>	
@@ -27,10 +26,9 @@
             <li <{if $section_name==$smarty.const._EPROFILE_MA_USERCHECK}>class="profile-tabs-selected" <{/if}>><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/checker.php?uid=<{$uid}>"> <span><img class="profile-nav-bar-icon" alt="" src="images/user.gif" /> <{$smarty.const._EPROFILE_MA_USERCHECK}></span></a> </li>
           <{/if}>
         <{/if}> 
-      </ul>      
-      <ul class="profile-tabs-nav">
+      
         <{ if $perms.scraps }> 
-          <li <{if $section_name==$smarty.const._EPROFILE_MA_SCRAPBOOK}>class="profile-tabs-selected" <{/if}>><a href="scrapbook.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/scrapbook.gif"  /> <{$smarty.const._EPROFILE_MA_SCRAPBOOK}> <{if $scraps_count}> <small>(<{$scraps_count}>)</small><{/if}></span></a> </li>
+          <li class=<{if $section_name==$smarty.const._EPROFILE_MA_SCRAPBOOK}>"profile-tabs-selected"<{else}>"profile-tabs"<{/if}>><a href="scrapbook.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/scrapbook.gif"  /> <{$smarty.const._EPROFILE_MA_SCRAPBOOK}> <{if $scraps_count}> <small>(<{$scraps_count}>)</small><{/if}></span></a> </li>
         <{/if}>
         <{ if $perms.pictures }> 
           <li <{if $section_name==$smarty.const._EPROFILE_MA_PHOTOS}>class="profile-tabs-selected" <{/if}>><a href="pictures.php?uid=<{$uid}>"><span><img class="profile-nav-bar-icon" alt="" src="images/pictures.gif"  /> <{$smarty.const._EPROFILE_MA_PHOTOS}> <{if $pictures_count}> <small>(<{$pictures_count}>)</small><{/if}></span></a> </li>
@@ -51,12 +49,9 @@
           <li><a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=logout"> <span><img class="profile-nav-bar-icon" alt="<{$smarty.const._US_LOGOUT}>" src="images/logout.png" /> <{$smarty.const._US_LOGOUT}></span></a> </li>
         <{/if}>
       </ul>
-    </div>   
-	</div>
-</div>
-<div style="clear:both;"></div>
-<div id="profile-container"> 
-    <{ if $lang_addfriends }> 
-        <div class="profile_friends"><{ $lang_addfriends }></div>
-		<div style="clear: both;"></div>
-    <{ /if }> 
+  </div>  
+  <div style="clear:both;"></div>
+  <{ if $lang_addfriends }> 
+    <div class="profile_friends"><{ $lang_addfriends }></div>
+    <div style="clear: both;"></div>
+  <{ /if }> 

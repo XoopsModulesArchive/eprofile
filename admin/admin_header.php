@@ -14,12 +14,13 @@
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: admin_header.php 29 2014-02-07 21:38:38Z alfred $
+ * @version         $Id: header.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include("../../../include/cp_header.php");
 include_once XOOPS_ROOT_PATH."/Frameworks/art/functions.php";
 include_once XOOPS_ROOT_PATH."/Frameworks/art/functions.admin.php";
+include_once "../include/function.php";
 
 xoops_loadLanguage('main','eprofile');
 if ( file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))){

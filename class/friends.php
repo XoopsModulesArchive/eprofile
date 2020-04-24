@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <myxoops@t-online.de>
- * @version         $Id: friends.php 18 2013-03-19 21:57:20Z alfred $
+ * @version         $Id: friends.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 class EprofileFriends extends XoopsObject  
@@ -95,10 +95,13 @@ class EprofileFriendsHandler extends XoopsPersistableObjectHandler
 	  	return $friends;
 	}
   
-  function getIdFromUid($uid=0)
+  function getIdFromUid($uid=0, $friend_id=0)
   {
-    if ($uid < 1) return false;
-    $sql = "SELECT friend_id FROM ". $this->db->prefix('profile_friends') . " WHERE self_uid=" . $uid;
+    if ($uid < 1 || $friend_id < 1) return false;
+    $sql = "SELECT friend_id FROM ". $this->db->prefix('profile_friends') . " WHERE (self_uid=" . $uid;
+    $sql .= " AND friend_uid=".$friend_id . ")";
+    $sql .= " OR (friend_uid=" . $uid;
+    $sql .= " AND self_uid=".$friend_id . ")";
     $result = $this->db->query($sql);
     list($friend_id) = $this->db->fetchRow($result);
     $friend_id = intval($friend_id);

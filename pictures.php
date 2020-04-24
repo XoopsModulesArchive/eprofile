@@ -14,7 +14,7 @@
  * @package         profile
  * @since           2.3.3
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: pictures.php 35 2014-02-08 17:37:13Z alfred $
+ * @version         $Id: pictures.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 include 'header.php';
@@ -24,7 +24,7 @@ if ( !$profile_permission['pictures'] || $uid <= 0 )
   redirect_header(XOOPS_URL . '/modules/eprofile/userinfo.php?uid='.$uid, 2, _EPROFILE_MA_NOPERM);
   exit();
 }
-
+xoops_loadLanguage('modinfo', 'eprofile');
 $valid_op_requests = array('add', 'picedit', 'picdelete','picprivate','picavatar','pictureedit','pictureupload');
 $op = !empty($_REQUEST['op']) && in_array($_REQUEST['op'], $valid_op_requests) ? $_REQUEST['op'] : '' ;
 $start = !empty($_GET['start']) ? intval($_GET['start']) : 0;

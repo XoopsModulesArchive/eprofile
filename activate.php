@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: activate.php 24 2013-05-24 19:31:14Z alfred $
+ * @version         $Id: activate.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 $xoopsOption['pagetype'] = "user";
@@ -26,13 +26,13 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
     $id = intval($_GET['id']);
     $actkey = trim($_GET['actkey']);
     if (empty($id)) {
-        redirect_header(XOOPS_URL, 1, '');
+        redirect_header(XOOPS_URL, 1, _EPROFILE_MA_PMACTION_ERROR);
         exit();
     }
     $member_handler =& xoops_gethandler('member');
     $thisuser =& $member_handler->getUser($id);
     if (!is_object($thisuser)) {
-        redirect_header(XOOPS_URL, 1, '');
+        redirect_header(XOOPS_URL, 1, _EPROFILE_MA_PMACTION_ERROR);
         exit();
     }
     if ($thisuser->getVar('actkey') != $actkey) {

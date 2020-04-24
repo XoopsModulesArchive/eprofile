@@ -1,5 +1,5 @@
 <?php
-// $Id: configs.php 32 2014-02-08 10:30:45Z alfred $
+// $Id: configs.php 2 2012-08-16 08:20:47Z alfred $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -41,7 +41,7 @@ if (!isset($_POST['button'])) {
   include_once "include/themeheader.php";
 	$xoopsTpl->assign('permsm',	$xoopsModuleConfig);
 	$xoopsTpl->assign('pgen', 	$config['profile_general']);
-	$xoopsTpl->assign('psta', 	$config['profile_stats']);
+	$xoopsTpl->assign('pmod', 	$config['user_module']);
 	$xoopsTpl->assign('scr' , 	$config['scraps']);
 	$xoopsTpl->assign('scrnot', $config['scraps_notify']);
 	$xoopsTpl->assign('sscr', 	$config['sendscraps']);
@@ -64,9 +64,13 @@ if (!isset($_POST['button'])) {
 		redirect_header('configs.php', 3, _EPROFILE_MA_EXPIRED);
 	}
 
-  $criteria = new Criteria('config_uid',$uid);
-  $configs = $profileconfigs_handler->getObjects($criteria);
-  $configs = $configs[0];	
+  if (!$config['isConfig']) {
+    $configs = $profileconfigs_handler->create();    
+  } else {
+    $criteria = new Criteria('config_uid',$uid);
+    $configs = $profileconfigs_handler->getObjects($criteria);
+    $configs = $configs[0];
+  }
 
 	$configs->setVar('config_uid',$uid);
 	$configs->setVar('messages_notify',	(isset($_POST['messagenotify'])) 	? 1 : 0);  
@@ -74,7 +78,7 @@ if (!isset($_POST['button'])) {
 	$configs->setVar('friends_notify',	(isset($_POST['friendsnotify'])) 	? 1 : 0); 
   $configs->setVar('tribes_notify',	  (isset($_POST['tribesnotify'])) 	? 1 : 0);
 	if (isset($_POST['gen'])) 			    $configs->setVar('profile_general',	intval($_POST['gen']));
-	if (isset($_POST['stat'])) 			    $configs->setVar('profile_stats',	  intval($_POST['stat']));
+	if (isset($_POST['pmod'])) 			    $configs->setVar('user_module', 	  intval($_POST['pmod']));
 	if (isset($_POST['scraps'])) 		    $configs->setVar('scraps',			    intval($_POST['scraps']));	
 	if (isset($_POST['sendscraps'])) 	  $configs->setVar('sendscraps',		  intval($_POST['sendscraps']));
 	if (isset($_POST['emails'])) 		    $configs->setVar('emails',			    intval($_POST['emails']));
@@ -84,6 +88,7 @@ if (!isset($_POST['button'])) {
 	if (isset($_POST['aud'])) 			    $configs->setVar('audio',			      intval($_POST['aud']));
 	if (isset($_POST['trib'])) 			    $configs->setVar('tribes',			    intval($_POST['trib']));
 	if (isset($_POST['mess'])) 			    $configs->setVar('profile_messages',intval($_POST['mess']));
+  
 	if (!$profileconfigs_handler->insert($configs)) {
 		redirect_header("configs.php",3,_EPROFILE_MA_DATANOTSENDET);
 	}

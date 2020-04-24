@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: forms.php 35 2014-02-08 17:37:13Z alfred $
+ * @version         $Id: forms.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 /**
@@ -296,17 +296,17 @@ function profile_getRegisterForm(&$user, $profile, $step = null)
     // Dynamic fields
     $profile_handler =& xoops_getmodulehandler('profile');
     $fields = $profile_handler->loadFields();
-
-    foreach (array_keys($fields) as $i) {
-        if ($fields[$i]->getVar('step_id') == $step['step_id']) {
+    
+    foreach (array_keys($fields) as $i) {   
+        if ($fields[$i]->getVar('step_id') == $step['step_id']) {    
             $fieldinfo['element'] = $fields[$i]->getEditElement($user, $profile);
             $fieldinfo['required'] = $fields[$i]->getVar('field_required');
-
             $key = $fields[$i]->getVar('cat_id');
             $elements[$key][] = $fieldinfo;
             $weights[$key][] = $fields[$i]->getVar('field_weight');
         }
     }
+    
     ksort($elements);
 
     // Get categories
@@ -319,7 +319,7 @@ function profile_getRegisterForm(&$user, $profile, $step = null)
         //$desc = isset($categories[$k]) ? $categories[$k]['cat_description'] : "";
         //$reg_form->insertBreak("<p>{$title}</p>{$desc}");
         //$reg_form->addElement(new XoopsFormLabel("<h2>".$title."</h2>", $desc), false);
-        foreach (array_keys($elements[$k]) as $i) {
+        foreach (array_keys($elements[$k]) as $i) {        
             $reg_form->addElement($elements[$k][$i]['element'], $elements[$k][$i]['required']);
         }
     }
@@ -338,7 +338,6 @@ function profile_getRegisterForm(&$user, $profile, $step = null)
     if ($step_no == 1) {
         $reg_form->addElement(new XoopsFormCaptcha(), true);
     }
-
     $reg_form->addElement(new XoopsFormHidden("uid", $user->getVar('uid')));
     $reg_form->addElement(new XoopsFormHidden("step", $step_no));
     $reg_form->addElement(new XoopsFormButton("", "submit", _SUBMIT, "submit"));

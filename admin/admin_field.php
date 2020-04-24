@@ -15,17 +15,17 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: admin_field.php 28 2013-09-06 21:58:22Z alfred $
+ * @version         $Id: field.php 2 2012-08-16 08:20:47Z alfred $
  */
 include 'admin_header.php';
 xoops_cp_header();
 
-$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
-$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+$op = eprofile_cleanVars($_REQUEST, 'op', 'list', 'string', true);
+$id = eprofile_cleanVars($_REQUEST, 'id', 0, 'int', true);
 
 if ( !in_array( $op,array('list', 'new', 'edit', 'reorder', 'save', 'delete') ) ) $op = "list";
 
-$profilefield_handler =& xoops_getmodulehandler('field');
+$profilefield_handler = xoops_getmodulehandler('field');
 
 switch($op) {
 default:

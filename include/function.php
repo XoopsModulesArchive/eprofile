@@ -34,7 +34,7 @@ function getConfig($uid=null)
   $config = ($configs) ? $configs[0] : null;
   if (!$config) {
     $config = array();
-    $config['profile_general']  = $xoopsModuleConfig['profile_search'];
+    $config['profile_general']  = $xoopsModuleConfig['profile_general'];
     $config['profile_stats']    = $xoopsModuleConfig['profile_stats'];
     $config['profile_messages'] = $xoopsModuleConfig['profile_messages'];
     $config['scraps']           = $xoopsModuleConfig['profile_scraps'];
@@ -49,6 +49,7 @@ function getConfig($uid=null)
     $config['friends_notify']   = true;
     $config['messages_notify']  = true;
     $config['tribes_notify']    = true;
+    $config['user_module']      = 4;
     $config['isConfig']         = false;
   } else {
     $config = $config->toArray();
@@ -56,3 +57,35 @@ function getConfig($uid=null)
   }  
   return $config;
 }
+
+function eprofile_cleanVars( &$global, $key, $default = '', $type = 'int', $notset=false ) {
+    switch ( $type ) {
+      case 'string':
+        $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_MAGIC_QUOTES ) : $default;
+        if ($notset) {
+          if ( trim($ret) == '') $ret = $default;
+        }
+      break;
+
+		case 'date':
+			$ret = ( isset( $global[$key] ) ) ? strtotime($global[$key]) : $default;
+			break;
+
+		case 'email':
+			$ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_EMAIL ) : $default;
+			$ret = checkEmail($ret);
+			break;
+
+		case 'int': 
+		default:
+            $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_NUMBER_INT ) : $default;
+            break;
+
+    }
+    if ( $ret === false ) {
+        return $default;
+    }
+    return $ret;
+}
+
+?>

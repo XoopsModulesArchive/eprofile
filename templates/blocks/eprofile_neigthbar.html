@@ -1,0 +1,8 @@
+<{if $block.neigthbar.count > 0}>
+  <{foreach item=users from=$block.neigthbar.user}>
+    <{$users.user}> <{$smarty.const._EPROFILE_MI_USERFROMPLZ}> <{$users.plz}>
+    <br /><br />
+  <{/foreach}>
+<{else}>
+  <{$block.neigthbar.status}>
+<{/if}>

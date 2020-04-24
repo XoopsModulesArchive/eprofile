@@ -16,7 +16,7 @@
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: userinfo.php 34 2014-02-08 17:01:24Z alfred $
+ * @version         $Id: userinfo.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 include 'header.php';
@@ -194,9 +194,8 @@ if ($profile_permission['profile_general']) {
     $GLOBALS['xoopsTpl']->assign('categories', $categories);
 }
 // Dynamic user profiles end
-$allow_modules = (!empty($xoopsModuleConfig['profile_search'])) ? (!empty($profile_permission['profile_stats']) ? 1:0) : 0;
 
-if ($xoopsModuleConfig['profile_search'] && $allow_modules) {
+if ($profile_permission['user_module'] > 0) {
     $module_handler =& xoops_gethandler('module');
     $criteria = new CriteriaCompo(new Criteria('hassearch', 1));
     $criteria->add(new Criteria('isactive', 1));
@@ -259,6 +258,29 @@ if ($profile_permission['scraps'] && $scraps_count > 0) {
   }
   if (intval(count($lscraps)) > 0) {
     $xoopsTpl->assign('myscraps',$lscraps);
+  }
+}
+
+if ($profile_permission['friends']) {
+  if (is_object($xoopsUser) && $xoopsUser->uid() != $uid) {
+    $myfriend = $profileconfigs_handler->selectFriendLevel($uid);
+    if ($myfriend == -1) {
+      $xoopsTpl->assign('lang_addfriends',_EPROFILE_MA_WAITTHISFRIENDS);
+    } elseif ($myfriend == -2) {
+      $xoopsTpl->assign('lang_addfriends',_EPROFILE_MA_ISFRIENDS);
+    } elseif ($myfriend == -3) {
+      $xoopsTpl->assign('lang_addfriends',_EPROFILE_MA_ISNOASFRIENDS);
+    } elseif ($myfriend == 0) {
+      $xoopsTpl->assign('lang_addfriends','<a href="' . XOOPS_URL . '/modules/eprofile/friends.php?op=add&uid=' . $uid . '">' . _EPROFILE_MA_ADDTHISFRIENDS . '</a>');      
+    } elseif ($myfriend == 1) {
+      $xoopsTpl->assign('lang_addfriends',_EPROFILE_MA_FRIENDSMUSTCHECK);       
+    } elseif ($myfriend == 2) {
+      $xoopsTpl->assign('lang_addfriends',_EPROFILE_MA_ISFRIENDS);
+    } elseif ($myfriend == 3) {
+      $xoopsTpl->assign('lang_addfriends',sprintf(_EPROFILE_MA_ISNOASFRIENDSFORME,$uid));
+    } else {
+      $xoopsTpl->assign('lang_addfriends','Code:' . $myfriend);
+    }
   }
 }
 

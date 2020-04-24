@@ -15,12 +15,16 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: viewpmsg.php 28 2013-09-06 21:58:22Z alfred $
+ * @version         $Id: viewpmsg.php 2 2012-08-16 08:20:47Z alfred $
  */
 include 'header.php';
 
 if ( !$isOwner ) { 
-  redirect_header(XOOPS_URL , 3, _NOPERM);
+  redirect_header(XOOPS_URL . '/modules/eprofile/userinfo.php?uid='.$uid, _NOPERM);
+}
+
+if ( !$profile_permission['profile_messages'] ) {
+  redirect_header(XOOPS_URL . '/modules/eprofile/userinfo.php?uid='.$uid, 2, _EPROFILE_MA_NOPERM);
 }
 
 if (isset($_POST['send_ok'])) {

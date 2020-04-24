@@ -16,12 +16,12 @@
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: header.php 32 2014-02-08 10:30:45Z alfred $
+ * @version         $Id: header.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 $xoopsOption['pagetype'] = 'user';
 include '../../mainfile.php';
-require 'include/function.php';
+require_once 'include/function.php';
 
 /* for seo */
 /*
@@ -83,9 +83,11 @@ if ( $xoopsUser && $xoopsUser->isactive() ) {
 
 $profile_permission = $profileconfigs_handler->getperm('all', $uid, $muid);
 
-//Visitors
-$visit_handler =& xoops_getmodulehandler('visitors');
-$visit_handler->setvisit($uid);
+if ( $profile_permission['profile_stats'] ) {
+  //Visitors
+  $visit_handler =& xoops_getmodulehandler('visitors');
+  $visit_handler->setvisit($uid);
+}
 
 //messages
 $pm_count = 0;

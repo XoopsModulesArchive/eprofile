@@ -1,5 +1,5 @@
 <?php
-// $Id: modinfo.php 35 2014-02-08 17:37:13Z alfred $
+// $Id: modinfo.php 2 2012-08-16 08:20:47Z alfred $
 // _LANGCODE: de
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team
@@ -115,4 +115,31 @@ define("_EPROFILE_MI_BLOCK_MNAME","Richtigen Namen statt Usernamen anzeigen");
 define("_EPROFILE_MI_BLOCK_MCOUNT","Anzahl User die direkt angezeigt werden");
 define("_EPROFILE_MI_BLOCK_VERTICAL","User untereinander anzeigen");
 define("_EPROFILE_MI_BLOCK_HORZONTAL","User nebeneinander anzeigen");
+
+define("_EPROFILE_MI_EPROFILE_STATS","Besucherstatistiken anzeigen");
+define("_EPROFILE_MI_EPROFILE_STATS_DESC","User können in Ihrem Profil sehen, wer sie besucht hat.");
+
+// add 1.73
+define("_EPROFILE_MI_BLOCK_POPULAR","most popular users");
+define("_EPROFILE_MI_BLOCK_COUNTER","Posting(s)");
+
+define("_EPROFILE_MI_EPROFILE_ANTISPAM","Anti-spam settings");
+define("_EPROFILE_MI_ANTISPAM_APIKEY","API-KEY");
+define("_EPROFILE_MI_ANTISPAM_APIKEY_DESC","Enter the key for your page to be able to send a data. <br /> For this key see http://http://www.stopforumspam.com/");
+define("_EPROFILE_MI_ANTISPAM_SUBMIT","Send Data?");
+define("_EPROFILE_MI_ANTISPAM_SUBMIT_DESC","Send spam registrations automatically to www.stopforumspam.com");
+define("_EPROFILE_MI_ANTISPAM_SENDMAIL","Report Logon attempt by mail?");
+define("_EPROFILE_MI_ANTISPAM_SENDMAIL_DESC","For each failed message the administrator group will receive an email with the data.");
+define("_EPROFILE_MI_ANTISPAM_IP","Number of attempts by the IP address");
+define("_EPROFILE_MI_ANTISPAM_IP_DESC","Denied the registration from the same number IP");
+define("_EPROFILE_MI_ANTISPAM_EMAIL","Number of attempts by the Email address");
+define("_EPROFILE_MI_ANTISPAM_EMAIL_DESC","Denied the registration from the same number Email");
+define("_EPROFILE_MI_ANTISPAM_UNAME","Number of attempts by the username");
+define("_EPROFILE_MI_ANTISPAM_UNAME_DESC","Denied the registration From the same number usernames");
+
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR","Umkreissuche von Usern");
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR_SIZE","im Umkreis von:");
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR_COUNTRY","Land:");
+define("_EPROFILE_MI_BLOCK_NEIGTHBAR_PLZ","Postleitzahl:");
+define("_EPROFILE_MI_BLOCK_APIUSER","Username für API bei http://geonames.org");
 ?>

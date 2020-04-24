@@ -14,7 +14,7 @@
  * @package         profile
  * @author          Dirk Herrmann
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: online.php 31 2014-02-08 10:06:07Z alfred $
+ * @version         $Id: online.php 49 2014-05-31 22:58:46Z alfred $
  */
  
 xoops_loadLanguage("modinfo","eprofile");
@@ -174,6 +174,135 @@ function eprofile_popular_show($options)
     $block['count_name'] = _EPROFILE_MI_BLOCK_COUNTER;
     $block['users'] = $user;       
     return $block;
+}
+
+function eprofile_neigthbar_edit($options) {
+  $profile_handler =& xoops_getmodulehandler('profile','eprofile');
+	$fields = $profile_handler->loadFields();
+  $form = _EPROFILE_MI_BLOCK_NEIGTHBAR . "&nbsp;<br />";  
+  $form .= _EPROFILE_MI_BLOCK_NEIGTHBAR_SIZE . "&nbsp;";
+  $form .= "<select name='options[0]' size='1'>";
+  $chk = ( $options[0] == 5 ) ? " selected" : "";
+  $form .= "<option value='5'".$chk." />5 km</option>";
+  $chk = ( $options[0] == 15 ) ? " selected" : "";
+  $form .= "<option value='10'".$chk." />15 km</option>";
+  $chk = ( $options[0] == 30 ) ? " selected" : "";
+  $form .= "<option value='30'".$chk." />30 km</option>";
+  //$chk = ( $options[0] == 50 ) ? " selected" : "";
+  //$form .= "<option value='50'".$chk." />50 km</option>";
+  //$chk = ( $options[0] == 100 ) ? " selected" : "";
+  //$form .= "<option value='100'".$chk." />100 km</option>";
+  //$chk = ( $options[0] == 160 ) ? " selected" : "";
+  //$form .= "<option value='160'".$chk." />160 km</option>";
+  $form .="</select><br />";
+  
+  $form .= _EPROFILE_MI_BLOCK_NEIGTHBAR_COUNTRY . "&nbsp;";  
+  $form .= "<select name='options[1]' size='1'>";
+  $form .= "<option value='"._NONE.$chk."' >"._NONE."</option>";	
+  foreach (array_keys($fields) as $i) {
+    $chk  = ( $options[1] == $fields[$i]->getVar('field_name') ) ? " selected" : "";
+    $form .= "<option value='".$fields[$i]->getVar('field_name')."'".$chk." />".$fields[$i]->getVar('field_title')."</option>";
+  }
+  $form .="</select><br />";
+  
+  $form .= _EPROFILE_MI_BLOCK_NEIGTHBAR_PLZ . "&nbsp;";  
+  $form .= "<select name='options[2]' size='1'>";
+  $form .= "<option value='"._NONE.$chk."' >"._NONE."</option>";	
+  foreach (array_keys($fields) as $i) {
+    $chk  = ( $options[2] == $fields[$i]->getVar('field_name') ) ? " selected" : "";
+    $form .= "<option value='".$fields[$i]->getVar('field_name')."'".$chk.">".$fields[$i]->getVar('field_title')."</option>";
+  }
+  $form .="</select><br />";
+  
+  $form .= _EPROFILE_MI_BLOCK_MCOUNT."&nbsp;";
+  $form .= "<input type='text' name='options[3]' value='".$options[3]."' /><br />";
+  
+  $form .= _EPROFILE_MI_BLOCK_APIUSER."&nbsp;";
+  $form .= "<input type='text' name='options[4]' value='".$options[4]."' /><br />";
+  
+  return $form;
+}
+
+function eprofile_neigthbar_show($options) {
+  global $xoopsUser, $xoopsModule;  
+  xoops_load('XoopsUserUtility');
+  if (!$xoopsUser) return false;
+  $profile_handler = xoops_getmodulehandler('profile','eprofile');
+	$profile = $profile_handler->get($xoopsUser->uid());
+  $block = array();
+  $users = array();
+  
+  $user_field1 = $profile->getVar($options[1]);
+  $user_field2 = $profile->getVar($options[2]);  
+ 
+  $url = "http://api.geonames.org/findNearbyPostalCodes?postalcode=" . $user_field2 . "&country=" . $user_field1 . "&radius=" . $options[0] . "&username=" . $options[4];
+  //echo $url;
+  //die();
+  if ($xml = simplexml_load_file($url)) {       
+      $counter = 0;  
+      $_plz = array();
+      $_user = array();
+      $_ort = array();
+      $_users = array();
+      if ($xoopsUser) $_user[] = $xoopsUser->uid();
+      $_user_data = array();
+      foreach ($xml as $_data) {             
+        $_data = (array)$_data;        
+        $_items = array(); 
+        $_items['status'] = (@$_data['@attributes']) ? XoopsLocal::convert_encoding($_data['@attributes']['message'], _CHARSET, 'UTF-8') : '';
+        if ($_items['status'] == '') { 
+          $_items['plz']  = XoopsLocal::convert_encoding($_data['postalcode'], _CHARSET, 'UTF-8');          
+          $_items['ort']  = XoopsLocal::convert_encoding($_data['name'], _CHARSET, 'UTF-8');
+          if (!in_array($_items['plz'],$_plz) && !in_array($_items['ort'],$_ort)) {   
+            $_plz[] = $_items['plz'];
+            $_ort[] = $_items['ort'];
+            $counter++;              
+          }         
+        } else {
+          $users['status'] = $_items['status'];
+        }
+        unset($_items);
+      } 
+      if ($counter > 0) {
+        $criteria = new CriteriaCompo(new Criteria($options[1],$user_field1));
+        $_plz_str = implode(",", $_plz);
+        $criteria2 = new CriteriaCompo(new Criteria($options[2],'(' . $_plz_str . ')', 'IN'));
+        $criteria->add($criteria2);        
+        $criteria->setLimit(intval($options[3]));        
+        list($neights, $profiles, $total_users) = $profile_handler->search($criteria, array('uid', $options[1], $options[2])); 
+        $member_handler =& xoops_gethandler('member');
+        $profile_handler = xoops_getmodulehandler('profile','eprofile');
+        if ($total_users > 0) {
+          foreach ($neights as $neight) {
+            if (!in_array($neight->getVar('uid'), $_user)) {            
+              $_user[] = $neight->getVar('uid');
+              $profile = $profile_handler->get($neight->getVar('uid'));
+              $_users['user'] = XoopsUserUtility::getUnameFromId($neight->getVar('uid'),false,true);
+              $_users['plz']  = $profile->getVar($options[2]);
+              //$_users['ort']  = $_items['ort'];
+              $_user_data[]   = $_users;
+              unset($_users);
+              unset($profile);
+            }
+          }              
+        }  
+        if (count($_user_data) > 0) {  
+          $users['user']  = $_user_data;
+          $users['count'] = $counter; 
+        } else {
+          $users['count']  = 0;
+          $users['status'] = _EPROFILE_MI_BLOCK_ERRORAPI;
+        }               
+      } else {
+        $users['count']  = 0;
+      }
+  } else {
+      $users['count']  = 0;
+      $users['status'] = _EPROFILE_MI_BLOCK_ERRORAPI;      
+  } 
+  //print_r($users);
+  $block['neigthbar'] = $users;
+  return $block;
 }
 
 ?>

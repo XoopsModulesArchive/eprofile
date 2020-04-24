@@ -15,7 +15,7 @@
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id: regstep.php 3 2012-08-16 20:15:01Z alfred $
+ * @version         $Id: regstep.php 2 2012-08-16 08:20:47Z alfred $
  */
 
 class EprofileRegstep extends XoopsObject  

@@ -14,7 +14,7 @@
  * @package         profile
  * @since           4.4
  * @author          Dirk Herrmann <dhcst@users.sourceforge.net>
- * @version         $Id: themeheader.php 33 2014-02-08 16:58:34Z alfred $
+ * @version         $Id: themeheader.php 2 2012-08-16 08:20:47Z alfred $
  */
  
 $xoopsTpl->assign('uid',            $uid);

@@ -53,21 +53,24 @@
                 </td>
             </tr>
             <tr>
-                <td colspan='2' align='right'>
-                    <{if ( $previous >= 0 ) }>
-                        <a href='readpmsg.php?start=<{$previous}>&amp;total_messages=<{$total_messages}>&amp;op=<{$op}>'>
-                            <{$smarty.const._PM_NEXT}>
-                        </a>&nbsp|&nbsp;
-                    <{else}>
-                        <{$smarty.const._PM_NEXT}>&nbsp;|&nbsp;
-                    <{/if}>    
+                <td colspan='2' align='right'>                       
                     <{if ( $next < $total_messages ) }>
+                      <<&nbsp;
                         <a href='readpmsg.php?start=<{$next}>&amp;total_messages=<{$total_messages}>&amp;op=<{$op}>'>
                             <{$smarty.const._PM_PREVIOUS}>
                         </a>
                     <{else}>
                         <{$smarty.const._PM_PREVIOUS}>
-                    <{/if}>                                    
+                    <{/if}> 
+                    &nbsp;|&nbsp;
+                    <{if ( $previous >= 0 ) }>
+                        <a href='readpmsg.php?start=<{$previous}>&amp;total_messages=<{$total_messages}>&amp;op=<{$op}>'>
+                            <{$smarty.const._PM_NEXT}>
+                        </a>
+                    <{else}>
+                        <{$smarty.const._PM_NEXT}>
+                    <{/if}> 
+                    &nbsp;>>    
                 </td>
             </tr>
         </table>
